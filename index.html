@@ -292,7 +292,7 @@
     align-items: start;
   }
   .about-visual {
-    aspect-ratio: 3/4;
+    aspect-ratio: 1/1;
     background: var(--paper-sage);
     border-radius: 20px;
     display: flex;
@@ -300,26 +300,13 @@
     justify-content: center;
     overflow: hidden;
     position: relative;
+    max-width: 420px;
   }
-  .about-inner-art {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .about-char {
-    font-family: var(--serif);
-    font-size: 220px;
-    font-weight: 300;
-    color: rgba(45,90,61,0.08);
-    line-height: 1;
-    user-select: none;
-    animation: floatChar 12s ease-in-out infinite;
-  }
-  @keyframes floatChar {
-    0%, 100% { transform: translateY(0px) rotate(-2deg); }
-    50% { transform: translateY(-12px) rotate(2deg); }
+  .about-visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
   }
   .about-tag {
     position: absolute;
@@ -531,9 +518,7 @@
 <!-- ABOUT -->
 <section class="about" id="about">
   <div class="about-visual reveal">
-    <div class="about-inner-art">
-      <div class="about-char">退</div>
-    </div>
+    <img src="tui.png" alt="退步生">
     <div class="about-tag">退步生 · Since 2020</div>
   </div>
   <div class="about-content">
