@@ -331,6 +331,17 @@
     box-shadow: 0 12px 28px rgba(88, 62, 40, 0.08);
   }
 
+  .mobile-controls {
+    display: none;
+  }
+
+  .mobile-card {
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    background: var(--paper-strong);
+    box-shadow: 0 12px 28px rgba(88, 62, 40, 0.08);
+  }
+
   @media (max-width: 1120px) {
     .hero,
     .layout {
@@ -407,15 +418,9 @@
       flex: 0 0 auto;
     }
 
-    .legend {
-      position: static;
-      width: auto;
-      margin: 10px 10px 0;
-      padding: 10px;
-      border-radius: 18px;
-      background: rgba(255, 248, 238, 0.82);
-      backdrop-filter: blur(10px);
-      box-shadow: 0 8px 20px rgba(88, 62, 40, 0.08);
+    .legend,
+    .caption {
+      display: none;
     }
 
     .day-switcher {
@@ -431,26 +436,9 @@
       text-align: center;
     }
 
-    .legend-title {
-      display: none;
-    }
-
-    .legend-rows {
-      display: none;
-    }
-
     .legend-row {
       font-size: 12px;
       margin-top: 6px;
-    }
-
-    .caption {
-      position: static;
-      max-width: none;
-      margin: 10px;
-      padding: 10px 12px;
-      font-size: 11px;
-      line-height: 1.6;
     }
 
     .hero-card,
@@ -495,9 +483,22 @@
       font-size: 12px;
     }
 
-    .legend,
-    .caption {
-      flex: 0 0 auto;
+    .mobile-controls {
+      display: grid;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .mobile-card {
+      padding: 10px;
+    }
+
+    .mobile-caption-text {
+      margin: 0;
+      padding: 0 2px;
+      font-size: 12px;
+      line-height: 1.7;
+      color: var(--muted);
     }
   }
 </style>
@@ -609,6 +610,24 @@
           当前显示全部行程。点击右上角按钮，或者左侧每日卡片，可以切换到单天路线。
         </div>
       </div>
+
+      <div class="mobile-controls">
+        <div class="mobile-card">
+          <div class="day-switcher">
+            <button class="day-filter is-active" type="button" data-day="ALL">全部</button>
+            <button class="day-filter" type="button" data-day="D1">第一天</button>
+            <button class="day-filter" type="button" data-day="D2">第二天</button>
+            <button class="day-filter" type="button" data-day="D3">第三天</button>
+            <button class="day-filter" type="button" data-day="D4">第四天</button>
+            <button class="day-filter" type="button" data-day="D5">第五天</button>
+          </div>
+        </div>
+        <div class="mobile-card">
+          <p class="mobile-caption-text" data-caption>
+            当前显示全部行程。点击按钮可以切换到单天路线。
+          </p>
+        </div>
+      </div>
     </section>
   </div>
 
@@ -652,7 +671,7 @@
 
     const cards = Array.from(document.querySelectorAll(".day-card"));
     const buttons = Array.from(document.querySelectorAll(".day-filter"));
-    const caption = document.getElementById("caption");
+    const captions = Array.from(document.querySelectorAll("[data-caption], #caption")).filter(Boolean);
     const mapElement = document.getElementById("map");
 
     let activeDay = "ALL";
@@ -705,9 +724,13 @@
         card.classList.toggle("is-active", dayKey !== "ALL" && card.dataset.day === dayKey);
       });
 
-      caption.textContent = dayKey === "ALL"
-        ? "当前显示全部行程。点击右上角按钮，或者左侧每日卡片，可以切换到单天路线。"
+      const captionText = dayKey === "ALL"
+        ? "当前显示全部行程。点击按钮可以切换到单天路线。"
         : `当前显示${dayLabels[dayKey]}，地图只展示这一天对应的线路、景点和住宿衔接。`;
+
+      captions.forEach(item => {
+        item.textContent = captionText;
+      });
 
       if (!map) return;
 
@@ -744,12 +767,16 @@
 
     function initMap() {
       if (!window.echarts) {
-        caption.textContent = "ECharts 主库未加载成功，请检查 assets/echarts.min.js 是否可访问。";
+        captions.forEach(item => {
+          item.textContent = "ECharts 主库未加载成功，请检查 assets/echarts.min.js 是否可访问。";
+        });
         return;
       }
 
       if (!window.echarts.getMap || !window.echarts.getMap(mapName)) {
-        caption.textContent = "陕西地图数据未加载成功，请检查 assets/shanxi1.js 是否可访问。";
+        captions.forEach(item => {
+          item.textContent = "陕西地图数据未加载成功，请检查 assets/shanxi1.js 是否可访问。";
+        });
         return;
       }
 
