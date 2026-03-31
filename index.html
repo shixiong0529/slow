@@ -138,6 +138,33 @@
     opacity: 0;
     animation: fadeUp 1s 0.9s forwards;
   }
+  .hero-entry {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 28px;
+    padding: 14px 22px;
+    border-radius: 999px;
+    border: 1px solid rgba(45,90,61,0.14);
+    background: rgba(240,242,237,0.88);
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 14px;
+    letter-spacing: 0.04em;
+    opacity: 0;
+    animation: fadeUp 1s 1.05s forwards;
+    transition: transform 0.2s, background 0.2s, border-color 0.2s;
+  }
+  .hero-entry:hover {
+    transform: translateY(-1px);
+    background: var(--accent-pale);
+    border-color: rgba(45,90,61,0.24);
+  }
+  .hero-entry-arrow {
+    font-size: 16px;
+    line-height: 1;
+    color: var(--accent);
+  }
   .hero-scroll {
     position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
     display: flex; flex-direction: column; align-items: center; gap: 8px;
@@ -444,6 +471,10 @@
   <h1 class="hero-name">退步生</h1>
   <p class="hero-tagline">Slow is Best.</p>
   <p class="hero-sub">在加速的世界里，选择退一步。<br>不是落后，而是另一种前进。</p>
+  <a class="hero-entry" href="shanxi1.html">
+    <span>陕西 7 天路线图</span>
+    <span class="hero-entry-arrow">↗</span>
+  </a>
 
   <div class="hero-scroll">
     <div class="scroll-line"></div>
