@@ -6,16 +6,18 @@
 <title>陕西 7 天自驾路线图</title>
 <style>
   :root {
-    --bg: #f4efe6;
-    --paper: rgba(255, 250, 242, 0.92);
-    --paper-strong: rgba(255, 248, 238, 0.97);
-    --ink: #2d2119;
-    --muted: #755f51;
-    --line: rgba(88, 62, 40, 0.14);
-    --gold: #b8792f;
-    --rust: #b44f2d;
-    --sage: #66785d;
-    --shadow: 0 18px 60px rgba(77, 53, 33, 0.12);
+    --accent: #2d5a3d;
+    --accent-pale: #e8f0eb;
+    --bg: #ffffff;
+    --paper: rgba(255, 255, 255, 0.94);
+    --paper-strong: rgba(255, 255, 255, 0.98);
+    --ink: #1d1d1f;
+    --muted: #6e6e73;
+    --line: rgba(0, 0, 0, 0.08);
+    --gold: #2d5a3d;
+    --rust: #2d5a3d;
+    --sage: #7f9186;
+    --shadow: 0 18px 60px rgba(29, 29, 31, 0.08);
   }
 
   * { box-sizing: border-box; }
@@ -26,18 +28,18 @@
     font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
     color: var(--ink);
     background:
-      radial-gradient(circle at top left, rgba(207, 111, 67, 0.18), transparent 30%),
-      radial-gradient(circle at bottom right, rgba(184, 121, 47, 0.18), transparent 24%),
-      linear-gradient(180deg, #f7f1e7 0%, #f1e8db 100%);
+      radial-gradient(circle at top left, rgba(45, 90, 61, 0.08), transparent 30%),
+      radial-gradient(circle at bottom right, rgba(240, 242, 237, 0.9), transparent 24%),
+      linear-gradient(180deg, #ffffff 0%, #f5f5f0 100%);
   }
 
   .shell {
     width: min(1440px, calc(100vw - 32px));
     margin: 16px auto;
     padding: 20px;
-    border: 1px solid rgba(131, 98, 66, 0.12);
+    border: 1px solid rgba(0, 0, 0, 0.06);
     border-radius: 28px;
-    background: rgba(255, 252, 247, 0.72);
+    background: rgba(255, 255, 255, 0.82);
     box-shadow: var(--shadow);
     backdrop-filter: blur(14px);
   }
@@ -72,7 +74,7 @@
     width: 260px;
     height: 260px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(180, 79, 45, 0.18), transparent 64%);
+    background: radial-gradient(circle, rgba(45, 90, 61, 0.12), transparent 64%);
   }
 
   .eyebrow {
@@ -109,8 +111,8 @@
   .pill {
     padding: 10px 14px;
     border-radius: 999px;
-    border: 1px solid rgba(180, 79, 45, 0.16);
-    background: rgba(255, 246, 236, 0.92);
+    border: 1px solid rgba(45, 90, 61, 0.12);
+    background: rgba(240, 242, 237, 0.9);
     font-size: 13px;
     color: var(--ink);
   }
@@ -166,14 +168,14 @@
 
   .day-card:hover {
     transform: translateY(-2px);
-    box-shadow: 0 14px 32px rgba(93, 62, 33, 0.08);
-    border-color: rgba(180, 79, 45, 0.25);
+    box-shadow: 0 14px 32px rgba(29, 29, 31, 0.06);
+    border-color: rgba(45, 90, 61, 0.18);
   }
 
   .day-card.is-active {
-    border-color: rgba(180, 79, 45, 0.42);
-    background: rgba(255, 245, 232, 0.96);
-    box-shadow: 0 18px 34px rgba(93, 62, 33, 0.1);
+    border-color: rgba(45, 90, 61, 0.28);
+    background: rgba(240, 242, 237, 0.72);
+    box-shadow: 0 18px 34px rgba(29, 29, 31, 0.06);
   }
 
   .day-head {
@@ -218,8 +220,8 @@
     overflow: hidden;
     border: 1px solid var(--line);
     background:
-      radial-gradient(circle at top, rgba(255, 255, 255, 0.65), transparent 40%),
-      linear-gradient(180deg, rgba(255, 250, 244, 0.96), rgba(243, 236, 224, 0.98));
+      radial-gradient(circle at top, rgba(255, 255, 255, 0.75), transparent 42%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(245, 245, 240, 0.98));
   }
 
   #map {
@@ -235,9 +237,9 @@
     width: min(360px, calc(100% - 36px));
     padding: 16px 18px;
     border-radius: 20px;
-    border: 1px solid rgba(110, 83, 58, 0.14);
+    border: 1px solid rgba(0, 0, 0, 0.08);
     background: var(--paper-strong);
-    box-shadow: 0 12px 28px rgba(88, 62, 40, 0.1);
+    box-shadow: 0 12px 28px rgba(29, 29, 31, 0.08);
     backdrop-filter: blur(12px);
   }
 
@@ -250,8 +252,8 @@
 
   .day-filter {
     appearance: none;
-    border: 1px solid rgba(180, 79, 45, 0.16);
-    background: rgba(255, 246, 236, 0.92);
+    border: 1px solid rgba(45, 90, 61, 0.12);
+    background: rgba(240, 242, 237, 0.9);
     color: var(--ink);
     border-radius: 999px;
     padding: 9px 14px;
@@ -261,9 +263,9 @@
   }
 
   .day-filter.is-active {
-    background: var(--rust);
-    color: #fff9f4;
-    border-color: var(--rust);
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
   }
 
   .legend-title {
@@ -295,7 +297,7 @@
   .legend-line {
     width: 30px;
     height: 0;
-    border-top: 3px solid var(--rust);
+    border-top: 3px solid var(--accent, #2d5a3d);
     border-radius: 99px;
   }
 
@@ -303,9 +305,9 @@
     width: 11px;
     height: 11px;
     border-radius: 50%;
-    background: var(--gold);
+    background: #2d5a3d;
     border: 2px solid rgba(255, 251, 247, 0.94);
-    box-shadow: 0 0 0 1px rgba(184, 121, 47, 0.5);
+    box-shadow: 0 0 0 1px rgba(45, 90, 61, 0.24);
   }
 
   .legend-stop {
@@ -323,12 +325,12 @@
     max-width: 460px;
     padding: 14px 16px;
     border-radius: 18px;
-    border: 1px solid rgba(110, 83, 58, 0.12);
+    border: 1px solid rgba(0, 0, 0, 0.08);
     background: var(--paper-strong);
     color: var(--muted);
     font-size: 12px;
     line-height: 1.8;
-    box-shadow: 0 12px 28px rgba(88, 62, 40, 0.08);
+    box-shadow: 0 12px 28px rgba(29, 29, 31, 0.06);
   }
 
   .mobile-controls {
@@ -339,7 +341,7 @@
     border: 1px solid var(--line);
     border-radius: 20px;
     background: var(--paper-strong);
-    box-shadow: 0 12px 28px rgba(88, 62, 40, 0.08);
+    box-shadow: 0 12px 28px rgba(29, 29, 31, 0.06);
   }
 
   @media (max-width: 1120px) {
@@ -817,15 +819,15 @@
           center: getCenter(activeDay),
           label: { show: false },
           itemStyle: {
-            areaColor: "#f7e7cf",
-            borderColor: "#ae7a44",
+            areaColor: "#f5f5f0",
+            borderColor: "#94a08c",
             borderWidth: 1.4,
             shadowBlur: 28,
-            shadowColor: "rgba(180, 121, 47, 0.18)"
+            shadowColor: "rgba(45, 90, 61, 0.10)"
           },
           emphasis: {
             label: { show: false },
-            itemStyle: { areaColor: "#f2d5ad" }
+            itemStyle: { areaColor: "#eef2ec" }
           }
         },
         series: [
@@ -840,10 +842,10 @@
               trailLength: 0.16,
               symbol: "arrow",
               symbolSize: 9,
-              color: "#b44f2d"
+              color: "#2d5a3d"
             },
             lineStyle: {
-              color: "#b44f2d",
+              color: "#2d5a3d",
               width: 4,
               curveness: 0.12,
               opacity: 0.92
@@ -861,9 +863,9 @@
             },
             symbolSize: 12,
             itemStyle: {
-              color: "#b8792f",
+              color: "#2d5a3d",
               shadowBlur: 16,
-              shadowColor: "rgba(184, 121, 47, 0.5)"
+              shadowColor: "rgba(45, 90, 61, 0.22)"
             },
             label: {
               show: true,
@@ -872,10 +874,10 @@
               formatter: "{b}",
               color: "#3a2b21",
               fontSize: 12,
-              backgroundColor: "rgba(255,248,238,0.92)",
+              backgroundColor: "rgba(255,255,255,0.92)",
               padding: [4, 7],
               borderRadius: 999,
-              borderColor: "rgba(184,121,47,0.24)",
+              borderColor: "rgba(45,90,61,0.16)",
               borderWidth: 1
             },
             data: buildPointData(activeDay, "spot")
