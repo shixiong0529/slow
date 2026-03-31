@@ -3,19 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>陕西 5 天自驾路线图</title>
+<title>我的陕西之行</title>
 <style>
   :root {
-    --bg: #f4efe6;
-    --paper: rgba(255, 250, 242, 0.92);
-    --paper-strong: rgba(255, 248, 238, 0.97);
-    --ink: #2d2119;
-    --muted: #755f51;
-    --line: rgba(88, 62, 40, 0.14);
-    --gold: #b8792f;
-    --rust: #b44f2d;
-    --sage: #66785d;
-    --shadow: 0 18px 60px rgba(77, 53, 33, 0.12);
+    --accent: #2d5a3d;
+    --accent-pale: #e8f0eb;
+    --bg: #ffffff;
+    --paper: rgba(255, 255, 255, 0.94);
+    --paper-strong: rgba(255, 255, 255, 0.98);
+    --ink: #1d1d1f;
+    --muted: #6e6e73;
+    --line: rgba(0, 0, 0, 0.08);
+    --gold: #2d5a3d;
+    --rust: #2d5a3d;
+    --sage: #7f9186;
+    --shadow: 0 18px 60px rgba(29, 29, 31, 0.08);
   }
 
   * { box-sizing: border-box; }
@@ -26,18 +28,18 @@
     font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
     color: var(--ink);
     background:
-      radial-gradient(circle at top left, rgba(207, 111, 67, 0.18), transparent 30%),
-      radial-gradient(circle at bottom right, rgba(184, 121, 47, 0.18), transparent 24%),
-      linear-gradient(180deg, #f7f1e7 0%, #f1e8db 100%);
+      radial-gradient(circle at top left, rgba(45, 90, 61, 0.08), transparent 30%),
+      radial-gradient(circle at bottom right, rgba(240, 242, 237, 0.9), transparent 24%),
+      linear-gradient(180deg, #ffffff 0%, #f5f5f0 100%);
   }
 
   .shell {
     width: min(1440px, calc(100vw - 32px));
     margin: 16px auto;
     padding: 20px;
-    border: 1px solid rgba(131, 98, 66, 0.12);
+    border: 1px solid rgba(0, 0, 0, 0.06);
     border-radius: 28px;
-    background: rgba(255, 252, 247, 0.72);
+    background: rgba(255, 255, 255, 0.82);
     box-shadow: var(--shadow);
     backdrop-filter: blur(14px);
   }
@@ -72,7 +74,7 @@
     width: 260px;
     height: 260px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(180, 79, 45, 0.18), transparent 64%);
+    background: radial-gradient(circle, rgba(45, 90, 61, 0.12), transparent 64%);
   }
 
   .eyebrow {
@@ -109,8 +111,8 @@
   .pill {
     padding: 10px 14px;
     border-radius: 999px;
-    border: 1px solid rgba(180, 79, 45, 0.16);
-    background: rgba(255, 246, 236, 0.92);
+    border: 1px solid rgba(45, 90, 61, 0.12);
+    background: rgba(240, 242, 237, 0.9);
     font-size: 13px;
     color: var(--ink);
   }
@@ -166,14 +168,14 @@
 
   .day-card:hover {
     transform: translateY(-2px);
-    box-shadow: 0 14px 32px rgba(93, 62, 33, 0.08);
-    border-color: rgba(180, 79, 45, 0.25);
+    box-shadow: 0 14px 32px rgba(29, 29, 31, 0.06);
+    border-color: rgba(45, 90, 61, 0.18);
   }
 
   .day-card.is-active {
-    border-color: rgba(180, 79, 45, 0.42);
-    background: rgba(255, 245, 232, 0.96);
-    box-shadow: 0 18px 34px rgba(93, 62, 33, 0.1);
+    border-color: rgba(45, 90, 61, 0.28);
+    background: rgba(240, 242, 237, 0.72);
+    box-shadow: 0 18px 34px rgba(29, 29, 31, 0.06);
   }
 
   .day-head {
@@ -218,8 +220,8 @@
     overflow: hidden;
     border: 1px solid var(--line);
     background:
-      radial-gradient(circle at top, rgba(255, 255, 255, 0.65), transparent 40%),
-      linear-gradient(180deg, rgba(255, 250, 244, 0.96), rgba(243, 236, 224, 0.98));
+      radial-gradient(circle at top, rgba(255, 255, 255, 0.75), transparent 42%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(245, 245, 240, 0.98));
   }
 
   #map {
@@ -232,12 +234,12 @@
     top: 18px;
     right: 18px;
     z-index: 10;
-    width: min(340px, calc(100% - 36px));
+    width: min(360px, calc(100% - 36px));
     padding: 16px 18px;
     border-radius: 20px;
-    border: 1px solid rgba(110, 83, 58, 0.14);
+    border: 1px solid rgba(0, 0, 0, 0.08);
     background: var(--paper-strong);
-    box-shadow: 0 12px 28px rgba(88, 62, 40, 0.1);
+    box-shadow: 0 12px 28px rgba(29, 29, 31, 0.08);
     backdrop-filter: blur(12px);
   }
 
@@ -250,8 +252,8 @@
 
   .day-filter {
     appearance: none;
-    border: 1px solid rgba(180, 79, 45, 0.16);
-    background: rgba(255, 246, 236, 0.92);
+    border: 1px solid rgba(45, 90, 61, 0.12);
+    background: rgba(240, 242, 237, 0.9);
     color: var(--ink);
     border-radius: 999px;
     padding: 9px 14px;
@@ -261,9 +263,9 @@
   }
 
   .day-filter.is-active {
-    background: var(--rust);
-    color: #fff9f4;
-    border-color: var(--rust);
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
   }
 
   .legend-title {
@@ -295,7 +297,7 @@
   .legend-line {
     width: 30px;
     height: 0;
-    border-top: 3px solid var(--rust);
+    border-top: 3px solid var(--accent, #2d5a3d);
     border-radius: 99px;
   }
 
@@ -303,9 +305,9 @@
     width: 11px;
     height: 11px;
     border-radius: 50%;
-    background: var(--gold);
+    background: #2d5a3d;
     border: 2px solid rgba(255, 251, 247, 0.94);
-    box-shadow: 0 0 0 1px rgba(184, 121, 47, 0.5);
+    box-shadow: 0 0 0 1px rgba(45, 90, 61, 0.24);
   }
 
   .legend-stop {
@@ -320,15 +322,15 @@
     left: 18px;
     bottom: 18px;
     z-index: 10;
-    max-width: 420px;
+    max-width: 460px;
     padding: 14px 16px;
     border-radius: 18px;
-    border: 1px solid rgba(110, 83, 58, 0.12);
+    border: 1px solid rgba(0, 0, 0, 0.08);
     background: var(--paper-strong);
     color: var(--muted);
     font-size: 12px;
     line-height: 1.8;
-    box-shadow: 0 12px 28px rgba(88, 62, 40, 0.08);
+    box-shadow: 0 12px 28px rgba(29, 29, 31, 0.06);
   }
 
   .mobile-controls {
@@ -339,7 +341,7 @@
     border: 1px solid var(--line);
     border-radius: 20px;
     background: var(--paper-strong);
-    box-shadow: 0 12px 28px rgba(88, 62, 40, 0.08);
+    box-shadow: 0 12px 28px rgba(29, 29, 31, 0.06);
   }
 
   @media (max-width: 1120px) {
@@ -349,7 +351,7 @@
     }
 
     .map-panel {
-      min-height: 720px;
+      min-height: 760px;
     }
   }
 
@@ -357,6 +359,10 @@
     .shell {
       display: flex;
       flex-direction: column;
+      width: min(100vw - 12px, 100%);
+      margin: 6px auto;
+      padding: 10px;
+      border-radius: 20px;
     }
 
     .layout {
@@ -367,6 +373,9 @@
 
     .hero {
       order: 2;
+      gap: 12px;
+      margin-top: 12px;
+      grid-template-columns: 1fr;
     }
 
     .map-panel {
@@ -374,17 +383,12 @@
       display: flex;
       flex-direction: column;
       min-height: auto;
+      border-radius: 24px;
+      padding: 0;
     }
 
     .sidebar {
-      order: 2;
-    }
-
-    .shell {
-      width: min(100vw - 12px, 100%);
-      margin: 6px auto;
-      padding: 10px;
-      border-radius: 20px;
+      order: 3;
     }
 
     .hero-card,
@@ -394,19 +398,10 @@
       border-radius: 20px;
     }
 
-    .hero-card {
-      padding: 22px;
-      min-height: auto;
-    }
-
+    .hero-card,
     .info-card {
       padding: 18px;
-    }
-
-    .map-panel {
       min-height: auto;
-      border-radius: 24px;
-      padding: 0;
     }
 
     #map {
@@ -429,26 +424,11 @@
     }
 
     .day-filter {
-      flex: 1 1 calc(33.333% - 6px);
-      min-width: 88px;
+      flex: 1 1 calc(25% - 6px);
+      min-width: 76px;
       padding: 10px 12px;
       font-size: 12px;
       text-align: center;
-    }
-
-    .legend-row {
-      font-size: 12px;
-      margin-top: 6px;
-    }
-
-    .hero-card,
-    .info-card {
-      padding: 18px;
-    }
-
-    .hero {
-      gap: 12px;
-      margin-top: 12px;
     }
 
     .hero-sub {
@@ -487,6 +467,7 @@
       display: grid;
       gap: 10px;
       margin-top: 10px;
+      order: 2;
     }
 
     .mobile-card {
@@ -507,15 +488,16 @@
   <div class="shell">
     <section class="hero">
       <article class="hero-card">
-        <div class="eyebrow">Shaanxi Road Trip</div>
-        <h1>陕西 5 天<br>自驾路线图</h1>
+        <div class="eyebrow">Shaanxi 7-Day Drive</div>
+        <h1>我的陕西之行</h1>
         <p class="hero-sub">
-          点击右上角天数按钮，或者左侧的每日卡片，地图会切换到对应那一天的线路、景点和住宿点。
+          基于你更新后的 7 天行程重新绘制。点击右侧天数按钮，或者左侧每日卡片，
+          地图会切换到对应那一天的路线、景点和住宿点。
         </p>
         <div class="hero-meta">
-          <span class="pill">总行程约 1295km</span>
+          <span class="pill">含延安红色线路</span>
           <span class="pill">支持总览与分天查看</span>
-          <span class="pill">地图资源完全本地化</span>
+          <span class="pill">适配手机首屏地图</span>
         </div>
       </article>
 
@@ -527,15 +509,15 @@
         </div>
         <div class="info-item">
           <div class="info-label">关键时间点</div>
-          <div class="info-value">D2 雨岔大峡谷建议中午 12 点前抵达</div>
+          <div class="info-value">D2 雨岔建议 11:00-14:00 抵达，天气不好可跳过</div>
         </div>
         <div class="info-item">
-          <div class="info-label">风景最佳路段</div>
-          <div class="info-value">D4 沿黄观光路至壶口瀑布</div>
+          <div class="info-label">特色段落</div>
+          <div class="info-value">D3 延安革命旧址线 + D6 沿黄观光路</div>
         </div>
         <div class="info-item">
-          <div class="info-label">特色体验</div>
-          <div class="info-value">乾坤湾窑洞住宿与黄河日落</div>
+          <div class="info-label">住宿亮点</div>
+          <div class="info-value">延安连住一晚，乾坤湾住窑洞看黄河日落</div>
         </div>
       </aside>
     </section>
@@ -548,43 +530,61 @@
             <div class="day-stay">宿：甘泉县</div>
           </div>
           <div class="day-route">西安 → 陈炉古镇 → 甘泉县</div>
-          <div class="day-note">约 320km，先看古镇，再北上进入陕北段。</div>
+          <div class="day-note">约 320km，先看古镇，再进入陕北段。</div>
         </article>
 
         <article class="day-card" data-day="D2">
           <div class="day-head">
             <div class="day-title">D2</div>
-            <div class="day-stay">宿：波浪谷 / 龙洲镇</div>
+            <div class="day-stay">宿：延安</div>
           </div>
-          <div class="day-route">甘泉县 → 雨岔大峡谷 → 靖边波浪谷</div>
-          <div class="day-note">务必中午 12 点前抵达雨岔，方便看峡谷光影。</div>
+          <div class="day-route">甘泉县 → 甘泉雨岔大峡谷 → 延安市</div>
+          <div class="day-note">务必 11:00-14:00 抵达雨岔，天气不好可直接跳过。</div>
         </article>
 
         <article class="day-card" data-day="D3">
           <div class="day-head">
             <div class="day-title">D3</div>
-            <div class="day-stay">宿：乾坤湾</div>
+            <div class="day-stay">宿：延安</div>
           </div>
-          <div class="day-route">靖边波浪谷 → 永宁山古寨 → 乾坤湾</div>
-          <div class="day-note">适合安排窑洞住宿，傍晚看黄河日落。</div>
+          <div class="day-route">延安纪念馆 → 杨家岭革命旧址 → 枣园革命旧址</div>
+          <div class="day-note">全天延安市区红色线路，节奏更从容。</div>
         </article>
 
         <article class="day-card" data-day="D4">
           <div class="day-head">
             <div class="day-title">D4</div>
-            <div class="day-stay">宿：韩城</div>
+            <div class="day-stay">宿：波浪谷 / 龙洲镇</div>
           </div>
-          <div class="day-route">乾坤湾 → 清水湾 → 壶口瀑布 → 韩城市</div>
-          <div class="day-note">今日核心是沿黄观光路，建议早点出发。</div>
+          <div class="day-route">延安 → 永宁山古寨 → 靖边波浪谷</div>
+          <div class="day-note">约 315km，建议下午抵达波浪谷，主景区看日落红砂岩。</div>
         </article>
 
         <article class="day-card" data-day="D5">
           <div class="day-head">
             <div class="day-title">D5</div>
+            <div class="day-stay">宿：乾坤湾</div>
+          </div>
+          <div class="day-route">靖边 → 乾坤湾</div>
+          <div class="day-note">约 248km，住特色窑洞，傍晚看黄河日落。</div>
+        </article>
+
+        <article class="day-card" data-day="D6">
+          <div class="day-head">
+            <div class="day-title">D6</div>
+            <div class="day-stay">宿：韩城</div>
+          </div>
+          <div class="day-route">乾坤湾 → 清水湾 → 壶口瀑布 → 韩城市</div>
+          <div class="day-note">今日走沿黄观光路，风景极佳。</div>
+        </article>
+
+        <article class="day-card" data-day="D7">
+          <div class="day-head">
+            <div class="day-title">D7</div>
             <div class="day-stay">返程</div>
           </div>
-          <div class="day-route">韩城市 → 党家村 → 西安</div>
-          <div class="day-note">最后一天收人文线，党家村适合慢慢逛。</div>
+          <div class="day-route">韩城 → 司马迁祠 / 党家村 → 西安</div>
+          <div class="day-note">韩城人文收尾，之后返回西安。</div>
         </article>
       </div>
 
@@ -598,6 +598,8 @@
             <button class="day-filter" type="button" data-day="D3">第三天</button>
             <button class="day-filter" type="button" data-day="D4">第四天</button>
             <button class="day-filter" type="button" data-day="D5">第五天</button>
+            <button class="day-filter" type="button" data-day="D6">第六天</button>
+            <button class="day-filter" type="button" data-day="D7">第七天</button>
           </div>
           <div class="legend-title">图例</div>
           <div class="legend-rows">
@@ -606,9 +608,7 @@
             <div class="legend-row"><span class="legend-stop"></span> 住宿点</div>
           </div>
         </div>
-        <div class="caption" id="caption">
-          当前显示全部行程。点击右上角按钮，或者左侧每日卡片，可以切换到单天路线。
-        </div>
+        <div class="caption" id="caption">当前显示全部行程。点击按钮可以切换到单天路线。</div>
       </div>
 
       <div class="mobile-controls">
@@ -620,12 +620,12 @@
             <button class="day-filter" type="button" data-day="D3">第三天</button>
             <button class="day-filter" type="button" data-day="D4">第四天</button>
             <button class="day-filter" type="button" data-day="D5">第五天</button>
+            <button class="day-filter" type="button" data-day="D6">第六天</button>
+            <button class="day-filter" type="button" data-day="D7">第七天</button>
           </div>
         </div>
         <div class="mobile-card">
-          <p class="mobile-caption-text" data-caption>
-            当前显示全部行程。点击按钮可以切换到单天路线。
-          </p>
+          <p class="mobile-caption-text" data-caption>当前显示全部行程。点击按钮可以切换到单天路线。</p>
         </div>
       </div>
     </section>
@@ -637,18 +637,23 @@
     const mapName = "\u9655\u897f";
 
     const spots = [
-      { name: "西安", coord: [108.942336, 34.261004], day: "D1 / D5", type: "spot", days: ["D1", "D5"], note: "出发与返程城市" },
-      { name: "陈炉古镇", coord: [109.304, 35.083], day: "D1", type: "spot", days: ["D1"], note: "千年炉火古镇，铜川陶瓷文化代表" },
-      { name: "甘泉县", coord: [109.125278, 36.368333], day: "D1 / D2", type: "stay", days: ["D1", "D2"], note: "D1 住宿点，D2 从这里出发" },
-      { name: "雨岔大峡谷", coord: [109.24, 36.165], day: "D2", type: "spot", days: ["D2"], note: "建议中午 12 点前抵达" },
-      { name: "靖边波浪谷", coord: [109.00064, 37.520455], day: "D2 / D3", type: "spot", days: ["D2", "D3"], note: "龙洲丹霞地貌核心景点" },
-      { name: "龙洲镇", coord: [109.046, 37.466], day: "D2", type: "stay", days: ["D2"], note: "可作为波浪谷住宿点" },
-      { name: "永宁山古寨", coord: [108.86, 36.83], day: "D3", type: "spot", days: ["D3"], note: "陕北山寨遗址示意点" },
-      { name: "乾坤湾", coord: [110.408728, 36.719874], day: "D3 / D4", type: "stay", days: ["D3", "D4"], note: "窑洞住宿与黄河日落体验" },
-      { name: "清水湾", coord: [110.53, 36.43], day: "D4", type: "spot", days: ["D4"], note: "沿黄观光路观景点" },
-      { name: "壶口瀑布", coord: [110.448547, 36.118638], day: "D4", type: "spot", days: ["D4"], note: "黄河壶口瀑布陕西侧附近" },
-      { name: "韩城市", coord: [110.450803, 35.476252], day: "D4 / D5", type: "stay", days: ["D4", "D5"], note: "D4 住宿点，D5 从这里出发" },
-      { name: "党家村", coord: [110.471914, 35.526771], day: "D5", type: "spot", days: ["D5"], note: "韩城传统古村落" }
+      { name: "西安", coord: [108.942336, 34.261004], day: "D1 / D7", type: "spot", days: ["D1", "D7"], note: "出发与返程城市" },
+      { name: "陈炉古镇", coord: [109.304, 35.083], day: "D1", type: "spot", days: ["D1"], note: "铜川陶瓷文化古镇" },
+      { name: "甘泉县", coord: [109.125278, 36.368333], day: "D1 / D2", type: "stay", days: ["D1", "D2"], note: "D1 住宿点" },
+      { name: "甘泉雨岔大峡谷", coord: [109.24, 36.165], day: "D2", type: "spot", days: ["D2"], note: "建议 11:00-14:00 抵达" },
+      { name: "延安市", coord: [109.489, 36.585], day: "D2 / D3 / D4", type: "stay", days: ["D2", "D3", "D4"], note: "延安住宿与市区出发点" },
+      { name: "延安纪念馆", coord: [109.486, 36.604], day: "D3", type: "spot", days: ["D3"], note: "延安红色线路" },
+      { name: "杨家岭革命旧址", coord: [109.454, 36.620], day: "D3", type: "spot", days: ["D3"], note: "延安红色线路" },
+      { name: "枣园革命旧址", coord: [109.437, 36.603], day: "D3", type: "spot", days: ["D3"], note: "延安红色线路" },
+      { name: "靖边波浪谷", coord: [109.00064, 37.520455], day: "D4 / D5", type: "spot", days: ["D4", "D5"], note: "龙洲丹霞地貌核心景点" },
+      { name: "龙洲镇", coord: [109.046, 37.466], day: "D4", type: "stay", days: ["D4"], note: "可作为波浪谷住宿点" },
+      { name: "永宁山古寨", coord: [108.86, 36.83], day: "D4", type: "spot", days: ["D4"], note: "陕北山寨遗址示意点" },
+      { name: "乾坤湾", coord: [110.408728, 36.719874], day: "D5 / D6", type: "stay", days: ["D5", "D6"], note: "窑洞住宿与黄河日落体验" },
+      { name: "清水湾", coord: [110.53, 36.43], day: "D6", type: "spot", days: ["D6"], note: "沿黄观光路观景点" },
+      { name: "壶口瀑布", coord: [110.448547, 36.118638], day: "D6", type: "spot", days: ["D6"], note: "黄河壶口瀑布陕西侧附近" },
+      { name: "韩城市", coord: [110.450803, 35.476252], day: "D6 / D7", type: "stay", days: ["D6", "D7"], note: "D6 住宿点" },
+      { name: "司马迁祠", coord: [110.449, 35.589], day: "D7", type: "spot", days: ["D7"], note: "D7 可选人文点" },
+      { name: "党家村", coord: [110.471914, 35.526771], day: "D7", type: "spot", days: ["D7"], note: "D7 可选人文点" }
     ];
 
     const dayLabels = {
@@ -657,16 +662,20 @@
       D2: "第二天",
       D3: "第三天",
       D4: "第四天",
-      D5: "第五天"
+      D5: "第五天",
+      D6: "第六天",
+      D7: "第七天"
     };
 
     const dayRoutes = {
-      ALL: ["西安", "陈炉古镇", "甘泉县", "雨岔大峡谷", "靖边波浪谷", "永宁山古寨", "乾坤湾", "清水湾", "壶口瀑布", "韩城市", "党家村", "西安"],
+      ALL: ["西安", "陈炉古镇", "甘泉县", "甘泉雨岔大峡谷", "延安市", "延安纪念馆", "杨家岭革命旧址", "枣园革命旧址", "永宁山古寨", "靖边波浪谷", "乾坤湾", "清水湾", "壶口瀑布", "韩城市", "司马迁祠", "党家村", "西安"],
       D1: ["西安", "陈炉古镇", "甘泉县"],
-      D2: ["甘泉县", "雨岔大峡谷", "靖边波浪谷", "龙洲镇"],
-      D3: ["靖边波浪谷", "永宁山古寨", "乾坤湾"],
-      D4: ["乾坤湾", "清水湾", "壶口瀑布", "韩城市"],
-      D5: ["韩城市", "党家村", "西安"]
+      D2: ["甘泉县", "甘泉雨岔大峡谷", "延安市"],
+      D3: ["延安市", "延安纪念馆", "杨家岭革命旧址", "枣园革命旧址", "延安市"],
+      D4: ["延安市", "永宁山古寨", "靖边波浪谷", "龙洲镇"],
+      D5: ["靖边波浪谷", "乾坤湾"],
+      D6: ["乾坤湾", "清水湾", "壶口瀑布", "韩城市"],
+      D7: ["韩城市", "司马迁祠", "党家村", "西安"]
     };
 
     const cards = Array.from(document.querySelectorAll(".day-card"));
@@ -710,7 +719,7 @@
     }
 
     function getZoom(dayKey) {
-      return dayKey === "ALL" ? 1.05 : 1.55;
+      return dayKey === "ALL" ? 1.03 : 1.55;
     }
 
     function updateSelection(dayKey) {
@@ -810,15 +819,15 @@
           center: getCenter(activeDay),
           label: { show: false },
           itemStyle: {
-            areaColor: "#f7e7cf",
-            borderColor: "#ae7a44",
+            areaColor: "#f5f5f0",
+            borderColor: "#94a08c",
             borderWidth: 1.4,
             shadowBlur: 28,
-            shadowColor: "rgba(180, 121, 47, 0.18)"
+            shadowColor: "rgba(45, 90, 61, 0.10)"
           },
           emphasis: {
             label: { show: false },
-            itemStyle: { areaColor: "#f2d5ad" }
+            itemStyle: { areaColor: "#eef2ec" }
           }
         },
         series: [
@@ -833,10 +842,10 @@
               trailLength: 0.16,
               symbol: "arrow",
               symbolSize: 9,
-              color: "#b44f2d"
+              color: "#2d5a3d"
             },
             lineStyle: {
-              color: "#b44f2d",
+              color: "#2d5a3d",
               width: 4,
               curveness: 0.12,
               opacity: 0.92
@@ -854,9 +863,9 @@
             },
             symbolSize: 12,
             itemStyle: {
-              color: "#b8792f",
+              color: "#2d5a3d",
               shadowBlur: 16,
-              shadowColor: "rgba(184, 121, 47, 0.5)"
+              shadowColor: "rgba(45, 90, 61, 0.22)"
             },
             label: {
               show: true,
@@ -865,10 +874,10 @@
               formatter: "{b}",
               color: "#3a2b21",
               fontSize: 12,
-              backgroundColor: "rgba(255,248,238,0.92)",
+              backgroundColor: "rgba(255,255,255,0.92)",
               padding: [4, 7],
               borderRadius: 999,
-              borderColor: "rgba(184,121,47,0.24)",
+              borderColor: "rgba(45,90,61,0.16)",
               borderWidth: 1
             },
             data: buildPointData(activeDay, "spot")
