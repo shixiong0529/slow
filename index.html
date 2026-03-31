@@ -44,11 +44,19 @@
     border-bottom: 0.5px solid rgba(0,0,0,0.08);
   }
   .nav-logo {
+    display: flex; align-items: center; gap: 8px;
     font-family: var(--serif);
     font-size: 17px;
     letter-spacing: 0.12em;
     color: var(--ink);
     font-weight: 400;
+  }
+  .nav-logo-img {
+    width: 28px; height: 28px;
+    border-radius: 5px;
+    object-fit: cover;
+    object-position: center;
+    display: block;
   }
   .nav-links {
     display: flex; gap: 32px; list-style: none;
@@ -416,7 +424,7 @@
 
 <!-- NAV -->
 <nav>
-  <div class="nav-logo">退步生</div>
+  <div class="nav-logo"><img class="nav-logo-img" src="tui.png" alt="退步生">退步生</div>
   <ul class="nav-links">
     <li><a href="#philosophy">理念</a></li>
     <li><a href="#pillars">践行</a></li>
