@@ -360,6 +360,9 @@
 
     .map-panel {
       order: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: auto;
     }
 
     .sidebar {
@@ -390,20 +393,29 @@
     }
 
     .map-panel {
-      min-height: calc(100vh - 24px);
+      min-height: auto;
       border-radius: 24px;
+      padding: 0;
+    }
+
+    #map {
+      position: relative;
+      inset: auto;
+      width: 100%;
+      height: 68vh;
+      min-height: 560px;
+      flex: 0 0 auto;
     }
 
     .legend {
-      top: auto;
-      bottom: 92px;
-      left: 10px;
-      right: 10px;
+      position: static;
       width: auto;
+      margin: 10px 10px 0;
       padding: 10px;
       border-radius: 18px;
       background: rgba(255, 248, 238, 0.82);
       backdrop-filter: blur(10px);
+      box-shadow: 0 8px 20px rgba(88, 62, 40, 0.08);
     }
 
     .day-switcher {
@@ -433,10 +445,9 @@
     }
 
     .caption {
-      left: 12px;
-      right: 12px;
-      bottom: 12px;
+      position: static;
       max-width: none;
+      margin: 10px;
       padding: 10px 12px;
       font-size: 11px;
       line-height: 1.6;
@@ -484,9 +495,9 @@
       font-size: 12px;
     }
 
-    #map {
-      top: 0;
-      bottom: 0;
+    .legend,
+    .caption {
+      flex: 0 0 auto;
     }
   }
 </style>
