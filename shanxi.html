@@ -272,6 +272,10 @@
     margin-bottom: 10px;
   }
 
+  .legend-rows {
+    display: block;
+  }
+
   .legend-row {
     display: flex;
     align-items: center;
@@ -395,13 +399,15 @@
       left: 10px;
       right: 10px;
       width: auto;
-      padding: 12px;
-      border-radius: 16px;
+      padding: 10px;
+      border-radius: 18px;
+      background: rgba(255, 248, 238, 0.82);
+      backdrop-filter: blur(10px);
     }
 
     .day-switcher {
       gap: 6px;
-      margin-bottom: 10px;
+      margin-bottom: 0;
     }
 
     .day-filter {
@@ -410,6 +416,14 @@
       padding: 10px 12px;
       font-size: 12px;
       text-align: center;
+    }
+
+    .legend-title {
+      display: none;
+    }
+
+    .legend-rows {
+      display: none;
     }
 
     .legend-row {
@@ -467,6 +481,14 @@
 
     .day-note {
       font-size: 12px;
+    }
+
+    .map-panel {
+      padding-top: 106px;
+    }
+
+    #map {
+      top: 0;
     }
   }
 </style>
@@ -568,9 +590,11 @@
             <button class="day-filter" type="button" data-day="D5">第五天</button>
           </div>
           <div class="legend-title">图例</div>
-          <div class="legend-row"><span class="legend-line"></span> 自驾示意线路</div>
-          <div class="legend-row"><span class="legend-dot"></span> 景点 / 重要停靠点</div>
-          <div class="legend-row"><span class="legend-stop"></span> 住宿点</div>
+          <div class="legend-rows">
+            <div class="legend-row"><span class="legend-line"></span> 自驾示意线路</div>
+            <div class="legend-row"><span class="legend-dot"></span> 景点 / 重要停靠点</div>
+            <div class="legend-row"><span class="legend-stop"></span> 住宿点</div>
+          </div>
         </div>
         <div class="caption" id="caption">
           当前显示全部行程。点击右上角按钮，或者左侧每日卡片，可以切换到单天路线。
