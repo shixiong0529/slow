@@ -340,6 +340,29 @@
 
   @media (max-width: 720px) {
     .shell {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .layout {
+      order: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .hero {
+      order: 2;
+    }
+
+    .map-panel {
+      order: 1;
+    }
+
+    .sidebar {
+      order: 2;
+    }
+
+    .shell {
       width: min(100vw - 12px, 100%);
       margin: 6px auto;
       padding: 10px;
@@ -363,13 +386,35 @@
     }
 
     .map-panel {
-      min-height: 640px;
+      min-height: calc(100vh - 24px);
+      border-radius: 24px;
     }
 
     .legend {
-      position: static;
+      top: 10px;
+      left: 10px;
+      right: 10px;
       width: auto;
-      margin: 12px;
+      padding: 12px;
+      border-radius: 16px;
+    }
+
+    .day-switcher {
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+
+    .day-filter {
+      flex: 1 1 calc(33.333% - 6px);
+      min-width: 88px;
+      padding: 10px 12px;
+      font-size: 12px;
+      text-align: center;
+    }
+
+    .legend-row {
+      font-size: 12px;
+      margin-top: 6px;
     }
 
     .caption {
@@ -377,6 +422,51 @@
       right: 12px;
       bottom: 12px;
       max-width: none;
+      padding: 10px 12px;
+      font-size: 11px;
+      line-height: 1.6;
+    }
+
+    .hero-card,
+    .info-card {
+      padding: 18px;
+    }
+
+    .hero {
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .hero-sub {
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .hero-meta {
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .pill {
+      font-size: 12px;
+      padding: 8px 12px;
+    }
+
+    .day-card {
+      padding: 16px 16px 14px;
+    }
+
+    .day-title {
+      font-size: 22px;
+    }
+
+    .day-route {
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    .day-note {
+      font-size: 12px;
     }
   }
 </style>
