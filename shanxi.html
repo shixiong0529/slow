@@ -7,8 +7,8 @@
 <style>
   :root {
     --bg: #f4efe6;
-    --paper: rgba(255, 250, 242, 0.88);
-    --paper-strong: rgba(255, 248, 238, 0.96);
+    --paper: rgba(255, 250, 242, 0.92);
+    --paper-strong: rgba(255, 248, 238, 0.97);
     --ink: #2d2119;
     --muted: #755f51;
     --line: rgba(88, 62, 40, 0.14);
@@ -37,7 +37,7 @@
     padding: 20px;
     border: 1px solid rgba(131, 98, 66, 0.12);
     border-radius: 28px;
-    background: rgba(255, 252, 247, 0.68);
+    background: rgba(255, 252, 247, 0.72);
     box-shadow: var(--shadow);
     backdrop-filter: blur(14px);
   }
@@ -258,12 +258,6 @@
     font-size: 13px;
     line-height: 1;
     cursor: pointer;
-    transition: background 160ms ease, color 160ms ease, border-color 160ms ease, transform 160ms ease;
-  }
-
-  .day-filter:hover {
-    transform: translateY(-1px);
-    border-color: rgba(180, 79, 45, 0.28);
   }
 
   .day-filter.is-active {
@@ -394,13 +388,12 @@
         <div class="eyebrow">Shaanxi Road Trip</div>
         <h1>陕西 5 天<br>自驾路线图</h1>
         <p class="hero-sub">
-          现在这张地图支持按天切换。你可以点右上角的“第一天到第五天”，也可以直接点左边的每日行程卡片，
-          地图会只显示对应那一天的线路、景点和住宿衔接。
+          点击右上角天数按钮，或者左侧的每日卡片，地图会切换到对应那一天的线路、景点和住宿点。
         </p>
         <div class="hero-meta">
           <span class="pill">总行程约 1295km</span>
           <span class="pill">支持总览与分天查看</span>
-          <span class="pill">适合桌面与手机浏览</span>
+          <span class="pill">地图资源完全本地化</span>
         </div>
       </article>
 
@@ -411,16 +404,16 @@
           <div class="info-value">西安往返</div>
         </div>
         <div class="info-item">
-          <div class="info-label">最关键时间点</div>
+          <div class="info-label">关键时间点</div>
           <div class="info-value">D2 雨岔大峡谷建议中午 12 点前抵达</div>
         </div>
         <div class="info-item">
-          <div class="info-label">最适合拍照的一段</div>
+          <div class="info-label">风景最佳路段</div>
           <div class="info-value">D4 沿黄观光路至壶口瀑布</div>
         </div>
         <div class="info-item">
           <div class="info-label">特色体验</div>
-          <div class="info-value">乾坤湾窑洞住宿 + 黄河日落</div>
+          <div class="info-value">乾坤湾窑洞住宿与黄河日落</div>
         </div>
       </aside>
     </section>
@@ -433,7 +426,7 @@
             <div class="day-stay">宿：甘泉县</div>
           </div>
           <div class="day-route">西安 → 陈炉古镇 → 甘泉县</div>
-          <div class="day-note">约 320km，先看千年窑火古镇，再北上进入陕北段。</div>
+          <div class="day-note">约 320km，先看古镇，再北上进入陕北段。</div>
         </article>
 
         <article class="day-card" data-day="D2">
@@ -442,7 +435,7 @@
             <div class="day-stay">宿：波浪谷 / 龙洲镇</div>
           </div>
           <div class="day-route">甘泉县 → 雨岔大峡谷 → 靖边波浪谷</div>
-          <div class="day-note">务必中午 12 点前到雨岔，方便走光影最好的峡谷段。</div>
+          <div class="day-note">务必中午 12 点前抵达雨岔，方便看峡谷光影。</div>
         </article>
 
         <article class="day-card" data-day="D3">
@@ -460,7 +453,7 @@
             <div class="day-stay">宿：韩城</div>
           </div>
           <div class="day-route">乾坤湾 → 清水湾 → 壶口瀑布 → 韩城市</div>
-          <div class="day-note">今日核心是沿黄观光路，风景非常集中，建议早点出发。</div>
+          <div class="day-note">今日核心是沿黄观光路，建议早点出发。</div>
         </article>
 
         <article class="day-card" data-day="D5">
@@ -469,7 +462,7 @@
             <div class="day-stay">返程</div>
           </div>
           <div class="day-route">韩城市 → 党家村 → 西安</div>
-          <div class="day-note">最后一天收人文线，党家村很适合慢慢逛建筑与巷道。</div>
+          <div class="day-note">最后一天收人文线，党家村适合慢慢逛。</div>
         </article>
       </div>
 
@@ -490,53 +483,57 @@
           <div class="legend-row"><span class="legend-stop"></span> 住宿点</div>
         </div>
         <div class="caption" id="caption">
-          当前显示全部行程。点击右上角天数按钮，或点左侧每日卡片，可以切换到单天路线。
+          当前显示全部行程。点击右上角按钮，或者左侧每日卡片，可以切换到单天路线。
         </div>
       </div>
     </section>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+  <script src="./assets/echarts.min.js"></script>
+  <script src="./assets/shanxi1.js"></script>
   <script>
+    const mapName = "\u9655\u897f";
+
     const spots = [
-      { name: '西安', coord: [108.942336, 34.261004], day: 'D1 / D5', type: 'spot', days: ['D1', 'D5'], note: '出发与返程城市' },
-      { name: '陈炉古镇', coord: [109.304, 35.083], day: 'D1', type: 'spot', days: ['D1'], note: '千年炉火古镇，铜川陶瓷文化代表' },
-      { name: '甘泉县', coord: [109.125278, 36.368333], day: 'D1 / D2', type: 'stay', days: ['D1', 'D2'], note: 'D1 住宿点，D2 从这里出发' },
-      { name: '雨岔大峡谷', coord: [109.24, 36.165], day: 'D2', type: 'spot', days: ['D2'], note: '建议中午 12 点前抵达' },
-      { name: '靖边波浪谷', coord: [109.00064, 37.520455], day: 'D2 / D3', type: 'spot', days: ['D2', 'D3'], note: '龙洲丹霞地貌核心景点' },
-      { name: '龙洲镇', coord: [109.046, 37.466], day: 'D2', type: 'stay', days: ['D2'], note: '可作为波浪谷住宿点' },
-      { name: '永宁山古寨', coord: [108.86, 36.83], day: 'D3', type: 'spot', days: ['D3'], note: '陕北山寨遗址示意点' },
-      { name: '乾坤湾', coord: [110.408728, 36.719874], day: 'D3 / D4', type: 'stay', days: ['D3', 'D4'], note: '窑洞住宿与黄河日落体验' },
-      { name: '清水湾', coord: [110.53, 36.43], day: 'D4', type: 'spot', days: ['D4'], note: '沿黄观光路观景点' },
-      { name: '壶口瀑布', coord: [110.448547, 36.118638], day: 'D4', type: 'spot', days: ['D4'], note: '黄河壶口瀑布陕西侧附近' },
-      { name: '韩城市', coord: [110.450803, 35.476252], day: 'D4 / D5', type: 'stay', days: ['D4', 'D5'], note: 'D4 住宿点，D5 从这里出发' },
-      { name: '党家村', coord: [110.471914, 35.526771], day: 'D5', type: 'spot', days: ['D5'], note: '韩城传统古村落' }
+      { name: "西安", coord: [108.942336, 34.261004], day: "D1 / D5", type: "spot", days: ["D1", "D5"], note: "出发与返程城市" },
+      { name: "陈炉古镇", coord: [109.304, 35.083], day: "D1", type: "spot", days: ["D1"], note: "千年炉火古镇，铜川陶瓷文化代表" },
+      { name: "甘泉县", coord: [109.125278, 36.368333], day: "D1 / D2", type: "stay", days: ["D1", "D2"], note: "D1 住宿点，D2 从这里出发" },
+      { name: "雨岔大峡谷", coord: [109.24, 36.165], day: "D2", type: "spot", days: ["D2"], note: "建议中午 12 点前抵达" },
+      { name: "靖边波浪谷", coord: [109.00064, 37.520455], day: "D2 / D3", type: "spot", days: ["D2", "D3"], note: "龙洲丹霞地貌核心景点" },
+      { name: "龙洲镇", coord: [109.046, 37.466], day: "D2", type: "stay", days: ["D2"], note: "可作为波浪谷住宿点" },
+      { name: "永宁山古寨", coord: [108.86, 36.83], day: "D3", type: "spot", days: ["D3"], note: "陕北山寨遗址示意点" },
+      { name: "乾坤湾", coord: [110.408728, 36.719874], day: "D3 / D4", type: "stay", days: ["D3", "D4"], note: "窑洞住宿与黄河日落体验" },
+      { name: "清水湾", coord: [110.53, 36.43], day: "D4", type: "spot", days: ["D4"], note: "沿黄观光路观景点" },
+      { name: "壶口瀑布", coord: [110.448547, 36.118638], day: "D4", type: "spot", days: ["D4"], note: "黄河壶口瀑布陕西侧附近" },
+      { name: "韩城市", coord: [110.450803, 35.476252], day: "D4 / D5", type: "stay", days: ["D4", "D5"], note: "D4 住宿点，D5 从这里出发" },
+      { name: "党家村", coord: [110.471914, 35.526771], day: "D5", type: "spot", days: ["D5"], note: "韩城传统古村落" }
     ];
 
     const dayLabels = {
-      ALL: '全部行程',
-      D1: '第一天',
-      D2: '第二天',
-      D3: '第三天',
-      D4: '第四天',
-      D5: '第五天'
+      ALL: "全部行程",
+      D1: "第一天",
+      D2: "第二天",
+      D3: "第三天",
+      D4: "第四天",
+      D5: "第五天"
     };
 
     const dayRoutes = {
-      ALL: ['西安', '陈炉古镇', '甘泉县', '雨岔大峡谷', '靖边波浪谷', '永宁山古寨', '乾坤湾', '清水湾', '壶口瀑布', '韩城市', '党家村', '西安'],
-      D1: ['西安', '陈炉古镇', '甘泉县'],
-      D2: ['甘泉县', '雨岔大峡谷', '靖边波浪谷', '龙洲镇'],
-      D3: ['靖边波浪谷', '永宁山古寨', '乾坤湾'],
-      D4: ['乾坤湾', '清水湾', '壶口瀑布', '韩城市'],
-      D5: ['韩城市', '党家村', '西安']
+      ALL: ["西安", "陈炉古镇", "甘泉县", "雨岔大峡谷", "靖边波浪谷", "永宁山古寨", "乾坤湾", "清水湾", "壶口瀑布", "韩城市", "党家村", "西安"],
+      D1: ["西安", "陈炉古镇", "甘泉县"],
+      D2: ["甘泉县", "雨岔大峡谷", "靖边波浪谷", "龙洲镇"],
+      D3: ["靖边波浪谷", "永宁山古寨", "乾坤湾"],
+      D4: ["乾坤湾", "清水湾", "壶口瀑布", "韩城市"],
+      D5: ["韩城市", "党家村", "西安"]
     };
 
-    const cards = Array.from(document.querySelectorAll('.day-card'));
-    const buttons = Array.from(document.querySelectorAll('.day-filter'));
-    const caption = document.getElementById('caption');
-    const map = echarts.init(document.getElementById('map'), null, { renderer: 'canvas' });
+    const cards = Array.from(document.querySelectorAll(".day-card"));
+    const buttons = Array.from(document.querySelectorAll(".day-filter"));
+    const caption = document.getElementById("caption");
+    const mapElement = document.getElementById("map");
 
-    let activeDay = 'ALL';
+    let activeDay = "ALL";
+    let map = null;
 
     function findSpot(name) {
       return spots.find(item => item.name === name);
@@ -552,8 +549,8 @@
 
     function buildPointData(dayKey, type) {
       return spots
-        .filter(item => (type === 'stay' ? item.type === 'stay' : item.type !== 'stay'))
-        .filter(item => dayKey === 'ALL' || item.days.includes(dayKey))
+        .filter(item => type === "stay" ? item.type === "stay" : item.type !== "stay")
+        .filter(item => dayKey === "ALL" || item.days.includes(dayKey))
         .map(item => ({
           name: item.name,
           value: [...item.coord, item.day],
@@ -566,29 +563,30 @@
       const route = dayRoutes[dayKey] || dayRoutes.ALL;
       const coords = route.map(findSpot).filter(Boolean).map(item => item.coord);
       if (!coords.length) return [109.65, 35.85];
-
       const total = coords.reduce((acc, coord) => [acc[0] + coord[0], acc[1] + coord[1]], [0, 0]);
       return [total[0] / coords.length, total[1] / coords.length];
     }
 
     function getZoom(dayKey) {
-      return dayKey === 'ALL' ? 1.05 : 1.55;
+      return dayKey === "ALL" ? 1.05 : 1.55;
     }
 
     function updateSelection(dayKey) {
       activeDay = dayKey;
 
       buttons.forEach(button => {
-        button.classList.toggle('is-active', button.dataset.day === dayKey);
+        button.classList.toggle("is-active", button.dataset.day === dayKey);
       });
 
       cards.forEach(card => {
-        card.classList.toggle('is-active', dayKey !== 'ALL' && card.dataset.day === dayKey);
+        card.classList.toggle("is-active", dayKey !== "ALL" && card.dataset.day === dayKey);
       });
 
-      caption.textContent = dayKey === 'ALL'
-        ? '当前显示全部行程。点击右上角天数按钮，或点左侧每日卡片，可以切换到单天路线。'
-        : `当前显示${dayLabels[dayKey]}行程，地图只展示这一天对应的线路、景点和住宿衔接。`;
+      caption.textContent = dayKey === "ALL"
+        ? "当前显示全部行程。点击右上角按钮，或者左侧每日卡片，可以切换到单天路线。"
+        : `当前显示${dayLabels[dayKey]}，地图只展示这一天对应的线路、景点和住宿衔接。`;
+
+      if (!map) return;
 
       map.setOption({
         geo: {
@@ -597,89 +595,61 @@
         },
         series: [
           { data: buildRouteSegments(dayKey) },
-          { data: buildPointData(dayKey, 'spot') },
-          { data: buildPointData(dayKey, 'stay') }
+          { data: buildPointData(dayKey, "spot") },
+          { data: buildPointData(dayKey, "stay") }
         ]
       });
     }
 
-    buttons.forEach(button => {
-      button.addEventListener('click', () => updateSelection(button.dataset.day));
-    });
-
-    cards.forEach(card => {
-      card.tabIndex = 0;
-      card.setAttribute('role', 'button');
-      card.addEventListener('click', () => updateSelection(card.dataset.day));
-      card.addEventListener('keydown', event => {
-        if (event.key === 'Enter' || event.key === ' ') {
-          event.preventDefault();
-          updateSelection(card.dataset.day);
-        }
+    function bindInteraction() {
+      buttons.forEach(button => {
+        button.addEventListener("click", () => updateSelection(button.dataset.day));
       });
-    });
 
-    const mapName = '\u9655\u897f';
-
-    function loadScript(src) {
-      return new Promise((resolve, reject) => {
-        const script = document.createElement('script');
-        script.src = src;
-        script.async = true;
-        script.onload = resolve;
-        script.onerror = () => reject(new Error(`Failed to load script: ${src}`));
-        document.head.appendChild(script);
-      });
-    }
-
-    async function ensureShaanxiMap() {
-      try {
-        echarts.getMap(mapName);
-        return;
-      } catch (error) {
-      }
-
-      const sources = [
-        './assets/shanxi1.js'
-      ];
-
-      let lastError = null;
-
-      for (const src of sources) {
-        try {
-          await loadScript(src);
-          if (echarts.getMap(mapName)) {
-            return;
+      cards.forEach(card => {
+        card.tabIndex = 0;
+        card.setAttribute("role", "button");
+        card.addEventListener("click", () => updateSelection(card.dataset.day));
+        card.addEventListener("keydown", event => {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            updateSelection(card.dataset.day);
           }
-        } catch (error) {
-          lastError = error;
-        }
-      }
-
-      throw lastError || new Error('Shaanxi map script could not be loaded.');
+        });
+      });
     }
 
-    async function init() {
-      await ensureShaanxiMap();
+    function initMap() {
+      if (!window.echarts) {
+        caption.textContent = "ECharts 主库未加载成功，请检查 assets/echarts.min.js 是否可访问。";
+        return;
+      }
+
+      if (!window.echarts.getMap || !window.echarts.getMap(mapName)) {
+        caption.textContent = "陕西地图数据未加载成功，请检查 assets/shanxi1.js 是否可访问。";
+        return;
+      }
+
+      map = window.echarts.init(mapElement, null, { renderer: "canvas" });
 
       const option = {
-        backgroundColor: 'transparent',
+        backgroundColor: "transparent",
         animationDuration: 900,
         tooltip: {
-          trigger: 'item',
+          trigger: "item",
           borderWidth: 0,
-          backgroundColor: 'rgba(45,33,25,0.92)',
-          textStyle: { color: '#fff', fontSize: 13, lineHeight: 20 },
+          backgroundColor: "rgba(45,33,25,0.92)",
+          textStyle: { color: "#fff", fontSize: 13, lineHeight: 20 },
           formatter(params) {
-            if (params.seriesType === 'lines') {
-              return activeDay === 'ALL' ? '陕西自驾总览线路' : `${dayLabels[activeDay]}路线`;
+            if (params.seriesType === "lines") {
+              return activeDay === "ALL" ? "陕西自驾总览线路" : `${dayLabels[activeDay]}路线`;
             }
 
             const data = params.data || {};
             return `
               <div style="font-size:15px;font-weight:700;margin-bottom:4px;">${params.name}</div>
-              <div>${data.day || ''}</div>
-              <div style="color:rgba(255,255,255,0.78);margin-top:4px;">${data.note || ''}</div>
+              <div>${data.day || ""}</div>
+              <div style="color:rgba(255,255,255,0.78);margin-top:4px;">${data.note || ""}</div>
             `;
           }
         },
@@ -690,33 +660,33 @@
           center: getCenter(activeDay),
           label: { show: false },
           itemStyle: {
-            areaColor: '#f7e7cf',
-            borderColor: '#ae7a44',
+            areaColor: "#f7e7cf",
+            borderColor: "#ae7a44",
             borderWidth: 1.4,
             shadowBlur: 28,
-            shadowColor: 'rgba(180, 121, 47, 0.18)'
+            shadowColor: "rgba(180, 121, 47, 0.18)"
           },
           emphasis: {
             label: { show: false },
-            itemStyle: { areaColor: '#f2d5ad' }
+            itemStyle: { areaColor: "#f2d5ad" }
           }
         },
         series: [
           {
-            name: '路线',
-            type: 'lines',
-            coordinateSystem: 'geo',
+            name: "路线",
+            type: "lines",
+            coordinateSystem: "geo",
             zlevel: 2,
             effect: {
               show: true,
               period: 7,
               trailLength: 0.16,
-              symbol: 'arrow',
+              symbol: "arrow",
               symbolSize: 9,
-              color: '#b44f2d'
+              color: "#b44f2d"
             },
             lineStyle: {
-              color: '#b44f2d',
+              color: "#b44f2d",
               width: 4,
               curveness: 0.12,
               opacity: 0.92
@@ -724,69 +694,67 @@
             data: buildRouteSegments(activeDay)
           },
           {
-            name: '景点',
-            type: 'effectScatter',
-            coordinateSystem: 'geo',
+            name: "景点",
+            type: "effectScatter",
+            coordinateSystem: "geo",
             zlevel: 3,
             rippleEffect: {
               scale: 4.8,
-              brushType: 'stroke'
+              brushType: "stroke"
             },
             symbolSize: 12,
             itemStyle: {
-              color: '#b8792f',
+              color: "#b8792f",
               shadowBlur: 16,
-              shadowColor: 'rgba(184, 121, 47, 0.5)'
+              shadowColor: "rgba(184, 121, 47, 0.5)"
             },
             label: {
               show: true,
-              position: 'right',
+              position: "right",
               distance: 10,
-              formatter: '{b}',
-              color: '#3a2b21',
+              formatter: "{b}",
+              color: "#3a2b21",
               fontSize: 12,
-              backgroundColor: 'rgba(255,248,238,0.92)',
+              backgroundColor: "rgba(255,248,238,0.92)",
               padding: [4, 7],
               borderRadius: 999,
-              borderColor: 'rgba(184,121,47,0.24)',
+              borderColor: "rgba(184,121,47,0.24)",
               borderWidth: 1
             },
-            data: buildPointData(activeDay, 'spot')
+            data: buildPointData(activeDay, "spot")
           },
           {
-            name: '住宿',
-            type: 'scatter',
-            coordinateSystem: 'geo',
+            name: "住宿",
+            type: "scatter",
+            coordinateSystem: "geo",
             zlevel: 3,
-            symbol: 'roundRect',
+            symbol: "roundRect",
             symbolSize: [16, 12],
             itemStyle: {
-              color: '#66785d',
+              color: "#66785d",
               shadowBlur: 12,
-              shadowColor: 'rgba(102, 120, 93, 0.36)'
+              shadowColor: "rgba(102, 120, 93, 0.36)"
             },
             label: {
               show: true,
-              position: 'top',
+              position: "top",
               distance: 8,
-              formatter: '{b}',
-              color: '#4c5a46',
+              formatter: "{b}",
+              color: "#4c5a46",
               fontSize: 11
             },
-            data: buildPointData(activeDay, 'stay')
+            data: buildPointData(activeDay, "stay")
           }
         ]
       };
 
       map.setOption(option);
+      updateSelection(activeDay);
+      window.addEventListener("resize", () => map && map.resize());
     }
 
-    init().catch(error => {
-      caption.textContent = '地图资源加载失败，请联网后刷新页面。';
-      console.error(error);
-    });
-
-    window.addEventListener('resize', () => map.resize());
+    bindInteraction();
+    initMap();
   </script>
 </body>
 </html>
