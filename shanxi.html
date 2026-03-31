@@ -619,6 +619,8 @@
       });
     });
 
+    const mapName = '\u9655\u897f';
+
     function loadScript(src) {
       return new Promise((resolve, reject) => {
         const script = document.createElement('script');
@@ -632,14 +634,13 @@
 
     async function ensureShaanxiMap() {
       try {
-        echarts.getMap('陕西');
+        echarts.getMap(mapName);
         return;
       } catch (error) {
       }
 
       const sources = [
-        'https://cdn.jsdelivr.net/npm/echarts/map/js/province/shanxi1.js',
-        'https://unpkg.com/echarts/map/js/province/shanxi1.js'
+        './assets/shanxi1.js'
       ];
 
       let lastError = null;
@@ -647,7 +648,7 @@
       for (const src of sources) {
         try {
           await loadScript(src);
-          if (echarts.getMap('陕西')) {
+          if (echarts.getMap(mapName)) {
             return;
           }
         } catch (error) {
@@ -683,7 +684,7 @@
           }
         },
         geo: {
-          map: '陕西',
+          map: mapName,
           roam: true,
           zoom: getZoom(activeDay),
           center: getCenter(activeDay),
