@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>退步小字典：「钝感」——一种被我们弄丢了的器官 — 退步生</title>
+<meta name="description" content="关于钝感的一篇短文：不是麻木，而是一种不被所有刺激都牵走的能力。" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,0..100,0..1;1,9..144,300..900,0..100,0..1&family=Noto+Serif+SC:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-font-smoothing:antialiased}
+body{overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+:root{
+  --paper:#ECE4D2; --paper-deep:#E3D9C3; --ink:#1A1713; --ink-soft:#3A342B;
+  --ash:#8B8070; --ash-light:#B8AC98; --vermillion:#B54B2F;
+  --serif-en:"Fraunces","Noto Serif SC",Georgia,serif;
+  --serif-cn:"Noto Serif SC","Songti SC","Source Han Serif CN",serif;
+  --mono:"JetBrains Mono",ui-monospace,monospace;
+}
+body{min-height:100vh;background:var(--paper);color:var(--ink);font-family:var(--serif-cn);line-height:1.9;letter-spacing:.01em;position:relative}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:100;background-image:radial-gradient(circle at 20% 30%, rgba(26,23,19,.018) 0%, transparent 50%),radial-gradient(circle at 80% 70%, rgba(26,23,19,.022) 0%, transparent 50%),url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.09 0 0 0 0 0.07 0 0 0 0.08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");mix-blend-mode:multiply;opacity:.5}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:99;background:radial-gradient(ellipse at center, transparent 55%, rgba(50,38,26,.08) 100%)}
+.wrap{max-width:1320px;margin:0 auto;padding:0 clamp(24px,5vw,72px);position:relative}
+.masthead{padding:22px 0 18px;border-bottom:1px solid var(--ink);position:relative;z-index:5}
+.masthead-row{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:24px;font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft)}
+.mast-left{justify-self:start}
+.mast-right{justify-self:end;display:flex;gap:18px;align-items:center}
+.wordmark{font-family:var(--serif-cn);font-weight:600;font-size:26px;letter-spacing:.28em;text-indent:.28em;white-space:nowrap;line-height:1}
+.wordmark::after{content:"退 / TUIBU·SHENG";display:block;margin-top:2px;font-family:var(--mono);font-size:9px;letter-spacing:.32em;color:var(--ash);text-indent:0}
+.mini-clock{width:18px;height:18px;border:1px solid var(--ink);border-radius:50%;position:relative;display:inline-block}
+.mini-clock::after{content:"";position:absolute;top:50%;left:50%;width:1px;height:7px;background:var(--vermillion);transform-origin:50% 0;transform:translate(-50%,0);animation:tick-back 30s linear infinite}
+@keyframes tick-back{from{transform:translate(-50%,0) rotate(0)}to{transform:translate(-50%,0) rotate(-360deg)}}
+.article-shell{padding:clamp(44px,7vh,88px) 0 clamp(60px,10vh,120px);position:relative;z-index:2}
+.article-head{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(220px,.55fr);gap:clamp(28px,5vw,72px);align-items:start;margin-bottom:42px}
+.kicker,.meta,.back-link,.footer-note{font-family:var(--mono);text-transform:uppercase;letter-spacing:.22em}
+.kicker{color:var(--ash);font-size:11px;margin-bottom:24px}
+h1{font-family:var(--serif-cn);font-size:clamp(38px,5.6vw,76px);line-height:1.16;font-weight:500;max-width:12ch}
+h1 em{font-family:var(--serif-en);font-style:italic;font-weight:300;color:var(--ash)}
+.dek{margin-top:24px;max-width:34ch;color:var(--ink-soft);font-size:18px}
+.meta{border-top:1px solid var(--ink);padding-top:18px;font-size:11px;color:var(--ink-soft);line-height:2}
+.back-link{display:inline-flex;margin-top:26px;padding:8px 12px;border:1px solid var(--ash-light);font-size:10px;color:var(--ink-soft)}
+.back-link:hover{color:var(--vermillion);border-color:var(--vermillion)}
+.article-body{max-width:760px;border-top:1px solid var(--ash-light);padding-top:34px}
+.article-body p{font-size:19px;color:var(--ink-soft);margin:0 0 1.25em}
+.article-body p.lead{font-size:24px;line-height:1.75;color:var(--ink)}
+.article-body h2{margin:2.2em 0 .8em;font-size:19px;font-family:var(--mono);text-transform:uppercase;letter-spacing:.18em;color:var(--vermillion)}
+.article-body blockquote{margin:2em 0;padding:0 0 0 20px;border-left:1px solid var(--ash-light);color:var(--ink);font-size:22px}
+.footer-note{margin-top:44px;padding-top:18px;border-top:1px solid var(--ash-light);font-size:10px;color:var(--ash)}
+@media (max-width:900px){.masthead-row,.article-head{grid-template-columns:1fr}.mast-right{justify-self:start}h1{max-width:none}.article-body p{font-size:18px}.article-body p.lead{font-size:21px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="masthead">
+    <div class="masthead-row">
+      <div class="mast-left">Vol. MMXXVI No. 01</div>
+      <div class="wordmark">退步生</div>
+      <div class="mast-right"><span>Slow Reading File</span><span class="mini-clock" aria-hidden="true"></span></div>
+    </div>
+  </header>
+  <main class="article-shell">
+    <section class="article-head">
+      <div>
+        <div class="kicker">Field Notes / 01 · 27 · 2026</div>
+        <h1>退步小字典：<em>「钝感」</em> —— 一种被我们弄丢了的器官</h1>
+        <p class="dek">这里说的钝感，不是麻木，不是迟钝，也不是假装不在乎；它更像一种不过度响应的能力，一种让人不被每一道刺激都立刻牵走的内部缓冲。</p>
+      </div>
+      <aside>
+        <div class="meta">003 min<br/>词典 · Lexicon<br/>Section III / 退步手记</div>
+        <a class="back-link" href="./index.html#notes">返回首页</a>
+      </aside>
+    </section>
+    <article class="article-body">
+      <p class="lead">小时候的大人常说，皮实一点，别那么娇气。长大以后我们换了一种说法，叫“情绪稳定”“抗压能力强”“别玻璃心”。这些话里，其实都藏着同一个早就失传的词：钝感。</p>
+      <p>钝感听起来不讨喜，因为它像“不够敏锐”的反义词，好像一个人若是钝一点，就会显得笨一点、慢一点、反应差一点。可今天这个世界的问题，恰恰不是我们太迟钝，而是我们被训练得过于灵敏。每一次震动都要看，每一句话都要接，每一处评价都要进心，每一条风向都要立刻表态。久而久之，我们的神经像被拧得太紧的弦，轻轻一拨就响，响久了就累。</p>
+      <h2>Lexicon</h2>
+      <p>所以我越来越觉得，钝感像一种器官。它本来长在我们身上，负责过滤噪音，延后反应，判断哪些事情值得进入内心、哪些只需要从耳边经过。只是后来，我们把这件器官误会成了“不上进”“不敏感”“不够在场”，于是慢慢把它用废了。</p>
+      <p>没有钝感的人，会活得非常辛苦。所有信息都直接命中，所有情绪都立刻放大，所有别人说过的话都变成体内回音。这样的人往往并不是不坚强，而是没有门。风一来就进，雨一来就淋，外界稍微嘈杂一点，里面就乱了。</p>
+      <p>真正健康的钝感，并不是把世界隔绝掉，而是在自己和世界之间留一层筛网。它允许你听见，但不必每次都受伤；允许你看见，但不必立刻回应；允许你知道某些事情存在，但不必把它们都背到身上。</p>
+      <blockquote>钝感不是失去感觉，而是终于有能力决定，什么该感觉，什么可以略过。</blockquote>
+      <p>我们今天太崇拜“秒懂”“秒回”“秒反应”了，所以很难承认，一个人如果能慢一点接收世界，反而可能更稳。钝感让人不至于因为一句话就改掉自己，不至于因为一次波动就推翻全部，不至于因为别人的着急而立刻交出自己的节奏。</p>
+      <p>如果要重新把这个器官养回来，也许并不复杂。少看一点推送，晚一点回复，多睡一会儿，少让一些没必要的评价直接住进心里。不是为了变得麻木，而是为了把珍贵的感受力，留给真正值得的事。</p>
+      <div class="footer-note">Slow is best / Keep your nerves for what deserves them.</div>
+    </article>
+  </main>
+</div>
+</body>
+</html>
