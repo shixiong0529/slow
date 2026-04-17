@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>关于“赶到”这件事：我们到底在赶哪里？ — 退步生</title>
+<meta name="description" content="如果所有人都在赶路，也许更需要问一句：我们赶着抵达的，到底是什么地方。" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,0..100,0..1;1,9..144,300..900,0..100,0..1&family=Noto+Serif+SC:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-font-smoothing:antialiased}
+body{overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+:root{
+  --paper:#ECE4D2; --paper-deep:#E3D9C3; --ink:#1A1713; --ink-soft:#3A342B;
+  --ash:#8B8070; --ash-light:#B8AC98; --vermillion:#B54B2F;
+  --serif-en:"Fraunces","Noto Serif SC",Georgia,serif;
+  --serif-cn:"Noto Serif SC","Songti SC","Source Han Serif CN",serif;
+  --mono:"JetBrains Mono",ui-monospace,monospace;
+}
+body{min-height:100vh;background:var(--paper);color:var(--ink);font-family:var(--serif-cn);line-height:1.9;letter-spacing:.01em;position:relative}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:100;background-image:radial-gradient(circle at 20% 30%, rgba(26,23,19,.018) 0%, transparent 50%),radial-gradient(circle at 80% 70%, rgba(26,23,19,.022) 0%, transparent 50%),url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.09 0 0 0 0 0.07 0 0 0 0.08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");mix-blend-mode:multiply;opacity:.5}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:99;background:radial-gradient(ellipse at center, transparent 55%, rgba(50,38,26,.08) 100%)}
+.wrap{max-width:1320px;margin:0 auto;padding:0 clamp(24px,5vw,72px);position:relative}
+.masthead{padding:22px 0 18px;border-bottom:1px solid var(--ink);position:relative;z-index:5}
+.masthead-row{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:24px;font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft)}
+.mast-left{justify-self:start}
+.mast-right{justify-self:end;display:flex;gap:18px;align-items:center}
+.wordmark{font-family:var(--serif-cn);font-weight:600;font-size:26px;letter-spacing:.28em;text-indent:.28em;white-space:nowrap;line-height:1}
+.wordmark::after{content:"退 / TUIBU·SHENG";display:block;margin-top:2px;font-family:var(--mono);font-size:9px;letter-spacing:.32em;color:var(--ash);text-indent:0}
+.mini-clock{width:18px;height:18px;border:1px solid var(--ink);border-radius:50%;position:relative;display:inline-block}
+.mini-clock::after{content:"";position:absolute;top:50%;left:50%;width:1px;height:7px;background:var(--vermillion);transform-origin:50% 0;transform:translate(-50%,0);animation:tick-back 30s linear infinite}
+@keyframes tick-back{from{transform:translate(-50%,0) rotate(0)}to{transform:translate(-50%,0) rotate(-360deg)}}
+.article-shell{padding:clamp(44px,7vh,88px) 0 clamp(60px,10vh,120px);position:relative;z-index:2}
+.article-head{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(220px,.55fr);gap:clamp(28px,5vw,72px);align-items:start;margin-bottom:42px}
+.kicker,.meta,.back-link,.footer-note{font-family:var(--mono);text-transform:uppercase;letter-spacing:.22em}
+.kicker{color:var(--ash);font-size:11px;margin-bottom:24px}
+h1{font-family:var(--serif-cn);font-size:clamp(38px,5.6vw,76px);line-height:1.16;font-weight:500;max-width:12ch}
+h1 em{font-family:var(--serif-en);font-style:italic;font-weight:300;color:var(--ash)}
+.dek{margin-top:24px;max-width:34ch;color:var(--ink-soft);font-size:18px}
+.meta{border-top:1px solid var(--ink);padding-top:18px;font-size:11px;color:var(--ink-soft);line-height:2}
+.back-link{display:inline-flex;margin-top:26px;padding:8px 12px;border:1px solid var(--ash-light);font-size:10px;color:var(--ink-soft)}
+.back-link:hover{color:var(--vermillion);border-color:var(--vermillion)}
+.article-body{max-width:760px;border-top:1px solid var(--ash-light);padding-top:34px}
+.article-body p{font-size:19px;color:var(--ink-soft);margin:0 0 1.25em}
+.article-body p.lead{font-size:24px;line-height:1.75;color:var(--ink)}
+.article-body h2{margin:2.2em 0 .8em;font-size:19px;font-family:var(--mono);text-transform:uppercase;letter-spacing:.18em;color:var(--vermillion)}
+.article-body blockquote{margin:2em 0;padding:0 0 0 20px;border-left:1px solid var(--ash-light);color:var(--ink);font-size:22px}
+.footer-note{margin-top:44px;padding-top:18px;border-top:1px solid var(--ash-light);font-size:10px;color:var(--ash)}
+@media (max-width:900px){.masthead-row,.article-head{grid-template-columns:1fr}.mast-right{justify-self:start}h1{max-width:none}.article-body p{font-size:18px}.article-body p.lead{font-size:21px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="masthead">
+    <div class="masthead-row">
+      <div class="mast-left">Vol. MMXXVI No. 01</div>
+      <div class="wordmark">退步生</div>
+      <div class="mast-right"><span>Slow Reading File</span><span class="mini-clock" aria-hidden="true"></span></div>
+    </div>
+  </header>
+  <main class="article-shell">
+    <section class="article-head">
+      <div>
+        <div class="kicker">Field Notes / 02 · 11 · 2026</div>
+        <h1>关于“赶到”这件事：<em>我们到底在赶哪里</em>？</h1>
+        <p class="dek">大家都在赶路的时候，问题往往不再是快不快，而是目的地有没有被认真想过。</p>
+      </div>
+      <aside>
+        <div class="meta">008 min<br/>长文 · Long Read<br/>Section III / 退步手记</div>
+        <a class="back-link" href="./index.html#notes">返回首页</a>
+      </aside>
+    </section>
+    <article class="article-body">
+      <p class="lead">我们每天都在说“赶”。赶地铁，赶会议，赶版本，赶一个还没完全想清楚却已经被安排好的明天。可很少有人停下来问一句：我这么着急，是在赶向哪里？</p>
+      <p>“赶到”听上去像一个明确的动作，仿佛前方有一个清晰坐标，只要再快一点，就能抵达某种更好的状态。可真正的日常并不总是这样。很多时候，我们只是因为周围的人都在加速，于是也不自觉地开始加速。脚步越来越快，方向感却越来越弱。</p>
+      <p>我在城市里最常见到的一种表情，就是那种略带歉意的匆忙。人们一边快走，一边说“来不及了”；一边切换窗口，一边说“等我一下”；一边已经疲惫得不太像自己，一边还担心自己不够努力。仿佛只要停一秒，就会被时代甩下。可时代究竟是什么？它真的会回头点名吗？</p>
+      <h2>Arrival</h2>
+      <p>后来我慢慢觉得，很多“赶到”并不是为了到达，而是为了证明。证明自己没有松懈，证明自己还在线，证明自己配得上这个高速转动的环境。问题在于，当赶路主要变成一种证明，路就开始失去内容。我们不再关心沿途，不再辨认自己是不是喜欢，不再确认目的地是不是自己选的。</p>
+      <p>真正值得抵达的地方，通常不会只接受狼狈的冲刺。它更像一种逐渐对准的状态：你清楚自己为什么要去，知道到了之后要做什么，也知道如果今晚没到，明天再去并不会让世界塌下来。这样的到达，不是追出来的，而是走出来的。</p>
+      <p>这并不是反对 ambition，也不是提倡散漫。我只是越来越怀疑，那种一味向前冲的姿态，是否真的比稍微停一停、更接近“认真生活”。一个人如果从来不回头确认自己的方向，再快也只是更快地偏离。</p>
+      <blockquote>最值得警惕的，不是走得慢，而是在不知目的地的情况下，依然熟练地一路狂奔。</blockquote>
+      <p>所以我最近练习用另一种方式看待时间：把“赶到”改成“到达”，把“别落后”改成“别走丢”。前者强调速度，后者强调关系。和自己、和所爱之人、和真正重要的事情保持关系，这比任何一分钟级别的领先都更难，也更重要。</p>
+      <p>如果下次你又觉得一切都在催你，不妨先问一句：我现在赶的，是我真正想去的地方吗？这个问题也许不会立刻让你慢下来，但它可能会让你第一次意识到，自己其实有权决定往哪边走。</p>
+      <div class="footer-note">Slow is best / Arrive on purpose, not just on time.</div>
+    </article>
+  </main>
+</div>
+</body>
+</html>

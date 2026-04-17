@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>春分过后，我取消了所有在十分钟以内的 urgent 回复 — 退步生</title>
+<meta name="description" content="把“立刻回复”从默认动作里拿掉之后，沟通变得更慢，也更像沟通。" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,0..100,0..1;1,9..144,300..900,0..100,0..1&family=Noto+Serif+SC:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-font-smoothing:antialiased}
+body{overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+:root{
+  --paper:#ECE4D2; --paper-deep:#E3D9C3; --ink:#1A1713; --ink-soft:#3A342B;
+  --ash:#8B8070; --ash-light:#B8AC98; --vermillion:#B54B2F;
+  --serif-en:"Fraunces","Noto Serif SC",Georgia,serif;
+  --serif-cn:"Noto Serif SC","Songti SC","Source Han Serif CN",serif;
+  --mono:"JetBrains Mono",ui-monospace,monospace;
+}
+body{min-height:100vh;background:var(--paper);color:var(--ink);font-family:var(--serif-cn);line-height:1.9;letter-spacing:.01em;position:relative}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:100;background-image:radial-gradient(circle at 20% 30%, rgba(26,23,19,.018) 0%, transparent 50%),radial-gradient(circle at 80% 70%, rgba(26,23,19,.022) 0%, transparent 50%),url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.09 0 0 0 0 0.07 0 0 0 0.08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");mix-blend-mode:multiply;opacity:.5}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:99;background:radial-gradient(ellipse at center, transparent 55%, rgba(50,38,26,.08) 100%)}
+.wrap{max-width:1320px;margin:0 auto;padding:0 clamp(24px,5vw,72px);position:relative}
+.masthead{padding:22px 0 18px;border-bottom:1px solid var(--ink);position:relative;z-index:5}
+.masthead-row{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:24px;font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft)}
+.mast-left{justify-self:start}
+.mast-right{justify-self:end;display:flex;gap:18px;align-items:center}
+.wordmark{font-family:var(--serif-cn);font-weight:600;font-size:26px;letter-spacing:.28em;text-indent:.28em;white-space:nowrap;line-height:1}
+.wordmark::after{content:"退 / TUIBU·SHENG";display:block;margin-top:2px;font-family:var(--mono);font-size:9px;letter-spacing:.32em;color:var(--ash);text-indent:0}
+.mini-clock{width:18px;height:18px;border:1px solid var(--ink);border-radius:50%;position:relative;display:inline-block}
+.mini-clock::after{content:"";position:absolute;top:50%;left:50%;width:1px;height:7px;background:var(--vermillion);transform-origin:50% 0;transform:translate(-50%,0);animation:tick-back 30s linear infinite}
+@keyframes tick-back{from{transform:translate(-50%,0) rotate(0)}to{transform:translate(-50%,0) rotate(-360deg)}}
+.article-shell{padding:clamp(44px,7vh,88px) 0 clamp(60px,10vh,120px);position:relative;z-index:2}
+.article-head{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(220px,.55fr);gap:clamp(28px,5vw,72px);align-items:start;margin-bottom:42px}
+.kicker,.meta,.back-link,.footer-note{font-family:var(--mono);text-transform:uppercase;letter-spacing:.22em}
+.kicker{color:var(--ash);font-size:11px;margin-bottom:24px}
+h1{font-family:var(--serif-cn);font-size:clamp(38px,5.6vw,76px);line-height:1.16;font-weight:500;max-width:13ch}
+h1 em{font-family:var(--serif-en);font-style:italic;font-weight:300;color:var(--ash)}
+.dek{margin-top:24px;max-width:34ch;color:var(--ink-soft);font-size:18px}
+.meta{border-top:1px solid var(--ink);padding-top:18px;font-size:11px;color:var(--ink-soft);line-height:2}
+.back-link{display:inline-flex;margin-top:26px;padding:8px 12px;border:1px solid var(--ash-light);font-size:10px;color:var(--ink-soft)}
+.back-link:hover{color:var(--vermillion);border-color:var(--vermillion)}
+.article-body{max-width:760px;border-top:1px solid var(--ash-light);padding-top:34px}
+.article-body p{font-size:19px;color:var(--ink-soft);margin:0 0 1.25em}
+.article-body p.lead{font-size:24px;line-height:1.75;color:var(--ink)}
+.article-body h2{margin:2.2em 0 .8em;font-size:19px;font-family:var(--mono);text-transform:uppercase;letter-spacing:.18em;color:var(--vermillion)}
+.article-body blockquote{margin:2em 0;padding:0 0 0 20px;border-left:1px solid var(--ash-light);color:var(--ink);font-size:22px}
+.footer-note{margin-top:44px;padding-top:18px;border-top:1px solid var(--ash-light);font-size:10px;color:var(--ash)}
+@media (max-width:900px){.masthead-row,.article-head{grid-template-columns:1fr}.mast-right{justify-self:start}h1{max-width:none}.article-body p{font-size:18px}.article-body p.lead{font-size:21px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="masthead">
+    <div class="masthead-row">
+      <div class="mast-left">Vol. MMXXVI No. 01</div>
+      <div class="wordmark">退步生</div>
+      <div class="mast-right"><span>Slow Reading File</span><span class="mini-clock" aria-hidden="true"></span></div>
+    </div>
+  </header>
+  <main class="article-shell">
+    <section class="article-head">
+      <div>
+        <div class="kicker">Field Notes / 03 · 20 · 2026</div>
+        <h1>春分过后，我取消了所有在十分钟以内的 <em>urgent</em> 回复</h1>
+        <p class="dek">我不是拒绝沟通，而是把“立刻回应”从礼貌里拆出来。很多对话，真正需要的是清楚，而不是迅速。</p>
+      </div>
+      <aside>
+        <div class="meta">004 min<br/>实践 · Practice<br/>Section III / 退步手记</div>
+        <a class="back-link" href="./index.html#notes">返回首页</a>
+      </aside>
+    </section>
+    <article class="article-body">
+      <p class="lead">春分以后，我给自己立了一个很小的规矩：除非真的是事故、健康、或必须即时决策的事情，否则所有写着 urgent 的消息，我都不在十分钟以内回复。</p>
+      <p>这个规矩看起来有点逆反，因为我们已经太习惯把迅速和负责绑在一起了。谁秒回，谁就像更投入；谁稍晚一点，谁就像不够重视。可实际上，很多所谓 urgent，不过是发送者那一刻的紧张情绪，顺着网络线路，未经处理地落到了接收者身上。</p>
+      <p>我以前总是立刻接住这些情绪。手机一震，我就回；看到对方语气急，我也跟着急。结果不是效率更高，而是整天处在一种碎裂的状态里。刚坐下来，思路就被打断；刚沉进去，新的“急事”又冒出来。看似什么都在推进，其实没有一件事被完整地做完。</p>
+      <h2>Delay As Courtesy</h2>
+      <p>取消十分钟内回复之后，最先发生变化的不是别人，而是我自己的呼吸。消息来了，我先看一眼，再问自己三件事：这是真的吗？这现在就要处理吗？我带着慌张去回，会不会只是把慌张再传回去？这三个问题，让很多“急”在原地安静了下来。</p>
+      <p>后来我发现，延迟回复并不一定伤害关系。相反，它让我的回答更完整，更不容易误解，也更少情绪性的刺。原来一种更成熟的礼貌，不是让别人随时随地都能按到你，而是你给出的回应，真能承担一点分量。</p>
+      <blockquote>不是所有喊着 urgent 的东西，都值得把你的节奏立刻拿走。</blockquote>
+      <p>当然，世界上确实有真正着急的事。可正因为有真正着急的事，我们更需要把“急”这个词重新用得节制一些。否则当所有事情都被涂成红色，真正的紧要反而失去辨认度。</p>
+      <p>所以我保留了一个慢一点的入口。不是为了显得高冷，也不是故作从容，只是想让每一次回应都更像出于判断，而不是出于反射。十分钟并不长，但它足够让一句回复，从仓促变得可靠。</p>
+      <div class="footer-note">Slow is best / Reply after the breath returns.</div>
+    </article>
+  </main>
+</div>
+</body>
+</html>

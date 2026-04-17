@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>当一列高铁减速时，窗外的麦田才重新变得清晰 — 退步生</title>
+<meta name="description" content="一篇写给减速时刻的短文：当速度被调低，风景才重新拥有边界。" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,0..100,0..1;1,9..144,300..900,0..100,0..1&family=Noto+Serif+SC:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-font-smoothing:antialiased}
+body{overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+:root{
+  --paper:#ECE4D2;
+  --paper-deep:#E3D9C3;
+  --ink:#1A1713;
+  --ink-soft:#3A342B;
+  --ash:#8B8070;
+  --ash-light:#B8AC98;
+  --vermillion:#B54B2F;
+  --serif-en:"Fraunces","Noto Serif SC",Georgia,serif;
+  --serif-cn:"Noto Serif SC","Songti SC","Source Han Serif CN",serif;
+  --mono:"JetBrains Mono",ui-monospace,monospace;
+}
+body{
+  min-height:100vh;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--serif-cn);
+  line-height:1.9;
+  letter-spacing:.01em;
+  position:relative;
+}
+body::before{
+  content:"";
+  position:fixed; inset:0;
+  pointer-events:none;
+  z-index:100;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(26,23,19,.018) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(26,23,19,.022) 0%, transparent 50%),
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.09 0 0 0 0 0.07 0 0 0 0.08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode:multiply;
+  opacity:.5;
+}
+body::after{
+  content:"";
+  position:fixed; inset:0;
+  pointer-events:none;
+  z-index:99;
+  background:radial-gradient(ellipse at center, transparent 55%, rgba(50,38,26,.08) 100%);
+}
+.wrap{
+  max-width:1320px;
+  margin:0 auto;
+  padding:0 clamp(24px,5vw,72px);
+  position:relative;
+}
+.masthead{
+  padding:22px 0 18px;
+  border-bottom:1px solid var(--ink);
+  position:relative;
+  z-index:5;
+}
+.masthead-row{
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  align-items:center;
+  gap:24px;
+  font-family:var(--mono);
+  font-size:11px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--ink-soft);
+}
+.mast-left{justify-self:start}
+.mast-right{justify-self:end;display:flex;gap:18px;align-items:center}
+.wordmark{
+  font-family:var(--serif-cn);
+  font-weight:600;
+  font-size:26px;
+  letter-spacing:.28em;
+  text-indent:.28em;
+  white-space:nowrap;
+  line-height:1;
+}
+.wordmark::after{
+  content:"退 / TUIBU·SHENG";
+  display:block;
+  margin-top:2px;
+  font-family:var(--mono);
+  font-size:9px;
+  letter-spacing:.32em;
+  color:var(--ash);
+  text-indent:0;
+}
+.mini-clock{
+  width:18px; height:18px;
+  border:1px solid var(--ink);
+  border-radius:50%;
+  position:relative;
+  display:inline-block;
+}
+.mini-clock::after{
+  content:"";
+  position:absolute;
+  top:50%; left:50%;
+  width:1px; height:7px;
+  background:var(--vermillion);
+  transform-origin:50% 0;
+  transform:translate(-50%,0);
+  animation:tick-back 30s linear infinite;
+}
+@keyframes tick-back{from{transform:translate(-50%,0) rotate(0)}to{transform:translate(-50%,0) rotate(-360deg)}}
+.article-shell{
+  padding:clamp(44px,7vh,88px) 0 clamp(60px,10vh,120px);
+  position:relative;
+  z-index:2;
+}
+.article-head{
+  display:grid;
+  grid-template-columns:minmax(0,1.2fr) minmax(220px,.55fr);
+  gap:clamp(28px,5vw,72px);
+  align-items:start;
+  margin-bottom:42px;
+}
+.kicker,.meta,.back-link,.footer-note{
+  font-family:var(--mono);
+  text-transform:uppercase;
+  letter-spacing:.22em;
+}
+.kicker{
+  color:var(--ash);
+  font-size:11px;
+  margin-bottom:24px;
+}
+h1{
+  font-family:var(--serif-cn);
+  font-size:clamp(38px,5.6vw,76px);
+  line-height:1.16;
+  font-weight:500;
+  max-width:12ch;
+}
+h1 em{
+  font-family:var(--serif-en);
+  font-style:italic;
+  font-weight:300;
+  color:var(--ash);
+}
+.dek{
+  margin-top:24px;
+  max-width:34ch;
+  color:var(--ink-soft);
+  font-size:18px;
+}
+.meta{
+  border-top:1px solid var(--ink);
+  padding-top:18px;
+  font-size:11px;
+  color:var(--ink-soft);
+  line-height:2;
+}
+.back-link{
+  display:inline-flex;
+  margin-top:26px;
+  padding:8px 12px;
+  border:1px solid var(--ash-light);
+  font-size:10px;
+  color:var(--ink-soft);
+}
+.back-link:hover{color:var(--vermillion);border-color:var(--vermillion)}
+.article-body{
+  max-width:760px;
+  border-top:1px solid var(--ash-light);
+  padding-top:34px;
+}
+.article-body p{
+  font-size:19px;
+  color:var(--ink-soft);
+  margin:0 0 1.25em;
+}
+.article-body p.lead{
+  font-size:24px;
+  line-height:1.75;
+  color:var(--ink);
+}
+.article-body h2{
+  margin:2.2em 0 .8em;
+  font-size:19px;
+  font-family:var(--mono);
+  text-transform:uppercase;
+  letter-spacing:.18em;
+  color:var(--vermillion);
+}
+.article-body blockquote{
+  margin:2em 0;
+  padding:0 0 0 20px;
+  border-left:1px solid var(--ash-light);
+  color:var(--ink);
+  font-size:22px;
+}
+.footer-note{
+  margin-top:44px;
+  padding-top:18px;
+  border-top:1px solid var(--ash-light);
+  font-size:10px;
+  color:var(--ash);
+}
+@media (max-width:900px){
+  .masthead-row,.article-head{grid-template-columns:1fr}
+  .mast-right{justify-self:start}
+  h1{max-width:none}
+  .article-body p{font-size:18px}
+  .article-body p.lead{font-size:21px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="masthead">
+    <div class="masthead-row">
+      <div class="mast-left">Vol. MMXXVI No. 01</div>
+      <div class="wordmark">退步生</div>
+      <div class="mast-right"><span>Slow Reading File</span><span class="mini-clock" aria-hidden="true"></span></div>
+    </div>
+  </header>
+
+  <main class="article-shell">
+    <section class="article-head">
+      <div>
+        <div class="kicker">Field Notes / 04 · 15 · 2026</div>
+        <h1>当一列高铁减速时，<em>窗外的麦田</em>才重新变得清晰</h1>
+        <p class="dek">速度不是错，只是它有时候把边界都擦掉了。减速并不总是损失，也可能是一次重新看见。</p>
+      </div>
+      <aside>
+        <div class="meta">003 min<br/>随笔 · Essay<br/>Section III / 退步手记</div>
+        <a class="back-link" href="./index.html#notes">返回首页</a>
+      </aside>
+    </section>
+
+    <article class="article-body">
+      <p class="lead">高铁快的时候，窗外的树是一笔，村庄是一块颜色，麦田是一层模糊的绿。它们不是消失了，只是被速度压缩成了一个无法细看的背景。</p>
+      <p>那天列车在一段不长的区间里慢了下来。没有故障，也没有广播解释，只是很普通地减了一点速。就是这一点点，忽然让外面的世界重新长出了纹理。我看见麦浪并不是一整片整齐的绿，而是深浅不同的几块，像有人用旧画笔一层层铺上去；田埂边站着一个穿蓝色外套的人，手里提着白桶，正在停下来朝轨道的方向看。</p>
+      <p>我忽然意识到，很多时候我们说“我看过了”，其实只是“我路过了”。路过和看见之间，差的常常不是距离，而是速度。速度太快，世界会自动退成背景；速度一慢，背景才肯重新把自己交出来。</p>
+      <h2>Noticing</h2>
+      <p>我们习惯把减速理解成延误，好像一切没有按预计时刻抵达的状态，都天然带着一点失败。但减速也有另一面：它让被忽略的东西重新获得资格。比如窗外那块并不起眼的麦田，比如车厢里有人把手机放下之后，终于抬头看了一眼身边的人，比如我自己，突然记起已经很久没有认真看过春天的颜色。</p>
+      <p>现代生活教我们尽量压缩间隙，压缩停顿，压缩无用的空白。可人并不是压缩包。我们需要一些慢下来的时刻，才能把被挤皱的感受重新抚平。否则再快地到达，也只是把一个来不及体会的人送到另一个来不及体会的地方。</p>
+      <blockquote>减速不一定让路更短，但会让风景重新拥有边界。</blockquote>
+      <p>后来列车又提速了，麦田很快退回到绿色的影子里。可我知道，事情已经不太一样。因为我见过它清晰的时候，就不太愿意再把所有东西都只当成模糊的背景。</p>
+      <p>也许“慢一点”真正可贵的地方，不在于它浪漫，而在于它诚实。它让我们承认：世界不是只用来穿过的，它也值得被注视，被记住，被带着一点温度地放进心里。</p>
+      <div class="footer-note">Slow is best / Read, then look out of the window once more.</div>
+    </article>
+  </main>
+</div>
+</body>
+</html>
