@@ -20,8 +20,34 @@
       color-scheme: light dark;
     }
 
+    :root[data-theme="dark"] {
+      --bg: #171512;
+      --paper: #221f1b;
+      --ink: #f3eee7;
+      --muted: #b7aa9b;
+      --line: rgba(243, 238, 231, 0.15);
+      --accent: #d2a16f;
+      --accent-soft: rgba(210, 161, 111, 0.14);
+      --shadow: 0 24px 60px rgba(0, 0, 0, 0.32);
+      --page-start: #211d19;
+      --page-end: #14120f;
+    }
+
+    :root[data-theme="light"] {
+      --bg: #f5f1ea;
+      --paper: #fbf8f3;
+      --ink: #1d1b19;
+      --muted: #6c655d;
+      --line: rgba(29, 27, 25, 0.12);
+      --accent: #8d6a46;
+      --accent-soft: rgba(141, 106, 70, 0.1);
+      --shadow: 0 24px 60px rgba(34, 29, 24, 0.08);
+      --page-start: #efe7dc;
+      --page-end: #f7f4ee;
+    }
+
     @media (prefers-color-scheme: dark) {
-      :root {
+      :root:not([data-theme="light"]) {
         --bg: #171512;
         --paper: #221f1b;
         --ink: #f3eee7;
@@ -96,6 +122,12 @@
       letter-spacing: 0.24em;
     }
 
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 26px;
+    }
+
     .brand {
       display: flex;
       gap: 14px;
@@ -127,6 +159,48 @@
       border-color: currentColor;
       color: var(--ink);
     }
+
+    .theme-toggle {
+      width: 42px;
+      height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      background: rgba(251, 248, 243, 0.42);
+      color: var(--ink);
+      display: inline-grid;
+      place-items: center;
+      cursor: pointer;
+      transition: border-color 180ms ease, background 180ms ease, color 180ms ease, transform 180ms ease;
+    }
+
+    :root[data-theme="dark"] .theme-toggle {
+      background: rgba(34, 31, 27, 0.68);
+    }
+
+    .theme-toggle:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .theme-toggle:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 5px;
+    }
+
+    .theme-toggle svg {
+      width: 19px;
+      height: 19px;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .theme-toggle .moon-icon { display: none; }
+    :root[data-theme="dark"] .theme-toggle .sun-icon { display: none; }
+    :root[data-theme="dark"] .theme-toggle .moon-icon { display: block; }
 
     .hero {
       padding: 44px 0 56px;
@@ -486,6 +560,7 @@
 
       .topbar,
       .nav,
+      .top-actions,
       .hero-meta,
       .footer,
       .grid,
@@ -495,6 +570,8 @@
       }
 
       .nav a { margin-right: 18px; }
+      .top-actions { margin-top: 16px; }
+      .theme-toggle { margin-top: 16px; }
       .hero { padding: 34px 0 42px; min-height: auto; }
       .hero-visual { min-height: auto; margin-top: 28px; padding-top: 420px; }
       .visual-main { inset: 0 0 70px 28px; }
@@ -516,12 +593,23 @@
         <div class="brand-mark">隐陕西</div>
         <div class="brand-sub">Shaanxi Quiet Classics</div>
       </div>
-      <nav class="nav" aria-label="站点导航">
-        <a href="#destinations">目的地</a>
-        <a href="#routes">路线</a>
-        <a href="#journal">深度笔记</a>
-        <a href="../shanxi.html">我的5月计划</a>
-      </nav>
+      <div class="top-actions">
+        <nav class="nav" aria-label="站点导航">
+          <a href="#destinations">目的地</a>
+          <a href="#routes">路线</a>
+          <a href="#journal">深度笔记</a>
+          <a href="../shanxi.html">我的5月计划</a>
+        </nav>
+        <button class="theme-toggle" type="button" aria-label="切换为深色模式" aria-pressed="false">
+          <svg class="sun-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path>
+          </svg>
+          <svg class="moon-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M20 15.5A8.2 8.2 0 0 1 8.5 4 8.5 8.5 0 1 0 20 15.5Z"></path>
+          </svg>
+        </button>
+      </div>
     </header>
 
     <section class="hero">
@@ -678,5 +766,39 @@
       <div><a href="manchuan.html" aria-label="查看漫川古镇详情页">查看首个详情页 →</a></div>
     </footer>
   </div>
+  <script>
+    const root = document.documentElement;
+    const themeToggle = document.querySelector(".theme-toggle");
+    const savedTheme = localStorage.getItem("shaanxi-theme");
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
+
+    function currentTheme() {
+      return root.dataset.theme || (prefersDark.matches ? "dark" : "light");
+    }
+
+    function syncThemeButton() {
+      const isDark = currentTheme() === "dark";
+      themeToggle.setAttribute("aria-pressed", String(isDark));
+      themeToggle.setAttribute("aria-label", isDark ? "切换为浅色模式" : "切换为深色模式");
+    }
+
+    if (savedTheme) {
+      root.dataset.theme = savedTheme;
+    }
+    syncThemeButton();
+
+    themeToggle.addEventListener("click", () => {
+      const nextTheme = currentTheme() === "dark" ? "light" : "dark";
+      root.dataset.theme = nextTheme;
+      localStorage.setItem("shaanxi-theme", nextTheme);
+      syncThemeButton();
+    });
+
+    prefersDark.addEventListener("change", () => {
+      if (!localStorage.getItem("shaanxi-theme")) {
+        syncThemeButton();
+      }
+    });
+  </script>
 </body>
 </html>
