@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
@@ -14,22 +14,72 @@
       --accent: #8d6a46;
       --accent-soft: rgba(141, 106, 70, 0.1);
       --shadow: 0 24px 60px rgba(34, 29, 24, 0.08);
+      --page-start: #efe7dc;
+      --page-end: #f7f4ee;
       --max: 1280px;
+      color-scheme: light dark;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #171512;
+        --paper: #221f1b;
+        --ink: #f3eee7;
+        --muted: #b7aa9b;
+        --line: rgba(243, 238, 231, 0.15);
+        --accent: #d2a16f;
+        --accent-soft: rgba(210, 161, 111, 0.14);
+        --shadow: 0 24px 60px rgba(0, 0, 0, 0.32);
+        --page-start: #211d19;
+        --page-end: #14120f;
+      }
     }
 
     * { box-sizing: border-box; }
+    @font-face {
+      font-family: "Shaanxi Serif";
+      src: local("Noto Serif SC"), local("Songti SC"), local("STSong");
+      font-display: swap;
+    }
     html { scroll-behavior: smooth; }
     body {
       margin: 0;
-      font-family: "Noto Serif SC", "Songti SC", "STSong", serif;
-      background: linear-gradient(180deg, #efe7dc 0%, var(--bg) 28%, #f7f4ee 100%);
+      font-family: "Shaanxi Serif", "Noto Serif SC", "Songti SC", "STSong", serif;
+      background: linear-gradient(180deg, var(--page-start) 0%, var(--bg) 28%, var(--page-end) 100%);
       color: var(--ink);
       line-height: 1.6;
       letter-spacing: 0.02em;
     }
 
-    a { color: inherit; text-decoration: none; }
+    a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 180ms ease, border-color 180ms ease, background 180ms ease, transform 180ms ease, box-shadow 180ms ease;
+    }
+    a:hover { color: var(--accent); }
+    a:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 5px;
+    }
     img { max-width: 100%; display: block; }
+
+    .media-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .visual-main::after,
+    .visual-float::after,
+    .card-image::after,
+    .editorial-panel.image::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
 
     .frame {
       width: min(calc(100% - 48px), var(--max));
@@ -66,6 +116,16 @@
       display: flex;
       gap: 28px;
       color: var(--muted);
+    }
+
+    .nav a {
+      border-bottom: 1px solid transparent;
+      padding-bottom: 4px;
+    }
+
+    .nav a:hover {
+      border-color: currentColor;
+      color: var(--ink);
     }
 
     .hero {
@@ -130,9 +190,10 @@
     .visual-main {
       inset: 0 0 72px 84px;
       border-radius: 0 0 180px 0;
-      background:
-        linear-gradient(180deg, rgba(18, 16, 14, 0.12), rgba(18, 16, 14, 0.32)),
-        url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80') center/cover;
+    }
+
+    .visual-main::after {
+      background: linear-gradient(180deg, rgba(18, 16, 14, 0.12), rgba(18, 16, 14, 0.32));
     }
 
     .visual-float {
@@ -142,9 +203,10 @@
       height: 280px;
       border-radius: 140px 140px 0 0;
       border: 12px solid rgba(251, 248, 243, 0.9);
-      background:
-        linear-gradient(180deg, rgba(24, 20, 17, 0.08), rgba(24, 20, 17, 0.24)),
-        url('https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=800&q=80') center/cover;
+    }
+
+    .visual-float::after {
+      background: linear-gradient(180deg, rgba(24, 20, 17, 0.08), rgba(24, 20, 17, 0.24));
     }
 
     .hero-note {
@@ -158,6 +220,7 @@
       border: 1px solid rgba(255,255,255,0.55);
       color: var(--ink);
       font-size: 14px;
+      z-index: 2;
     }
 
     .section {
@@ -205,13 +268,31 @@
       background: rgba(251, 248, 243, 0.76);
       border: 1px solid rgba(29, 27, 25, 0.08);
       box-shadow: 0 18px 50px rgba(34, 29, 24, 0.04);
+      overflow: hidden;
     }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(141, 106, 70, 0.34);
+      box-shadow: 0 26px 64px rgba(34, 29, 24, 0.1);
+      color: var(--ink);
+    }
+
+    .card:hover .card-link { color: var(--accent); }
 
     .card-image {
       aspect-ratio: 0.9;
-      background-size: cover;
-      background-position: center;
+      background: #d8c4ab;
+      overflow: hidden;
+      position: relative;
+      transition: transform 420ms ease;
     }
+
+    .card-image::after {
+      background: linear-gradient(180deg, rgba(18,15,13,.08), rgba(18,15,13,.28));
+    }
+
+    .card:hover .card-image { transform: scale(1.035); }
 
     .card-body {
       padding: 22px 22px 26px;
@@ -273,12 +354,24 @@
     }
 
     .editorial-panel.image {
-      background:
-        linear-gradient(180deg, rgba(16, 14, 12, 0.08), rgba(16, 14, 12, 0.38)),
-        url('https://images.unsplash.com/photo-1518546305927-5a555bb7020d?auto=format&fit=crop&w=1400&q=80') center/cover;
       color: #f7f1ea;
       display: flex;
       align-items: end;
+    }
+
+    .editorial-panel.image .media-img {
+      position: absolute;
+      inset: 0;
+    }
+
+    .editorial-panel.image::after {
+      background: linear-gradient(180deg, rgba(16, 14, 12, 0.08), rgba(16, 14, 12, 0.38));
+      z-index: 1;
+    }
+
+    .editorial-panel.image > div {
+      position: relative;
+      z-index: 2;
     }
 
     .quote {
@@ -328,6 +421,40 @@
       border-top: 1px solid var(--line);
     }
 
+    @media (prefers-reduced-motion: no-preference) {
+      .hero-copy,
+      .hero-visual,
+      .section {
+        animation: riseIn 700ms ease both;
+      }
+
+      .hero-visual { animation-delay: 120ms; }
+      .section:nth-of-type(2) { animation-delay: 80ms; }
+      .section:nth-of-type(3) { animation-delay: 140ms; }
+      .section:nth-of-type(4) { animation-delay: 200ms; }
+
+      @keyframes riseIn {
+        from {
+          opacity: 0;
+          transform: translateY(18px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 1ms !important;
+        scroll-behavior: auto !important;
+        transition-duration: 1ms !important;
+      }
+    }
+
     @media (max-width: 1080px) {
       .hero,
       .section-head,
@@ -369,10 +496,14 @@
 
       .nav a { margin-right: 18px; }
       .hero { padding: 34px 0 42px; min-height: auto; }
-      .hero-visual { min-height: 420px; margin-top: 28px; }
+      .hero-visual { min-height: auto; margin-top: 28px; padding-top: 420px; }
       .visual-main { inset: 0 0 70px 28px; }
       .visual-float { width: 160px; height: 220px; }
-      .hero-note { width: 180px; right: 14px; top: 14px; }
+      .hero-note {
+        position: static;
+        width: auto;
+        margin: 14px 0 0 28px;
+      }
       .card, .route-item, .editorial-panel { margin-bottom: 18px; }
       .footer div + div { margin-top: 8px; }
     }
@@ -385,7 +516,7 @@
         <div class="brand-mark">隐陕西</div>
         <div class="brand-sub">Shaanxi Quiet Classics</div>
       </div>
-      <nav class="nav">
+      <nav class="nav" aria-label="站点导航">
         <a href="#destinations">目的地</a>
         <a href="#routes">路线</a>
         <a href="#journal">深度笔记</a>
@@ -407,8 +538,12 @@
         </div>
       </div>
       <div class="hero-visual">
-        <div class="visual-main"></div>
-        <div class="visual-float"></div>
+        <div class="visual-main">
+          <img class="media-img" src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80" srcset="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=80 800w, https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80 1200w, https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=80 1600w" sizes="(max-width: 760px) calc(100vw - 42px), (max-width: 1080px) calc(100vw - 48px), 520px" width="1200" height="900" alt="陕西山野与云雾层叠的慢旅行视觉" fetchpriority="high" decoding="async" />
+        </div>
+        <div class="visual-float">
+          <img class="media-img" src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=800&q=80" srcset="https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=420&q=80 420w, https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=800&q=80 800w" sizes="210px" width="800" height="1067" alt="傍晚山路与天光的窄幅风景" loading="lazy" decoding="async" />
+        </div>
         <div class="hero-note">
           <strong>给深度旅行者</strong><br>
           这里不追求“到此一游”的效率，而是把抵达时间、步行线路、光线变化和地方故事放在同一张地图里。
@@ -427,7 +562,7 @@
 
       <div class="grid">
         <a class="card" href="manchuan.html" aria-label="进入漫川古镇详情页">
-          <div class="card-image" style="background-image:linear-gradient(180deg, rgba(18,15,13,.08), rgba(18,15,13,.28)), url('https://images.unsplash.com/photo-1745415333473-1b3687bbe848?auto=format&fit=crop&w=900&q=80');"></div>
+          <div class="card-image"><img class="media-img" src="https://images.unsplash.com/photo-1745415333473-1b3687bbe848?auto=format&fit=crop&w=900&q=80" srcset="https://images.unsplash.com/photo-1745415333473-1b3687bbe848?auto=format&fit=crop&w=600&q=80 600w, https://images.unsplash.com/photo-1745415333473-1b3687bbe848?auto=format&fit=crop&w=900&q=80 900w, https://images.unsplash.com/photo-1745415333473-1b3687bbe848?auto=format&fit=crop&w=1200&q=80 1200w" sizes="(max-width: 760px) calc(100vw - 28px), (max-width: 1080px) calc((100vw - 74px) / 2), 390px" width="900" height="1000" alt="漫川古镇水岸与街巷气质" loading="lazy" decoding="async" /></div>
           <div class="card-body">
             <div class="card-index">01 · 商洛 山阳</div>
             <h3 class="card-title">漫川古镇</h3>
@@ -437,7 +572,7 @@
         </a>
 
         <a class="card" href="qingmuchuan.html" aria-label="进入青木川详情页">
-          <div class="card-image" style="background-image:linear-gradient(180deg, rgba(18,15,13,.08), rgba(18,15,13,.28)), url('https://images.unsplash.com/photo-1750384258378-6b20a19be445?auto=format&fit=crop&w=900&q=80');"></div>
+          <div class="card-image"><img class="media-img" src="https://images.unsplash.com/photo-1750384258378-6b20a19be445?auto=format&fit=crop&w=900&q=80" srcset="https://images.unsplash.com/photo-1750384258378-6b20a19be445?auto=format&fit=crop&w=600&q=80 600w, https://images.unsplash.com/photo-1750384258378-6b20a19be445?auto=format&fit=crop&w=900&q=80 900w, https://images.unsplash.com/photo-1750384258378-6b20a19be445?auto=format&fit=crop&w=1200&q=80 1200w" sizes="(max-width: 760px) calc(100vw - 28px), (max-width: 1080px) calc((100vw - 74px) / 2), 390px" width="900" height="1000" alt="青木川边镇老街与山地环境" loading="lazy" decoding="async" /></div>
           <div class="card-body">
             <div class="card-index">02 · 汉中 宁强</div>
             <h3 class="card-title">青木川</h3>
@@ -447,7 +582,7 @@
         </a>
 
         <a class="card" href="bolanggu.html" aria-label="进入波浪谷周边村落详情页">
-          <div class="card-image" style="background-image:linear-gradient(180deg, rgba(18,15,13,.08), rgba(18,15,13,.28)), url('https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=900&q=80');"></div>
+          <div class="card-image"><img class="media-img" src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=900&q=80" srcset="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=600&q=80 600w, https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=900&q=80 900w, https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1200&q=80 1200w" sizes="(max-width: 760px) calc(100vw - 28px), (max-width: 1080px) calc((100vw - 74px) / 2), 390px" width="900" height="1000" alt="波浪谷红砂岩地貌纹理" loading="lazy" decoding="async" /></div>
           <div class="card-body">
             <div class="card-index">03 · 榆林 靖边</div>
             <h3 class="card-title">波浪谷周边村落</h3>
@@ -457,7 +592,7 @@
         </a>
 
         <a class="card" href="yucha.html" aria-label="进入雨岔大峡谷详情页">
-          <div class="card-image" style="background-image:linear-gradient(180deg, rgba(18,15,13,.08), rgba(18,15,13,.28)), url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=900&q=80');"></div>
+          <div class="card-image"><img class="media-img" src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=900&q=80" srcset="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=600&q=80 600w, https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=900&q=80 900w, https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1200&q=80 1200w" sizes="(max-width: 760px) calc(100vw - 28px), (max-width: 1080px) calc((100vw - 74px) / 2), 390px" width="900" height="1000" alt="雨岔大峡谷岩壁褶皱与光影" loading="lazy" decoding="async" /></div>
           <div class="card-body">
             <div class="card-index">04 · 延安</div>
             <h3 class="card-title">雨岔大峡谷</h3>
@@ -467,7 +602,7 @@
         </a>
 
         <a class="card" href="chenlu.html" aria-label="进入陈炉古镇详情页">
-          <div class="card-image" style="background-image:linear-gradient(180deg, rgba(18,15,13,.08), rgba(18,15,13,.28)), url('https://images.unsplash.com/photo-1524497440-4da55062cb4a?auto=format&fit=crop&w=900&q=80');"></div>
+          <div class="card-image"><img class="media-img" src="https://images.unsplash.com/photo-1524497440-4da55062cb4a?auto=format&fit=crop&w=900&q=80" srcset="https://images.unsplash.com/photo-1524497440-4da55062cb4a?auto=format&fit=crop&w=600&q=80 600w, https://images.unsplash.com/photo-1524497440-4da55062cb4a?auto=format&fit=crop&w=900&q=80 900w, https://images.unsplash.com/photo-1524497440-4da55062cb4a?auto=format&fit=crop&w=1200&q=80 1200w" sizes="(max-width: 760px) calc(100vw - 28px), (max-width: 1080px) calc((100vw - 74px) / 2), 390px" width="900" height="1000" alt="陈炉古镇陶瓷山城与街巷材料" loading="lazy" decoding="async" /></div>
           <div class="card-body">
             <div class="card-index">05 · 铜川</div>
             <h3 class="card-title">陈炉古镇</h3>
@@ -477,7 +612,7 @@
         </a>
 
         <a class="card" href="lingguanxia.html" aria-label="进入灵官峡旧道详情页">
-          <div class="card-image" style="background-image:linear-gradient(180deg, rgba(18,15,13,.08), rgba(18,15,13,.28)), url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=900&q=80');"></div>
+          <div class="card-image"><img class="media-img" src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=900&q=80" srcset="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=600&q=80 600w, https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=900&q=80 900w, https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1200&q=80 1200w" sizes="(max-width: 760px) calc(100vw - 28px), (max-width: 1080px) calc((100vw - 74px) / 2), 390px" width="900" height="1000" alt="灵官峡山林峡谷与旧交通记忆" loading="lazy" decoding="async" /></div>
           <div class="card-body">
             <div class="card-index">06 · 宝鸡</div>
             <h3 class="card-title">灵官峡旧道</h3>
@@ -496,6 +631,7 @@
           <p class="section-text">我们把信息密度放在该出现的位置：为什么值得去、该停多久、什么时候最好、走到哪里应该放慢。页面不催促消费，只帮助旅行者建立更准确的期待。</p>
         </div>
         <div class="editorial-panel image">
+          <img class="media-img" src="https://images.unsplash.com/photo-1518546305927-5a555bb7020d?auto=format&fit=crop&w=1400&q=80" srcset="https://images.unsplash.com/photo-1518546305927-5a555bb7020d?auto=format&fit=crop&w=900&q=80 900w, https://images.unsplash.com/photo-1518546305927-5a555bb7020d?auto=format&fit=crop&w=1400&q=80 1400w, https://images.unsplash.com/photo-1518546305927-5a555bb7020d?auto=format&fit=crop&w=1800&q=80 1800w" sizes="(max-width: 760px) calc(100vw - 28px), (max-width: 1080px) calc((100vw - 74px) / 2), 626px" width="1400" height="933" alt="陕西山地与河谷组成的慢旅行封面图" loading="lazy" decoding="async" />
           <div>
             <div class="section-kicker" style="color: rgba(247, 241, 234, 0.72);">Slow travel issue</div>
             <p class="quote">From mountain towns to loess plateaus, the page breathes before it sells.</p>
@@ -539,7 +675,7 @@
 
     <footer class="footer">
       <div>隐陕西 · 深度旅行者的目的地笔记</div>
-      <div><a href="manchuan.html">查看首个详情页 →</a></div>
+      <div><a href="manchuan.html" aria-label="查看漫川古镇详情页">查看首个详情页 →</a></div>
     </footer>
   </div>
 </body>

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
@@ -13,11 +13,22 @@
       --line: rgba(29, 26, 23, 0.12);
       --accent: #7f6145;
       --shadow: 0 28px 64px rgba(34, 29, 24, 0.08);
+      --page-start: #ece6dd;
+      --page-end: #f8f4ee;
       --max: 1220px;
+      color-scheme: light dark;
     }
+    @media (prefers-color-scheme: dark) { :root { --bg:#171512; --paper:#221f1b; --ink:#f3eee7; --muted:#b7aa9b; --line:rgba(243,238,231,.15); --accent:#d2a16f; --shadow:0 28px 64px rgba(0,0,0,.32); --page-start:#211d19; --page-end:#14120f; } }
     * { box-sizing: border-box; }
-    body { margin: 0; font-family: "Noto Serif SC", "Songti SC", "STSong", serif; color: var(--ink); background: linear-gradient(180deg, #ece6dd 0%, var(--bg) 28%, #f8f4ee 100%); line-height: 1.72; letter-spacing: 0.02em; }
-    a { color: inherit; text-decoration: none; }
+    @font-face { font-family: "Shaanxi Serif"; src: local("Noto Serif SC"), local("Songti SC"), local("STSong"); font-display: swap; }
+    body { margin: 0; font-family: "Shaanxi Serif", "Noto Serif SC", "Songti SC", "STSong", serif; color: var(--ink); background: linear-gradient(180deg, var(--page-start) 0%, var(--bg) 28%, var(--page-end) 100%); line-height: 1.72; letter-spacing: 0.02em; }
+    a { color: inherit; text-decoration: none; transition: color 180ms ease, border-color 180ms ease, background 180ms ease, transform 180ms ease; }
+    a:hover { color: var(--accent); }
+    a:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
+    .media-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+    .hero-image,.image-panel { background: #d8c4ab; position: relative; overflow: hidden; }
+    .hero-image::after,.image-panel::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgba(15, 13, 11, 0.08), rgba(15, 13, 11, 0.26)); }
+    .hero-caption { z-index: 1; }
     .wrap { width: min(calc(100% - 48px), var(--max)); margin: 0 auto; }
     .topbar,.footer,.cta { display: flex; justify-content: space-between; gap: 24px; }
     .topbar { align-items: center; padding: 28px 0 20px; font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); }
@@ -47,8 +58,14 @@
     .timeline-row { padding: 16px 0; border-top: 1px solid var(--line); }
     .timeline-row:first-of-type { border-top: 0; padding-top: 0; }
     .cta { align-items: end; }
+    .topbar a,.footer a { border-bottom: 1px solid transparent; padding-bottom: 4px; }
+    .topbar a:hover,.footer a:hover { border-color: currentColor; color: var(--ink); }
     .cta a { display: inline-block; padding: 14px 22px; border: 1px solid var(--ink); font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; }
+    .cta a:hover { transform: translateY(-2px); background: var(--ink); border-color: var(--ink); color: var(--paper); }
     .footer { padding: 22px 0 46px; font-size: 13px; color: var(--muted); border-top: 1px solid var(--line); }
+    .hero-image,.image-panel { background: #d8c4ab; }
+    @media (prefers-reduced-motion: no-preference) { .hero > *, section { animation: riseIn 680ms ease both; } .hero-image { animation-delay: 120ms; } section:nth-of-type(2) { animation-delay: 80ms; } section:nth-of-type(3) { animation-delay: 140ms; } section:nth-of-type(4) { animation-delay: 200ms; } @keyframes riseIn { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } } }
+    @media (prefers-reduced-motion: reduce) { *,*::before,*::after { animation-duration: 1ms !important; scroll-behavior: auto !important; transition-duration: 1ms !important; } }
     @media (max-width: 980px) { .hero,.section-grid,.two-col,.three-col,.fact-row { grid-template-columns: 1fr; } .hero-image { min-height: 520px; } }
     @media (max-width: 760px) { .wrap { width: min(calc(100% - 28px), var(--max)); } .topbar,.cta,.footer { display: block; } .topbar div:last-child,.footer div:last-child { margin-top: 10px; } section { padding: 54px 0; } .hero { padding-bottom: 48px; } .hero-image { border-radius: 120px 0 0 0; } .panel,.tips,.timeline,.image-panel { margin-bottom: 18px; } }
   </style>
@@ -70,7 +87,7 @@
           <div>最佳状态<br><strong>阴天、雨后、清晨</strong></div>
         </div>
       </div>
-      <div class="hero-image"><div class="hero-caption"><strong>先从老街开始</strong><br>慢走回龙场，留意街巷转折、木楼立面和魏氏宅院的尺度，再去理解它为什么有强烈的边地叙事感。</div></div>
+      <div class="hero-image"><img class="media-img" src="https://images.unsplash.com/photo-1750384258378-6b20a19be445?auto=format&fit=crop&w=1400&q=80" srcset="https://images.unsplash.com/photo-1750384258378-6b20a19be445?auto=format&fit=crop&w=900&q=80 900w, https://images.unsplash.com/photo-1750384258378-6b20a19be445?auto=format&fit=crop&w=1400&q=80 1400w, https://images.unsplash.com/photo-1750384258378-6b20a19be445?auto=format&fit=crop&w=1800&q=80 1800w" sizes="(max-width: 980px) calc(100vw - 48px), 589px" width="1400" height="1800" alt="青木川边镇老街与山地环境" fetchpriority="high" decoding="async" /><div class="hero-caption"><strong>先从老街开始</strong><br>慢走回龙场，留意街巷转折、木楼立面和魏氏宅院的尺度，再去理解它为什么有强烈的边地叙事感。</div></div>
     </section>
     <section>
       <div class="section-grid">
@@ -79,7 +96,7 @@
           <h2 class="headline">如果漫川古镇偏安静克制，那青木川更像一篇有情节的旧时边城文章。</h2>
           <div class="bodycopy">这里的魅力来自边地位置、老街格局和人物故事的叠加。回龙场老街把小镇拉得很长，魏氏宅院又把民国时期的地方权力、建筑审美和生活想象带入现场。它适合慢慢走，也适合在行前做一点功课。</div>
           <div class="two-col">
-            <div class="image-panel"></div>
+            <div class="image-panel"><img class="media-img" src="https://images.unsplash.com/photo-1482192505345-5655af888cc4?auto=format&fit=crop&w=1400&q=80" srcset="https://images.unsplash.com/photo-1482192505345-5655af888cc4?auto=format&fit=crop&w=900&q=80 900w, https://images.unsplash.com/photo-1482192505345-5655af888cc4?auto=format&fit=crop&w=1400&q=80 1400w" sizes="(max-width: 980px) calc(100vw - 48px), 577px" width="1400" height="933" alt="古镇建筑与街巷细节" loading="lazy" decoding="async" /></div>
             <div class="panel">
               <h3 class="panel-title">行走重点</h3>
               <div class="panel-copy">不要只把青木川看成老街拍照点。建议把回龙场、魏氏宅院、辅仁中学、风雨桥和金溪河串起来，重点观察建筑细节与边镇生活之间的关系。</div>
@@ -121,7 +138,7 @@
           <h2 class="headline" style="margin-bottom:10px;">如果想换一种尺度，可以继续看波浪谷周边村落。</h2>
           <div class="bodycopy">青木川看的是边镇故事，波浪谷看的是地貌、崖居和高原光线。两个目的地适合给不同类型的深度旅行者做对照。</div>
         </div>
-        <a href="bolanggu.html">Next story</a>
+        <a href="bolanggu.html" aria-label="继续阅读波浪谷周边村落详情页">Next story</a>
       </div>
     </section>
     <footer class="footer"><div>隐陕西 · 青木川深读</div><div>Minimal, editorial, quiet luxury</div></footer>

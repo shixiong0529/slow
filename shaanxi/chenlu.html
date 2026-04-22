@@ -1,14 +1,22 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>陈炉古镇 | 隐陕西</title>
   <style>
-    :root { --bg:#f4efe7; --paper:#fbf8f3; --ink:#1c1a18; --muted:#6f695f; --line:rgba(28,26,24,.12); --accent:#8c6846; --shadow:0 28px 64px rgba(34,29,24,.08); --max:1220px; }
+    :root { --bg:#f4efe7; --paper:#fbf8f3; --ink:#1c1a18; --muted:#6f695f; --line:rgba(28,26,24,.12); --accent:#8c6846; --shadow:0 28px 64px rgba(34,29,24,.08); --page-start:#ece4d8; --page-end:#f7f4ee; --max:1220px; color-scheme:light dark; }
+    @media (prefers-color-scheme: dark) { :root { --bg:#171512; --paper:#221f1b; --ink:#f3eee7; --muted:#b7aa9b; --line:rgba(243,238,231,.15); --accent:#d2a16f; --shadow:0 28px 64px rgba(0,0,0,.32); --page-start:#211d19; --page-end:#14120f; } }
     * { box-sizing:border-box; }
-    body { margin:0; font-family:"Noto Serif SC","Songti SC","STSong",serif; color:var(--ink); background:linear-gradient(180deg,#ece4d8 0%,var(--bg) 24%,#f7f4ee 100%); line-height:1.7; letter-spacing:.02em; }
-    a { color:inherit; text-decoration:none; }
+    @font-face { font-family:"Shaanxi Serif"; src:local("Noto Serif SC"), local("Songti SC"), local("STSong"); font-display:swap; }
+    body { margin:0; font-family:"Shaanxi Serif","Noto Serif SC","Songti SC","STSong",serif; color:var(--ink); background:linear-gradient(180deg,var(--page-start) 0%,var(--bg) 24%,var(--page-end) 100%); line-height:1.7; letter-spacing:.02em; }
+    a { color:inherit; text-decoration:none; transition:color 180ms ease,border-color 180ms ease,background 180ms ease,transform 180ms ease; }
+    a:hover { color:var(--accent); }
+    a:focus-visible { outline:2px solid var(--accent); outline-offset:5px; }
+    .media-img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; }
+    .hero-image,.photo.main,.photo.small { background:#d8c4ab; position:relative; }
+    .hero-image::after,.photo.main::after,.photo.small::after { content:""; position:absolute; inset:0; pointer-events:none; background:linear-gradient(180deg,rgba(14,12,11,.08),rgba(14,12,11,.26)); }
+    .hero-caption { z-index:1; }
     .wrap { width:min(calc(100% - 48px),var(--max)); margin:0 auto; }
     .topbar,.footer,.cta { display:flex; justify-content:space-between; gap:24px; }
     .topbar { align-items:center; padding:28px 0 20px; font-size:12px; letter-spacing:.22em; text-transform:uppercase; color:var(--muted); }
@@ -40,8 +48,14 @@
     .itinerary-row { padding:16px 0; border-top:1px solid var(--line); }
     .itinerary-row:first-of-type { border-top:0; padding-top:0; }
     .cta { align-items:end; }
+    .topbar a,.footer a { border-bottom:1px solid transparent; padding-bottom:4px; }
+    .topbar a:hover,.footer a:hover { border-color:currentColor; color:var(--ink); }
     .cta a { display:inline-block; padding:14px 22px; border:1px solid var(--ink); font-size:12px; letter-spacing:.18em; text-transform:uppercase; }
+    .cta a:hover { transform:translateY(-2px); background:var(--ink); border-color:var(--ink); color:var(--paper); }
     .footer { padding:22px 0 46px; font-size:13px; color:var(--muted); border-top:1px solid var(--line); }
+    .hero-image,.photo.main,.photo.small { background:#d8c4ab; }
+    @media (prefers-reduced-motion:no-preference) { .hero > *, section { animation:riseIn 680ms ease both; } .hero-image { animation-delay:120ms; } section:nth-of-type(2) { animation-delay:80ms; } section:nth-of-type(3) { animation-delay:140ms; } section:nth-of-type(4) { animation-delay:200ms; } @keyframes riseIn { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:translateY(0); } } }
+    @media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation-duration:1ms !important; scroll-behavior:auto !important; transition-duration:1ms !important; } }
     @media (max-width:980px) { .hero,.section-grid,.gallery,.three-col,.fact-row { grid-template-columns:1fr; } .hero-image { min-height:520px; } }
     @media (max-width:760px) { .wrap { width:min(calc(100% - 28px),var(--max)); } .topbar,.cta,.footer { display:block; } .topbar div:last-child,.footer div:last-child { margin-top:10px; } section { padding:54px 0; } .hero { padding-bottom:48px; } .hero-image { border-radius:0 0 120px 0; } .photo.main,.photo.small,.note,.tips,.itinerary { margin-bottom:18px; } }
   </style>
@@ -63,7 +77,7 @@
           <div>最佳状态<br><strong>午后与傍晚</strong></div>
         </div>
       </div>
-      <div class="hero-image"><div class="hero-caption"><strong>先看材料</strong><br>这里的路、墙、院落和作坊都和陶瓷有关。把视线放低，瓷片和罐墙会比远景更能说明陈炉。</div></div>
+      <div class="hero-image"><img class="media-img" src="https://images.unsplash.com/photo-1524497440-4da55062cb4a?auto=format&fit=crop&w=1400&q=80" srcset="https://images.unsplash.com/photo-1524497440-4da55062cb4a?auto=format&fit=crop&w=900&q=80 900w, https://images.unsplash.com/photo-1524497440-4da55062cb4a?auto=format&fit=crop&w=1400&q=80 1400w, https://images.unsplash.com/photo-1524497440-4da55062cb4a?auto=format&fit=crop&w=1800&q=80 1800w" sizes="(max-width:980px) calc(100vw - 48px), 602px" width="1400" height="1800" alt="陈炉古镇山城与陶瓷材料肌理" fetchpriority="high" decoding="async" /><div class="hero-caption"><strong>先看材料</strong><br>这里的路、墙、院落和作坊都和陶瓷有关。把视线放低，瓷片和罐墙会比远景更能说明陈炉。</div></div>
     </section>
     <section>
       <div class="section-grid">
@@ -72,9 +86,9 @@
           <h2 class="headline">它不是被复古装饰出来的古镇，而是由制瓷工艺长期堆叠出来的地方。</h2>
           <div class="bodycopy">陈炉的深度在于“活着的手艺”：陶土、窑炉、作坊、民居和道路彼此嵌套。对于深度旅行者来说，最有价值的不是买一件纪念品，而是理解一门手艺如何改变一座山城的空间结构。</div>
           <div class="gallery">
-            <div class="photo main"></div>
+            <div class="photo main"><img class="media-img" src="https://images.unsplash.com/photo-1524497440-4da55062cb4a?auto=format&fit=crop&w=1400&q=80" srcset="https://images.unsplash.com/photo-1524497440-4da55062cb4a?auto=format&fit=crop&w=900&q=80 900w, https://images.unsplash.com/photo-1524497440-4da55062cb4a?auto=format&fit=crop&w=1400&q=80 1400w" sizes="(max-width:980px) calc(100vw - 48px), 690px" width="1400" height="933" alt="陶瓷手作与器物空间" loading="lazy" decoding="async" /></div>
             <div class="stack">
-              <div class="photo small"></div>
+              <div class="photo small"><img class="media-img" src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=80" srcset="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=700&q=80 700w, https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=80 1200w" sizes="(max-width:980px) calc(100vw - 48px), 458px" width="1200" height="800" alt="手作空间与桌面细节" loading="lazy" decoding="async" /></div>
               <div class="note"><h3 class="note-title">行走重点</h3><div class="note-copy">看罐罐垒墙、瓷片铺路、作坊门面、旧窑场和山坡院落。若进入陶坊，留意拉坯、晾坯、施釉和烧成之间的工序关系。</div></div>
             </div>
           </div>
@@ -114,7 +128,7 @@
           <h2 class="headline" style="margin-bottom:10px;">如果继续看旧交通与峡谷，可以去灵官峡旧道。</h2>
           <div class="bodycopy">陈炉把火与土留在山城里，灵官峡则把铁路、隧道和峡谷放在同一条时间线上。</div>
         </div>
-        <a href="lingguanxia.html">Next story</a>
+        <a href="lingguanxia.html" aria-label="继续阅读灵官峡旧道详情页">Next story</a>
       </div>
     </section>
     <footer class="footer"><div>隐陕西 · 陈炉古镇深读</div><div>Minimal, editorial, quiet luxury</div></footer>

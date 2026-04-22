@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
@@ -13,11 +13,22 @@
       --line: rgba(29, 25, 22, 0.12);
       --accent: #986b48;
       --shadow: 0 28px 64px rgba(34, 29, 24, 0.08);
+      --page-start: #ebe2d6;
+      --page-end: #f8f4ee;
       --max: 1220px;
+      color-scheme: light dark;
     }
+    @media (prefers-color-scheme: dark) { :root { --bg:#171512; --paper:#221f1b; --ink:#f3eee7; --muted:#b7aa9b; --line:rgba(243,238,231,.15); --accent:#d2a16f; --shadow:0 28px 64px rgba(0,0,0,.32); --page-start:#211d19; --page-end:#14120f; } }
     * { box-sizing: border-box; }
-    body { margin: 0; font-family: "Noto Serif SC", "Songti SC", "STSong", serif; color: var(--ink); background: linear-gradient(180deg, #ebe2d6 0%, var(--bg) 26%, #f8f4ee 100%); line-height: 1.72; letter-spacing: 0.02em; }
-    a { color: inherit; text-decoration: none; }
+    @font-face { font-family: "Shaanxi Serif"; src: local("Noto Serif SC"), local("Songti SC"), local("STSong"); font-display: swap; }
+    body { margin: 0; font-family: "Shaanxi Serif", "Noto Serif SC", "Songti SC", "STSong", serif; color: var(--ink); background: linear-gradient(180deg, var(--page-start) 0%, var(--bg) 26%, var(--page-end) 100%); line-height: 1.72; letter-spacing: 0.02em; }
+    a { color: inherit; text-decoration: none; transition: color 180ms ease, border-color 180ms ease, background 180ms ease, transform 180ms ease; }
+    a:hover { color: var(--accent); }
+    a:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
+    .media-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+    .hero-image,.image-main,.image-small { background: #d8c4ab; position: relative; overflow: hidden; }
+    .hero-image::after,.image-main::after,.image-small::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgba(18, 14, 11, 0.08), rgba(18, 14, 11, 0.26)); }
+    .hero-caption { z-index: 1; }
     .wrap { width: min(calc(100% - 48px), var(--max)); margin: 0 auto; }
     .topbar,.footer,.cta { display: flex; justify-content: space-between; gap: 24px; }
     .topbar { align-items: center; padding: 28px 0 20px; font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); }
@@ -48,8 +59,14 @@
     .timeline-row { padding: 16px 0; border-top: 1px solid var(--line); }
     .timeline-row:first-of-type { border-top: 0; padding-top: 0; }
     .cta { align-items: end; }
+    .topbar a,.footer a { border-bottom: 1px solid transparent; padding-bottom: 4px; }
+    .topbar a:hover,.footer a:hover { border-color: currentColor; color: var(--ink); }
     .cta a { display: inline-block; padding: 14px 22px; border: 1px solid var(--ink); font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; }
+    .cta a:hover { transform: translateY(-2px); background: var(--ink); border-color: var(--ink); color: var(--paper); }
     .footer { padding: 22px 0 46px; font-size: 13px; color: var(--muted); border-top: 1px solid var(--line); }
+    .hero-image,.image-main,.image-small { background: #d8c4ab; }
+    @media (prefers-reduced-motion: no-preference) { .hero > *, section { animation: riseIn 680ms ease both; } .hero-image { animation-delay: 120ms; } section:nth-of-type(2) { animation-delay: 80ms; } section:nth-of-type(3) { animation-delay: 140ms; } section:nth-of-type(4) { animation-delay: 200ms; } @keyframes riseIn { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } } }
+    @media (prefers-reduced-motion: reduce) { *,*::before,*::after { animation-duration: 1ms !important; scroll-behavior: auto !important; transition-duration: 1ms !important; } }
     @media (max-width: 980px) { .hero,.section-grid,.gallery,.three-col,.fact-row { grid-template-columns: 1fr; } .hero-image { min-height: 520px; } }
     @media (max-width: 760px) { .wrap { width: min(calc(100% - 28px), var(--max)); } .topbar,.cta,.footer { display: block; } .topbar div:last-child,.footer div:last-child { margin-top: 10px; } section { padding: 54px 0; } .hero { padding-bottom: 48px; } .hero-image { border-radius: 0 120px 0 0; } .panel,.tips,.timeline,.image-main,.image-small { margin-bottom: 18px; } }
   </style>
@@ -71,7 +88,7 @@
           <div>最佳状态<br><strong>日出前后与傍晚</strong></div>
         </div>
       </div>
-      <div class="hero-image"><div class="hero-caption"><strong>不要只看岩壁</strong><br>把丹霞纹理、崖居窑洞、村落边界和日出日落放在一起看，波浪谷才会从“机位”变成一片高原景观。</div></div>
+      <div class="hero-image"><img class="media-img" src="https://images.unsplash.com/photo-1472396961693-142e6e269027?auto=format&fit=crop&w=1400&q=80" srcset="https://images.unsplash.com/photo-1472396961693-142e6e269027?auto=format&fit=crop&w=900&q=80 900w, https://images.unsplash.com/photo-1472396961693-142e6e269027?auto=format&fit=crop&w=1400&q=80 1400w, https://images.unsplash.com/photo-1472396961693-142e6e269027?auto=format&fit=crop&w=1800&q=80 1800w" sizes="(max-width: 980px) calc(100vw - 48px), 620px" width="1400" height="1800" alt="陕北高原村落与山地风景" fetchpriority="high" decoding="async" /><div class="hero-caption"><strong>不要只看岩壁</strong><br>把丹霞纹理、崖居窑洞、村落边界和日出日落放在一起看，波浪谷才会从“机位”变成一片高原景观。</div></div>
     </section>
     <section>
       <div class="section-grid">
@@ -80,9 +97,9 @@
           <h2 class="headline">把视角从单一机位移开，才会发现这里真正适合做一整组地貌观察。</h2>
           <div class="bodycopy">靖边波浪谷以波浪状红砂岩纹理和沟谷型丹霞著称，但深度旅行者更值得关注的是它和陕北崖居、窑洞村落之间的关系。地貌不是背景，村落也不是附属，它们共同解释了这片高原如何被自然和人长期塑造。</div>
           <div class="gallery">
-            <div class="image-main"></div>
+            <div class="image-main"><img class="media-img" src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1400&q=80" srcset="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=900&q=80 900w, https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1400&q=80 1400w" sizes="(max-width: 980px) calc(100vw - 48px), 458px" width="1400" height="933" alt="红砂岩地貌与沟谷切面" loading="lazy" decoding="async" /></div>
             <div>
-              <div class="image-small"></div>
+              <div class="image-small"><img class="media-img" src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80" srcset="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=700&q=80 700w, https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80 1200w" sizes="(max-width: 980px) calc(100vw - 48px), 560px" width="1200" height="800" alt="高原山野与天光层次" loading="lazy" decoding="async" /></div>
               <div class="panel" style="margin-top:20px;">
                 <h3 class="panel-title">行走重点</h3>
                 <div class="panel-copy">先看岩层纹理和峡谷切面，再看崖壁上的人工痕迹。闫家寨一带的崖居与丹霞赤壁相互嵌入，是这里区别于普通丹霞景区的关键。</div>
@@ -125,7 +142,7 @@
           <h2 class="headline" style="margin-bottom:10px;">这是一页给地貌、摄影和陕北生活观察者的目的地笔记。</h2>
           <div class="bodycopy">如果只安排一个机位，它会显得很短；如果把丹霞、崖居、村落和光线连起来，它就足够支撑一次完整的高原慢行。</div>
         </div>
-        <a href="index.html">返回首页</a>
+        <a href="index.html" aria-label="返回隐陕西首页">返回首页</a>
       </div>
     </section>
     <footer class="footer"><div>隐陕西 · 波浪谷周边村落深读</div><div>Minimal, editorial, quiet luxury</div></footer>
