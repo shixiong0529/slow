@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>波浪谷周边村落 | 隐陕西</title>
+  <style>
+    :root {
+      --bg: #f3eee8;
+      --paper: #fbf8f4;
+      --ink: #1d1916;
+      --muted: #6f665c;
+      --line: rgba(29, 25, 22, 0.12);
+      --accent: #986b48;
+      --shadow: 0 28px 64px rgba(34, 29, 24, 0.08);
+      --max: 1220px;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: "Noto Serif SC", "Songti SC", "STSong", serif; color: var(--ink); background: linear-gradient(180deg, #ebe2d6 0%, var(--bg) 26%, #f8f4ee 100%); line-height: 1.72; letter-spacing: 0.02em; }
+    a { color: inherit; text-decoration: none; }
+    .wrap { width: min(calc(100% - 48px), var(--max)); margin: 0 auto; }
+    .topbar,.footer,.cta { display: flex; justify-content: space-between; gap: 24px; }
+    .topbar { align-items: center; padding: 28px 0 20px; font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); }
+    .topbar strong { color: var(--ink); font-size: 15px; letter-spacing: 0.12em; }
+    .hero { display: grid; grid-template-columns: 0.92fr 1.08fr; gap: 42px; align-items: end; padding: 16px 0 74px; }
+    .meta-line,.label,.mini-label { font-size: 12px; text-transform: uppercase; letter-spacing: 0.24em; color: var(--accent); }
+    .meta-line { margin-bottom: 20px; }
+    h1 { margin: 0; font-size: clamp(42px, 7vw, 82px); font-weight: 500; line-height: 1.08; letter-spacing: 0.04em; }
+    .intro,.bodycopy { color: rgba(29,25,22,0.76); }
+    .intro { max-width: 540px; margin-top: 24px; font-size: 18px; }
+    .fact-row,.three-col,.gallery { display: grid; gap: 20px; }
+    .fact-row { grid-template-columns: repeat(3, 1fr); margin-top: 36px; padding-top: 20px; border-top: 1px solid var(--line); font-size: 14px; color: var(--muted); }
+    .hero-image { min-height: 720px; position: relative; overflow: hidden; background: linear-gradient(180deg, rgba(18, 14, 11, 0.12), rgba(18, 14, 11, 0.36)), url('https://images.unsplash.com/photo-1472396961693-142e6e269027?auto=format&fit=crop&w=1400&q=80') center/cover; box-shadow: var(--shadow); border-radius: 0 180px 0 0; }
+    .hero-caption { position: absolute; left: 28px; bottom: 28px; width: min(360px, calc(100% - 56px)); background: rgba(251, 248, 244, 0.86); backdrop-filter: blur(10px); padding: 18px 20px; font-size: 14px; color: rgba(29,25,22,0.78); }
+    section { padding: 76px 0; border-top: 1px solid var(--line); }
+    .section-grid { display: grid; grid-template-columns: 220px 1fr; gap: 36px; }
+    .label { color: var(--muted); padding-top: 6px; }
+    .headline { font-size: clamp(28px, 4vw, 46px); line-height: 1.2; margin: 0 0 18px; font-weight: 500; }
+    .bodycopy { max-width: 760px; font-size: 17px; }
+    .gallery { grid-template-columns: 0.9fr 1.1fr; margin-top: 34px; }
+    .panel,.image-main,.image-small,.tips,.timeline { background: rgba(251,248,244,0.8); border: 1px solid rgba(29,25,22,0.08); overflow: hidden; }
+    .image-main { min-height: 520px; background: linear-gradient(180deg, rgba(18, 14, 11, 0.08), rgba(18, 14, 11, 0.2)), url('https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1400&q=80') center/cover; }
+    .image-small { min-height: 240px; background: linear-gradient(180deg, rgba(18, 14, 11, 0.08), rgba(18, 14, 11, 0.2)), url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80') center/cover; }
+    .panel,.tips,.timeline { padding: 26px; }
+    .panel-title,.mini-title { font-size: 24px; margin: 0 0 12px; font-weight: 500; }
+    .panel-copy,.mini-copy { font-size: 15px; color: rgba(29,25,22,0.74); }
+    .three-col { grid-template-columns: repeat(3, 1fr); margin-top: 30px; }
+    .timeline-row { padding: 16px 0; border-top: 1px solid var(--line); }
+    .timeline-row:first-of-type { border-top: 0; padding-top: 0; }
+    .cta { align-items: end; }
+    .cta a { display: inline-block; padding: 14px 22px; border: 1px solid var(--ink); font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; }
+    .footer { padding: 22px 0 46px; font-size: 13px; color: var(--muted); border-top: 1px solid var(--line); }
+    @media (max-width: 980px) { .hero,.section-grid,.gallery,.three-col,.fact-row { grid-template-columns: 1fr; } .hero-image { min-height: 520px; } }
+    @media (max-width: 760px) { .wrap { width: min(calc(100% - 28px), var(--max)); } .topbar,.cta,.footer { display: block; } .topbar div:last-child,.footer div:last-child { margin-top: 10px; } section { padding: 54px 0; } .hero { padding-bottom: 48px; } .hero-image { border-radius: 0 120px 0 0; } .panel,.tips,.timeline,.image-main,.image-small { margin-bottom: 18px; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="topbar">
+      <div><strong>隐陕西</strong> · Destination story</div>
+      <div><a href="index.html">返回首页</a></div>
+    </header>
+    <section class="hero" style="border-top:none;">
+      <div>
+        <div class="meta-line">Yulin · Villages around Bolang Valley</div>
+        <h1>波浪谷周边村落，<br>真正值得看的不只是红色岩壁。</h1>
+        <p class="intro">如果只把波浪谷理解成红色岩壁和拍照机位，就会错过它更耐看的部分。龙洲丹霞、闫家寨崖居、周边村落和高原天光，才共同组成这里的场域感。</p>
+        <div class="fact-row">
+          <div>关键词<br><strong>地貌 / 村落 / 高原光线</strong></div>
+          <div>推荐停留<br><strong>1.5 - 2 天</strong></div>
+          <div>最佳状态<br><strong>日出前后与傍晚</strong></div>
+        </div>
+      </div>
+      <div class="hero-image"><div class="hero-caption"><strong>不要只看岩壁</strong><br>把丹霞纹理、崖居窑洞、村落边界和日出日落放在一起看，波浪谷才会从“机位”变成一片高原景观。</div></div>
+    </section>
+    <section>
+      <div class="section-grid">
+        <div class="label">Landscape value</div>
+        <div>
+          <h2 class="headline">把视角从单一机位移开，才会发现这里真正适合做一整组地貌观察。</h2>
+          <div class="bodycopy">靖边波浪谷以波浪状红砂岩纹理和沟谷型丹霞著称，但深度旅行者更值得关注的是它和陕北崖居、窑洞村落之间的关系。地貌不是背景，村落也不是附属，它们共同解释了这片高原如何被自然和人长期塑造。</div>
+          <div class="gallery">
+            <div class="image-main"></div>
+            <div>
+              <div class="image-small"></div>
+              <div class="panel" style="margin-top:20px;">
+                <h3 class="panel-title">行走重点</h3>
+                <div class="panel-copy">先看岩层纹理和峡谷切面，再看崖壁上的人工痕迹。闫家寨一带的崖居与丹霞赤壁相互嵌入，是这里区别于普通丹霞景区的关键。</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section>
+      <div class="section-grid">
+        <div class="label">How to look</div>
+        <div>
+          <h2 class="headline">这里最好的旅行方式，是等待光线，也给村落留出观察时间。</h2>
+          <div class="three-col">
+            <div class="tips"><div class="mini-label">01 · Terrain</div><h3 class="mini-title">先看地貌</h3><div class="mini-copy">先理解岩层、线条、巷谷和起伏关系，再去拍局部纹理。结构感比单张照片更重要。</div></div>
+            <div class="tips"><div class="mini-label">02 · Village</div><h3 class="mini-title">再看村落</h3><div class="mini-copy">村落与窑洞提供了人文比例尺，让景观不只是“壮观”，而是变得可被停留、可被理解。</div></div>
+            <div class="tips"><div class="mini-label">03 · Light</div><h3 class="mini-title">最后等光</h3><div class="mini-copy">黎明和傍晚会让红色砂岩出现更柔和的层次，也能把高原的空旷感拉出来。</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section>
+      <div class="section-grid">
+        <div class="label">Sample timeline</div>
+        <div>
+          <h2 class="headline">适合把时间留给清晨和黄昏，中间则用于进入周边村落与高原腹地。</h2>
+          <div class="timeline">
+            <div class="timeline-row"><div class="mini-label">Sunrise</div><div class="mini-copy">清晨先看岩层与地貌，低角度光线能带出纹理，也最适合成为页面开头的大视觉。</div></div>
+            <div class="timeline-row"><div class="mini-label">Midday</div><div class="mini-copy">中段进入周边村落，观察窑洞、院落和地形关系，让旅行从“看景”转向“理解地方”。</div></div>
+            <div class="timeline-row"><div class="mini-label">Sunset</div><div class="mini-copy">傍晚重新回到制高点或视野开阔处，等待天色变化，这通常会成为整次旅程的记忆高点。</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section>
+      <div class="cta">
+        <div>
+          <div class="meta-line">Return</div>
+          <h2 class="headline" style="margin-bottom:10px;">这是一页给地貌、摄影和陕北生活观察者的目的地笔记。</h2>
+          <div class="bodycopy">如果只安排一个机位，它会显得很短；如果把丹霞、崖居、村落和光线连起来，它就足够支撑一次完整的高原慢行。</div>
+        </div>
+        <a href="index.html">返回首页</a>
+      </div>
+    </section>
+    <footer class="footer"><div>隐陕西 · 波浪谷周边村落深读</div><div>Minimal, editorial, quiet luxury</div></footer>
+  </div>
+</body>
+</html>

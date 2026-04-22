@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>灵官峡旧道 | 隐陕西</title>
+  <style>
+    :root { --bg:#f2eee7; --paper:#fbf8f3; --ink:#1d1a17; --muted:#6e675f; --line:rgba(29,26,23,.12); --accent:#7f6145; --shadow:0 28px 64px rgba(34,29,24,.08); --max:1220px; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:"Noto Serif SC","Songti SC","STSong",serif; color:var(--ink); background:linear-gradient(180deg,#ece6dd 0%,var(--bg) 28%,#f8f4ee 100%); line-height:1.72; letter-spacing:.02em; }
+    a { color:inherit; text-decoration:none; }
+    .wrap { width:min(calc(100% - 48px),var(--max)); margin:0 auto; }
+    .topbar,.footer,.cta { display:flex; justify-content:space-between; gap:24px; }
+    .topbar { align-items:center; padding:28px 0 20px; font-size:12px; letter-spacing:.22em; text-transform:uppercase; color:var(--muted); }
+    .topbar strong { color:var(--ink); font-size:15px; letter-spacing:.12em; }
+    .hero { display:grid; grid-template-columns:1fr 1fr; gap:42px; align-items:end; padding:16px 0 74px; }
+    .meta-line,.label,.mini-label { font-size:12px; text-transform:uppercase; letter-spacing:.24em; color:var(--accent); }
+    .meta-line { margin-bottom:20px; }
+    h1 { margin:0; font-size:clamp(42px,7vw,82px); font-weight:500; line-height:1.08; letter-spacing:.04em; }
+    .intro,.bodycopy { color:rgba(29,26,23,.76); }
+    .intro { max-width:540px; margin-top:24px; font-size:18px; }
+    .fact-row,.two-col,.three-col { display:grid; gap:20px; }
+    .fact-row { grid-template-columns:repeat(3,1fr); margin-top:36px; padding-top:20px; border-top:1px solid var(--line); font-size:14px; color:var(--muted); }
+    .hero-image { min-height:720px; position:relative; overflow:hidden; background:linear-gradient(180deg,rgba(15,13,11,.14),rgba(15,13,11,.34)),url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1400&q=80') center/cover; box-shadow:var(--shadow); border-radius:180px 0 0 0; }
+    .hero-caption { position:absolute; right:28px; bottom:28px; width:min(360px,calc(100% - 56px)); background:rgba(251,248,243,.86); backdrop-filter:blur(10px); padding:18px 20px; font-size:14px; color:rgba(29,26,23,.78); }
+    section { padding:76px 0; border-top:1px solid var(--line); }
+    .section-grid { display:grid; grid-template-columns:220px 1fr; gap:36px; }
+    .label { color:var(--muted); padding-top:6px; }
+    .headline { font-size:clamp(28px,4vw,46px); line-height:1.2; margin:0 0 18px; font-weight:500; }
+    .bodycopy { max-width:760px; font-size:17px; }
+    .two-col { grid-template-columns:1.1fr .9fr; margin-top:34px; }
+    .panel,.image-panel,.tips,.timeline { background:rgba(251,248,243,.8); border:1px solid rgba(29,26,23,.08); }
+    .image-panel { min-height:520px; background:linear-gradient(180deg,rgba(15,13,11,.08),rgba(15,13,11,.22)),url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1400&q=80') center/cover; }
+    .panel,.tips,.timeline { padding:26px; }
+    .panel-title,.mini-title { font-size:24px; margin:0 0 12px; font-weight:500; }
+    .panel-copy,.mini-copy { font-size:15px; color:rgba(29,26,23,.74); }
+    .three-col { grid-template-columns:repeat(3,1fr); margin-top:30px; }
+    .timeline-row { padding:16px 0; border-top:1px solid var(--line); }
+    .timeline-row:first-of-type { border-top:0; padding-top:0; }
+    .cta { align-items:end; }
+    .cta a { display:inline-block; padding:14px 22px; border:1px solid var(--ink); font-size:12px; letter-spacing:.18em; text-transform:uppercase; }
+    .footer { padding:22px 0 46px; font-size:13px; color:var(--muted); border-top:1px solid var(--line); }
+    @media (max-width:980px) { .hero,.section-grid,.two-col,.three-col,.fact-row { grid-template-columns:1fr; } .hero-image { min-height:520px; } }
+    @media (max-width:760px) { .wrap { width:min(calc(100% - 28px),var(--max)); } .topbar,.cta,.footer { display:block; } .topbar div:last-child,.footer div:last-child { margin-top:10px; } section { padding:54px 0; } .hero { padding-bottom:48px; } .hero-image { border-radius:120px 0 0 0; } .panel,.tips,.timeline,.image-panel { margin-bottom:18px; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="topbar">
+      <div><strong>隐陕西</strong> · Destination story</div>
+      <div><a href="index.html">返回首页</a></div>
+    </header>
+    <section class="hero" style="border-top:none;">
+      <div>
+        <div class="meta-line">Baoji · Lingguanxia old route</div>
+        <h1>灵官峡旧道，<br>峡谷里留下的铁路记忆。</h1>
+        <p class="intro">灵官峡位于宝鸡凤县一带，嘉陵江、秦岭峡谷、宝成铁路旧线和文学记忆叠在一起。它适合交通史爱好者，也适合愿意在旧隧道和栈道之间慢走的人。</p>
+        <div class="fact-row">
+          <div>关键词<br><strong>峡谷 / 宝成铁路 / 旧隧道</strong></div>
+          <div>推荐停留<br><strong>半天 - 1 天</strong></div>
+          <div>最佳状态<br><strong>秋色与阴天</strong></div>
+        </div>
+      </div>
+      <div class="hero-image"><div class="hero-caption"><strong>先看路线</strong><br>灵官峡不是单纯自然景区，最好把旧铁路、隧道、临江栈道和峡谷地形放在同一条步行线里理解。</div></div>
+    </section>
+    <section>
+      <div class="section-grid">
+        <div class="label">Railway value</div>
+        <div>
+          <h2 class="headline">这里的核心不是“峡谷好看”，而是交通工程如何穿过秦岭山水。</h2>
+          <div class="bodycopy">宝成铁路灵官峡段曾因洪灾和山体变化留下旧线与废弃隧道，后来被转化为铁路文化体验空间。深度旅行者可以把它看作一段立体的交通史：峡谷、江水、隧道、栈道和文学文本互相解释。</div>
+          <div class="two-col">
+            <div class="image-panel"></div>
+            <div class="panel">
+              <h3 class="panel-title">行走重点</h3>
+              <div class="panel-copy">沿旧道慢走，留意隧道尺度、轨道痕迹、临江空间和山体切面。若乘坐小火车或进入体验馆，重点看它如何把工程记忆转译成可理解的公共空间。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section>
+      <div class="section-grid">
+        <div class="label">How to experience</div>
+        <div>
+          <h2 class="headline">灵官峡适合把自然、工业遗产和文学记忆一起看。</h2>
+          <div class="three-col">
+            <div class="tips"><div class="mini-label">01 · Gorge</div><h3 class="mini-title">先看峡谷</h3><div class="mini-copy">看山体、江水和道路如何挤在狭窄空间里，这是理解旧道的基础。</div></div>
+            <div class="tips"><div class="mini-label">02 · Rail</div><h3 class="mini-title">再看铁路</h3><div class="mini-copy">旧隧道、轨道和体验馆提供了工程比例尺，让风景有了更具体的历史重量。</div></div>
+            <div class="tips"><div class="mini-label">03 · Text</div><h3 class="mini-title">最后看文本</h3><div class="mini-copy">杜鹏程《夜走灵官峡》的文学记忆，让这里不只是一段路，也是一种时代叙事。</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section>
+      <div class="section-grid">
+        <div class="label">Sample timeline</div>
+        <div>
+          <h2 class="headline">它可以作为关中旧物线的收束，把旅行从器物带到交通史。</h2>
+          <div class="timeline">
+            <div class="timeline-row"><div class="mini-label">Arrival</div><div class="mini-copy">从凤县或宝鸡方向进入，先沿景区主线确认旧铁路、栈道和体验馆的位置关系。</div></div>
+            <div class="timeline-row"><div class="mini-label">Walk</div><div class="mini-copy">把步行时间留给峡谷和旧道，不急着赶项目。阴天或秋季更容易看出山体和轨道的层次。</div></div>
+            <div class="timeline-row"><div class="mini-label">Afterward</div><div class="mini-copy">离开前回看峡谷入口，理解这里为什么会成为交通、工程和文学记忆交汇的地方。</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section>
+      <div class="cta">
+        <div>
+          <div class="meta-line">Return</div>
+          <h2 class="headline" style="margin-bottom:10px;">六个目的地到这里形成完整闭环。</h2>
+          <div class="bodycopy">从陕南老街到边镇，从陕北地貌到关中旧物，这组页面已经能支撑一个完整的陕西深度旅行入口。</div>
+        </div>
+        <a href="index.html">返回首页</a>
+      </div>
+    </section>
+    <footer class="footer"><div>隐陕西 · 灵官峡旧道深读</div><div>Minimal, editorial, quiet luxury</div></footer>
+  </div>
+</body>
+</html>

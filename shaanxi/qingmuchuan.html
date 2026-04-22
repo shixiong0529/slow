@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>青木川 | 隐陕西</title>
+  <style>
+    :root {
+      --bg: #f2eee7;
+      --paper: #fbf8f3;
+      --ink: #1d1a17;
+      --muted: #6e675f;
+      --line: rgba(29, 26, 23, 0.12);
+      --accent: #7f6145;
+      --shadow: 0 28px 64px rgba(34, 29, 24, 0.08);
+      --max: 1220px;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: "Noto Serif SC", "Songti SC", "STSong", serif; color: var(--ink); background: linear-gradient(180deg, #ece6dd 0%, var(--bg) 28%, #f8f4ee 100%); line-height: 1.72; letter-spacing: 0.02em; }
+    a { color: inherit; text-decoration: none; }
+    .wrap { width: min(calc(100% - 48px), var(--max)); margin: 0 auto; }
+    .topbar,.footer,.cta { display: flex; justify-content: space-between; gap: 24px; }
+    .topbar { align-items: center; padding: 28px 0 20px; font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); }
+    .topbar strong { color: var(--ink); font-size: 15px; letter-spacing: 0.12em; }
+    .hero { display: grid; grid-template-columns: 1fr 1fr; gap: 42px; align-items: end; padding: 16px 0 74px; }
+    .meta-line,.label,.mini-label { font-size: 12px; text-transform: uppercase; letter-spacing: 0.24em; color: var(--accent); }
+    .meta-line { margin-bottom: 20px; }
+    h1 { margin: 0; font-size: clamp(42px, 7vw, 82px); font-weight: 500; line-height: 1.08; letter-spacing: 0.04em; }
+    .intro,.bodycopy { color: rgba(29,26,23,0.76); }
+    .intro { max-width: 540px; margin-top: 24px; font-size: 18px; }
+    .fact-row,.two-col,.three-col { display: grid; gap: 20px; }
+    .fact-row { grid-template-columns: repeat(3, 1fr); margin-top: 36px; padding-top: 20px; border-top: 1px solid var(--line); font-size: 14px; color: var(--muted); }
+    .hero-image { min-height: 720px; position: relative; overflow: hidden; background: linear-gradient(180deg, rgba(15, 13, 11, 0.14), rgba(15, 13, 11, 0.34)), url('https://images.unsplash.com/photo-1750384258378-6b20a19be445?auto=format&fit=crop&w=1400&q=80') center/cover; box-shadow: var(--shadow); border-radius: 180px 0 0 0; }
+    .hero-caption { position: absolute; right: 28px; bottom: 28px; width: min(360px, calc(100% - 56px)); background: rgba(251, 248, 243, 0.86); backdrop-filter: blur(10px); padding: 18px 20px; font-size: 14px; color: rgba(29,26,23,0.78); }
+    section { padding: 76px 0; border-top: 1px solid var(--line); }
+    .section-grid { display: grid; grid-template-columns: 220px 1fr; gap: 36px; }
+    .label { color: var(--muted); padding-top: 6px; }
+    .headline { font-size: clamp(28px, 4vw, 46px); line-height: 1.2; margin: 0 0 18px; font-weight: 500; }
+    .bodycopy { max-width: 760px; font-size: 17px; }
+    .two-col { grid-template-columns: 1.1fr 0.9fr; margin-top: 34px; }
+    .panel,.image-panel,.tips,.timeline { background: rgba(251,248,243,0.8); border: 1px solid rgba(29,26,23,0.08); }
+    .image-panel { min-height: 520px; background: linear-gradient(180deg, rgba(15, 13, 11, 0.08), rgba(15, 13, 11, 0.22)), url('https://images.unsplash.com/photo-1482192505345-5655af888cc4?auto=format&fit=crop&w=1400&q=80') center/cover; }
+    .panel,.tips,.timeline { padding: 26px; }
+    .panel-title,.mini-title { font-size: 24px; margin: 0 0 12px; font-weight: 500; }
+    .panel-copy,.mini-copy { font-size: 15px; color: rgba(29,26,23,0.74); }
+    .three-col { grid-template-columns: repeat(3, 1fr); margin-top: 30px; }
+    .timeline-row { padding: 16px 0; border-top: 1px solid var(--line); }
+    .timeline-row:first-of-type { border-top: 0; padding-top: 0; }
+    .cta { align-items: end; }
+    .cta a { display: inline-block; padding: 14px 22px; border: 1px solid var(--ink); font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; }
+    .footer { padding: 22px 0 46px; font-size: 13px; color: var(--muted); border-top: 1px solid var(--line); }
+    @media (max-width: 980px) { .hero,.section-grid,.two-col,.three-col,.fact-row { grid-template-columns: 1fr; } .hero-image { min-height: 520px; } }
+    @media (max-width: 760px) { .wrap { width: min(calc(100% - 28px), var(--max)); } .topbar,.cta,.footer { display: block; } .topbar div:last-child,.footer div:last-child { margin-top: 10px; } section { padding: 54px 0; } .hero { padding-bottom: 48px; } .hero-image { border-radius: 120px 0 0 0; } .panel,.tips,.timeline,.image-panel { margin-bottom: 18px; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="topbar">
+      <div><strong>隐陕西</strong> · Destination story</div>
+      <div><a href="index.html">返回首页</a></div>
+    </header>
+    <section class="hero" style="border-top:none;">
+      <div>
+        <div class="meta-line">Hanzhong · Qingmuchuan</div>
+        <h1>青木川，<br>一座带着边地叙事感的旧镇。</h1>
+        <p class="intro">青木川位于陕甘川交界处，回龙场老街、魏氏宅院和旧时边镇故事让它不只是“古镇”，更像一段可以步行进入的地方史。</p>
+        <div class="fact-row">
+          <div>关键词<br><strong>边镇 / 民国气质 / 老街</strong></div>
+          <div>推荐停留<br><strong>1 - 2 天</strong></div>
+          <div>最佳状态<br><strong>阴天、雨后、清晨</strong></div>
+        </div>
+      </div>
+      <div class="hero-image"><div class="hero-caption"><strong>先从老街开始</strong><br>慢走回龙场，留意街巷转折、木楼立面和魏氏宅院的尺度，再去理解它为什么有强烈的边地叙事感。</div></div>
+    </section>
+    <section>
+      <div class="section-grid">
+        <div class="label">Narrative value</div>
+        <div>
+          <h2 class="headline">如果漫川古镇偏安静克制，那青木川更像一篇有情节的旧时边城文章。</h2>
+          <div class="bodycopy">这里的魅力来自边地位置、老街格局和人物故事的叠加。回龙场老街把小镇拉得很长，魏氏宅院又把民国时期的地方权力、建筑审美和生活想象带入现场。它适合慢慢走，也适合在行前做一点功课。</div>
+          <div class="two-col">
+            <div class="image-panel"></div>
+            <div class="panel">
+              <h3 class="panel-title">行走重点</h3>
+              <div class="panel-copy">不要只把青木川看成老街拍照点。建议把回龙场、魏氏宅院、辅仁中学、风雨桥和金溪河串起来，重点观察建筑细节与边镇生活之间的关系。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section>
+      <div class="section-grid">
+        <div class="label">How to experience</div>
+        <div>
+          <h2 class="headline">去青木川，重点是走出边镇的层次，而不是追求“必须打卡完”。</h2>
+          <div class="three-col">
+            <div class="tips"><div class="mini-label">01 · Street</div><h3 class="mini-title">先看老街</h3><div class="mini-copy">先沿回龙场慢走，观察街道转折、牌匾细节和木楼立面，建立这座边镇的第一印象。</div></div>
+            <div class="tips"><div class="mini-label">02 · Texture</div><h3 class="mini-title">再看细节</h3><div class="mini-copy">关注门窗、屋檐、旧砖石、宅院入口和坡地关系，这些局部比大场景更能传递地方气质。</div></div>
+            <div class="tips"><div class="mini-label">03 · Rhythm</div><h3 class="mini-title">最后看节奏</h3><div class="mini-copy">不要把行程排满。傍晚或清晨再走一遍同一条街，才能看见游客散去后的空间完整性。</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section>
+      <div class="section-grid">
+        <div class="label">Sample timeline</div>
+        <div>
+          <h2 class="headline">适合做一晚停留，情绪高点通常出现在街上人流渐稀的时段。</h2>
+          <div class="timeline">
+            <div class="timeline-row"><div class="mini-label">Noon</div><div class="mini-copy">午后抵达，先把核心区域完整走一遍，建立方向感，不急于看完每个点。</div></div>
+            <div class="timeline-row"><div class="mini-label">Dusk</div><div class="mini-copy">傍晚重回主街，这时光线和氛围更适合摄影，也更容易拍出略带故事感的素材。</div></div>
+            <div class="timeline-row"><div class="mini-label">Morning</div><div class="mini-copy">次日清晨再看一轮街区，少人时更能感受到边镇空间的完整性和旧时气质。</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section>
+      <div class="cta">
+        <div>
+          <div class="meta-line">Next stop</div>
+          <h2 class="headline" style="margin-bottom:10px;">如果想换一种尺度，可以继续看波浪谷周边村落。</h2>
+          <div class="bodycopy">青木川看的是边镇故事，波浪谷看的是地貌、崖居和高原光线。两个目的地适合给不同类型的深度旅行者做对照。</div>
+        </div>
+        <a href="bolanggu.html">Next story</a>
+      </div>
+    </section>
+    <footer class="footer"><div>隐陕西 · 青木川深读</div><div>Minimal, editorial, quiet luxury</div></footer>
+  </div>
+</body>
+</html>

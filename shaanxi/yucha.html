@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>雨岔大峡谷 | 隐陕西</title>
+  <style>
+    :root { --bg:#f3eee8; --paper:#fbf8f4; --ink:#1d1916; --muted:#6f665c; --line:rgba(29,25,22,.12); --accent:#986b48; --shadow:0 28px 64px rgba(34,29,24,.08); --max:1220px; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:"Noto Serif SC","Songti SC","STSong",serif; color:var(--ink); background:linear-gradient(180deg,#ebe2d6 0%,var(--bg) 26%,#f8f4ee 100%); line-height:1.72; letter-spacing:.02em; }
+    a { color:inherit; text-decoration:none; }
+    .wrap { width:min(calc(100% - 48px),var(--max)); margin:0 auto; }
+    .topbar,.footer,.cta { display:flex; justify-content:space-between; gap:24px; }
+    .topbar { align-items:center; padding:28px 0 20px; font-size:12px; letter-spacing:.22em; text-transform:uppercase; color:var(--muted); }
+    .topbar strong { color:var(--ink); font-size:15px; letter-spacing:.12em; }
+    .hero { display:grid; grid-template-columns:.92fr 1.08fr; gap:42px; align-items:end; padding:16px 0 74px; }
+    .meta-line,.label,.mini-label { font-size:12px; text-transform:uppercase; letter-spacing:.24em; color:var(--accent); }
+    .meta-line { margin-bottom:20px; }
+    h1 { margin:0; font-size:clamp(42px,7vw,82px); font-weight:500; line-height:1.08; letter-spacing:.04em; }
+    .intro,.bodycopy { color:rgba(29,25,22,.76); }
+    .intro { max-width:540px; margin-top:24px; font-size:18px; }
+    .fact-row,.three-col,.gallery { display:grid; gap:20px; }
+    .fact-row { grid-template-columns:repeat(3,1fr); margin-top:36px; padding-top:20px; border-top:1px solid var(--line); font-size:14px; color:var(--muted); }
+    .hero-image { min-height:720px; position:relative; overflow:hidden; background:linear-gradient(180deg,rgba(18,14,11,.12),rgba(18,14,11,.36)),url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1400&q=80') center/cover; box-shadow:var(--shadow); border-radius:0 180px 0 0; }
+    .hero-caption { position:absolute; left:28px; bottom:28px; width:min(360px,calc(100% - 56px)); background:rgba(251,248,244,.86); backdrop-filter:blur(10px); padding:18px 20px; font-size:14px; color:rgba(29,25,22,.78); }
+    section { padding:76px 0; border-top:1px solid var(--line); }
+    .section-grid { display:grid; grid-template-columns:220px 1fr; gap:36px; }
+    .label { color:var(--muted); padding-top:6px; }
+    .headline { font-size:clamp(28px,4vw,46px); line-height:1.2; margin:0 0 18px; font-weight:500; }
+    .bodycopy { max-width:760px; font-size:17px; }
+    .gallery { grid-template-columns:1.1fr .9fr; margin-top:34px; }
+    .panel,.image-main,.image-small,.tips,.timeline { background:rgba(251,248,244,.8); border:1px solid rgba(29,25,22,.08); overflow:hidden; }
+    .image-main { min-height:520px; background:linear-gradient(180deg,rgba(18,14,11,.08),rgba(18,14,11,.2)),url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1400&q=80') center/cover; }
+    .image-small { min-height:240px; background:linear-gradient(180deg,rgba(18,14,11,.08),rgba(18,14,11,.2)),url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80') center/cover; }
+    .panel,.tips,.timeline { padding:26px; }
+    .panel-title,.mini-title { font-size:24px; margin:0 0 12px; font-weight:500; }
+    .panel-copy,.mini-copy { font-size:15px; color:rgba(29,25,22,.74); }
+    .three-col { grid-template-columns:repeat(3,1fr); margin-top:30px; }
+    .timeline-row { padding:16px 0; border-top:1px solid var(--line); }
+    .timeline-row:first-of-type { border-top:0; padding-top:0; }
+    .cta { align-items:end; }
+    .cta a { display:inline-block; padding:14px 22px; border:1px solid var(--ink); font-size:12px; letter-spacing:.18em; text-transform:uppercase; }
+    .footer { padding:22px 0 46px; font-size:13px; color:var(--muted); border-top:1px solid var(--line); }
+    @media (max-width:980px) { .hero,.section-grid,.gallery,.three-col,.fact-row { grid-template-columns:1fr; } .hero-image { min-height:520px; } }
+    @media (max-width:760px) { .wrap { width:min(calc(100% - 28px),var(--max)); } .topbar,.cta,.footer { display:block; } .topbar div:last-child,.footer div:last-child { margin-top:10px; } section { padding:54px 0; } .hero { padding-bottom:48px; } .hero-image { border-radius:0 120px 0 0; } .panel,.tips,.timeline,.image-main,.image-small { margin-bottom:18px; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="topbar">
+      <div><strong>隐陕西</strong> · Destination story</div>
+      <div><a href="index.html">返回首页</a></div>
+    </header>
+    <section class="hero" style="border-top:none;">
+      <div>
+        <div class="meta-line">Yan'an · Ganquan Yucha Canyon</div>
+        <h1>雨岔大峡谷，<br>在岩壁褶皱里看见时间。</h1>
+        <p class="intro">雨岔大峡谷位于延安甘泉一带，真正值得看的不是“像不像某个国外峡谷”，而是黄土高原上的砂岩、雨水和光线如何共同塑造出狭窄而流动的空间。</p>
+        <div class="fact-row">
+          <div>关键词<br><strong>砂岩 / 峡谷 / 光束</strong></div>
+          <div>推荐停留<br><strong>1 - 1.5 天</strong></div>
+          <div>最佳状态<br><strong>晴天正午前后</strong></div>
+        </div>
+      </div>
+      <div class="hero-image"><div class="hero-caption"><strong>先看天气</strong><br>峡谷的观感高度依赖光线和安全条件。雨后、积水或封闭时不要强行进入，把备选点和机动时间留出来。</div></div>
+    </section>
+    <section>
+      <div class="section-grid">
+        <div class="label">Geology value</div>
+        <div>
+          <h2 class="headline">这里适合地貌和摄影爱好者，但不适合用“快速打卡”的方式消耗掉。</h2>
+          <div class="bodycopy">雨岔大峡谷的魅力在于峡壁曲线、岩层纹理和光线角度的变化。深度旅行者最好把它当作一处需要等待的地貌空间：不同沟谷、不同时间段，看到的色温、反光和线条都不一样。</div>
+          <div class="gallery">
+            <div class="image-main"></div>
+            <div>
+              <div class="image-small"></div>
+              <div class="panel" style="margin-top:20px;">
+                <h3 class="panel-title">行走重点</h3>
+                <div class="panel-copy">不要只追求一张光束照片。留意脚下砂岩湿滑程度、峡壁的冲刷纹理、入口到峡底的尺度变化，以及导览人员对开放沟段的实时提示。</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section>
+      <div class="section-grid">
+        <div class="label">How to look</div>
+        <div>
+          <h2 class="headline">它最好的观看方式，是把光线、安全和节奏放在同等重要的位置。</h2>
+          <div class="three-col">
+            <div class="tips"><div class="mini-label">01 · Light</div><h3 class="mini-title">等光线</h3><div class="mini-copy">晴天中午前后更容易出现峡壁反射和明暗层次，但具体效果仍取决于开放沟段和当天云量。</div></div>
+            <div class="tips"><div class="mini-label">02 · Safety</div><h3 class="mini-title">看边界</h3><div class="mini-copy">峡谷狭窄，雨水、积泥和落石都会影响体验。不要离开开放路线，也不要为了照片冒险深入。</div></div>
+            <div class="tips"><div class="mini-label">03 · Texture</div><h3 class="mini-title">看纹理</h3><div class="mini-copy">把视线从大场景移到岩壁曲线、砂粒层理和水蚀痕迹，才会理解它的地貌价值。</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section>
+      <div class="section-grid">
+        <div class="label">Sample timeline</div>
+        <div>
+          <h2 class="headline">适合做成陕北地貌线的一站，和波浪谷形成一组“看地层”的旅行。</h2>
+          <div class="timeline">
+            <div class="timeline-row"><div class="mini-label">Morning</div><div class="mini-copy">从延安或甘泉出发，先确认景区开放沟段和天气。到达后不要急着下谷，先了解当天路线限制。</div></div>
+            <div class="timeline-row"><div class="mini-label">Midday</div><div class="mini-copy">把主要拍摄和观察放在光线进入峡谷的时段，重点看峡壁颜色、反光和空间收束感。</div></div>
+            <div class="timeline-row"><div class="mini-label">Afternoon</div><div class="mini-copy">下午可转入周边高原道路或返程延安，把峡谷体验和黄土高原的大尺度地貌做对照。</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section>
+      <div class="cta">
+        <div>
+          <div class="meta-line">Next stop</div>
+          <h2 class="headline" style="margin-bottom:10px;">如果想从地貌转向器物，可以继续看陈炉古镇。</h2>
+          <div class="bodycopy">雨岔看的是水与时间切出的纹理，陈炉看的是火与手艺留下的痕迹。两者都需要慢下来。</div>
+        </div>
+        <a href="chenlu.html">Next story</a>
+      </div>
+    </section>
+    <footer class="footer"><div>隐陕西 · 雨岔大峡谷深读</div><div>Minimal, editorial, quiet luxury</div></footer>
+  </div>
+</body>
+</html>

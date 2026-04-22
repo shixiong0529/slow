@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>漫川古镇 | 隐陕西</title>
+  <style>
+    :root {
+      --bg: #f4efe7;
+      --paper: #fbf8f3;
+      --ink: #1c1a18;
+      --muted: #6f695f;
+      --line: rgba(28, 26, 24, 0.12);
+      --accent: #8c6846;
+      --shadow: 0 28px 64px rgba(34, 29, 24, 0.08);
+      --max: 1220px;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: "Noto Serif SC", "Songti SC", "STSong", serif; color: var(--ink); background: linear-gradient(180deg, #ece4d8 0%, var(--bg) 24%, #f7f4ee 100%); line-height: 1.7; letter-spacing: 0.02em; }
+    a { color: inherit; text-decoration: none; }
+    .wrap { width: min(calc(100% - 48px), var(--max)); margin: 0 auto; }
+    .topbar,.footer,.cta { display: flex; justify-content: space-between; gap: 24px; }
+    .topbar { align-items: center; padding: 28px 0 20px; font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); }
+    .topbar strong { color: var(--ink); font-size: 15px; letter-spacing: 0.12em; }
+    .hero { display: grid; grid-template-columns: 0.95fr 1.05fr; gap: 42px; align-items: end; padding: 16px 0 74px; }
+    .meta-line,.label,.mini-label { font-size: 12px; text-transform: uppercase; letter-spacing: 0.24em; color: var(--accent); }
+    .meta-line { margin-bottom: 20px; }
+    h1 { margin: 0; font-size: clamp(42px, 7vw, 82px); font-weight: 500; line-height: 1.08; letter-spacing: 0.04em; }
+    .intro,.bodycopy { color: rgba(28,26,24,0.76); }
+    .intro { max-width: 520px; margin-top: 24px; font-size: 18px; }
+    .fact-row,.three-col { display: grid; gap: 20px; }
+    .fact-row { grid-template-columns: repeat(3, 1fr); margin-top: 36px; padding-top: 20px; border-top: 1px solid var(--line); font-size: 14px; color: var(--muted); }
+    .hero-image { min-height: 720px; position: relative; overflow: hidden; background: linear-gradient(180deg, rgba(14, 12, 11, 0.14), rgba(14, 12, 11, 0.34)), url('https://images.unsplash.com/photo-1745415333473-1b3687bbe848?auto=format&fit=crop&w=1400&q=80') center/cover; box-shadow: var(--shadow); border-radius: 0 0 220px 0; }
+    .hero-caption { position: absolute; left: 28px; bottom: 28px; width: min(360px, calc(100% - 56px)); background: rgba(251, 248, 243, 0.86); backdrop-filter: blur(10px); padding: 18px 20px; font-size: 14px; color: rgba(28,26,24,0.78); }
+    section { padding: 76px 0; border-top: 1px solid var(--line); }
+    .section-grid { display: grid; grid-template-columns: 220px 1fr; gap: 36px; }
+    .label { color: var(--muted); padding-top: 6px; }
+    .headline { font-size: clamp(28px, 4vw, 46px); line-height: 1.2; margin: 0 0 18px; font-weight: 500; }
+    .bodycopy { max-width: 760px; font-size: 17px; }
+    .gallery { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 24px; margin-top: 34px; }
+    .photo,.note,.tips,.itinerary { background: rgba(251,248,243,0.78); border: 1px solid rgba(28,26,24,0.08); overflow: hidden; }
+    .photo.main { min-height: 500px; background: linear-gradient(180deg, rgba(14, 12, 11, 0.08), rgba(14, 12, 11, 0.22)), url('https://images.unsplash.com/photo-1493246507139-91e8fad9978e?auto=format&fit=crop&w=1400&q=80') center/cover; }
+    .stack { display: grid; gap: 24px; }
+    .photo.small { min-height: 238px; background: linear-gradient(180deg, rgba(14, 12, 11, 0.06), rgba(14, 12, 11, 0.18)), url('https://images.unsplash.com/photo-1501555088652-021faa106b9b?auto=format&fit=crop&w=1200&q=80') center/cover; }
+    .note,.tips,.itinerary { padding: 24px 26px; }
+    .note-title,.mini-title { font-size: 24px; margin: 0 0 12px; font-weight: 500; }
+    .note-copy,.mini-copy { font-size: 15px; color: rgba(28,26,24,0.74); }
+    .three-col { grid-template-columns: repeat(3, 1fr); margin-top: 30px; }
+    .itinerary-row { padding: 16px 0; border-top: 1px solid var(--line); }
+    .itinerary-row:first-of-type { border-top: 0; padding-top: 0; }
+    .cta { align-items: end; }
+    .cta a { display: inline-block; padding: 14px 22px; border: 1px solid var(--ink); font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; }
+    .footer { padding: 22px 0 46px; font-size: 13px; color: var(--muted); border-top: 1px solid var(--line); }
+    @media (max-width: 980px) { .hero,.section-grid,.gallery,.three-col,.fact-row { grid-template-columns: 1fr; } .hero-image { min-height: 520px; } }
+    @media (max-width: 760px) { .wrap { width: min(calc(100% - 28px), var(--max)); } .topbar,.cta,.footer { display: block; } .topbar div:last-child,.footer div:last-child { margin-top: 10px; } section { padding: 54px 0; } .hero { padding-bottom: 48px; } .hero-image { border-radius: 0 0 120px 0; } .photo.main,.photo.small,.note,.tips,.itinerary { margin-bottom: 18px; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="topbar">
+      <div><strong>隐陕西</strong> · Destination story</div>
+      <div><a href="index.html">返回首页</a></div>
+    </header>
+    <section class="hero" style="border-top:none;">
+      <div>
+        <div class="meta-line">Shangluo · Manchuan old town</div>
+        <h1>漫川古镇，<br>适合被慢慢翻开的陕南旧页。</h1>
+        <p class="intro">漫川关曾是秦楚交界、商旅往来的要地。今天最值得看的不只是几处建筑，而是河道、老桥、会馆、戏楼和老街尺度共同留下的边地气息。</p>
+        <div class="fact-row">
+          <div>关键词<br><strong>古镇 / 河谷 / 会馆建筑</strong></div>
+          <div>推荐停留<br><strong>1.5 - 2 天</strong></div>
+          <div>最佳状态<br><strong>清晨薄雾与傍晚暖光</strong></div>
+        </div>
+      </div>
+      <div class="hero-image"><div class="hero-caption"><strong>先别急着打卡</strong><br>建议从水边进入古镇，沿老街、会馆、戏楼慢走一圈，再在傍晚回到河岸看光线落下来。</div></div>
+    </section>
+    <section>
+      <div class="section-grid">
+        <div class="label">Why it matters</div>
+        <div>
+          <h2 class="headline">它适合作为陕南深度旅行的第一站，因为这里能同时看到交通史、商贸史和边地生活。</h2>
+          <div class="bodycopy">漫川古镇不适合用“逛完几个点”来衡量。真正值得留意的是明清街巷的尺度、会馆和戏楼留下的商贸痕迹，以及山体与河道如何限制并塑造了小镇。慢下来之后，才会看见它为什么曾经能连接秦楚、汇聚南北商旅。</div>
+          <div class="gallery">
+            <div class="photo main"></div>
+            <div class="stack">
+              <div class="photo small"></div>
+              <div class="note"><h3 class="note-title">行走重点</h3><div class="note-copy">把会馆、戏楼、老街、水岸放在同一条步行线里看。不要只拍立面，试着观察门楼、屋檐、街宽和临水空间如何组成一座旧商镇。</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section>
+      <div class="section-grid">
+        <div class="label">Travel notes</div>
+        <div>
+          <h2 class="headline">信息不用堆满，深度旅行者更需要知道该把时间放在哪里。</h2>
+          <div class="three-col">
+            <div class="tips"><div class="mini-label">01 · Experience</div><h3 class="mini-title">看什么</h3><div class="mini-copy">重点不在单一景点，而在古街、会馆、戏楼、临水街面与山城关系。建议以步行为主，保留观察细节的节奏。</div></div>
+            <div class="tips"><div class="mini-label">02 · Timing</div><h3 class="mini-title">什么时候最好</h3><div class="mini-copy">春秋两季观感更稳。清晨适合看空街和水气，傍晚适合看木构、牌匾和河岸的层次。</div></div>
+            <div class="tips"><div class="mini-label">03 · Stay</div><h3 class="mini-title">怎么停留</h3><div class="mini-copy">建议住一晚，不赶路。让夜色、清晨和午后的不同光线，把同一条街巷变成三种体验。</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section>
+      <div class="section-grid">
+        <div class="label">Sample itinerary</div>
+        <div>
+          <h2 class="headline">行程可以很轻，但要给老街至少两次不同时间的观看机会。</h2>
+          <div class="itinerary">
+            <div class="itinerary-row"><div class="mini-label">Arrival</div><div class="mini-copy">中午到达后先入住，下午只安排主街与河岸散步，不做密集景点清单，给用户保留“慢”的心理预期。</div></div>
+            <div class="itinerary-row"><div class="mini-label">Evening walk</div><div class="mini-copy">傍晚是最适合表现空间气质的时段，暖光会让木构、牌匾与桥面层次更加温和，适合摄影与品牌视觉素材输出。</div></div>
+            <div class="itinerary-row"><div class="mini-label">Morning edit</div><div class="mini-copy">次日清晨回到水边与老街，再补一轮步行。详情页可以在这里放晨雾、早餐与街巷细节，增强生活感。</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section>
+      <div class="cta">
+        <div>
+          <div class="meta-line">Next stop</div>
+          <h2 class="headline" style="margin-bottom:10px;">如果喜欢边地老镇，可以继续看青木川。</h2>
+          <div class="bodycopy">漫川更像水岸商镇，青木川则带着陕甘川交界处的民国叙事。两页连起来看，会更容易理解陕西古镇的不同气质。</div>
+        </div>
+        <a href="qingmuchuan.html">Next story</a>
+      </div>
+    </section>
+    <footer class="footer"><div>隐陕西 · 漫川古镇深读</div><div>Minimal, editorial, quiet luxury</div></footer>
+  </div>
+</body>
+</html>
