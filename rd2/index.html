@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>荒野大镖客：救赎2 · 一场西部挽歌</title>
+  <style>
+    :root {
+      --bg:        #14100c;
+      --bg-card:   #1c1612;
+      --bg-card2:  #241c15;
+      --rust:      #c9622e;
+      --rust-dim:  #8a4220;
+      --paper:     #d9c79a;
+      --ember:     #9b3a1c;
+      --text:      #c8b89a;
+      --text-dim:  #8a7858;
+      --white:     #ede4d0;
+      --border:    rgba(201,98,46,0.18);
+      --font-body: 'Georgia', 'Noto Serif SC', serif;
+      --font-ui:   'Helvetica Neue', 'PingFang SC', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      line-height: 1.9;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ─── 顶部导航 ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 0 2rem;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(20,16,12,0.82);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-brand {
+      font-family: var(--font-ui);
+      font-size: 0.78rem;
+      letter-spacing: 0.22em;
+      color: var(--rust);
+      text-transform: uppercase;
+    }
+    .nav-links { display: flex; gap: 1.8rem; list-style: none; }
+    .nav-links a {
+      font-family: var(--font-ui);
+      font-size: 0.74rem;
+      letter-spacing: 0.14em;
+      color: var(--text-dim);
+      transition: color 0.3s;
+    }
+    .nav-links a:hover { color: var(--rust); }
+
+    /* ─── 英雄区 ─── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 6rem 2rem 4rem;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background-image: url('image/hero_lone_rider.jpg');
+      background-size: cover;
+      background-position: center 40%;
+      opacity: 0.44;
+      filter: saturate(0.78) contrast(1.06);
+    }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 70% 50% at 50% 60%, rgba(155,58,28,0.12) 0%, transparent 70%),
+        linear-gradient(to bottom, rgba(20,16,12,0.25) 0%, rgba(20,16,12,0.65) 55%, var(--bg) 100%);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 760px;
+    }
+    .hero-eyebrow {
+      font-family: var(--font-ui);
+      font-size: 0.7rem;
+      letter-spacing: 0.34em;
+      color: var(--rust);
+      text-transform: uppercase;
+      margin-bottom: 1.6rem;
+      opacity: 0;
+      animation: fade-up 1s ease 0.3s forwards;
+    }
+    .hero-title {
+      font-size: clamp(2.4rem, 6vw, 4.8rem);
+      font-weight: 400;
+      line-height: 1.18;
+      color: var(--white);
+      letter-spacing: 0.06em;
+      margin-bottom: 1rem;
+      opacity: 0;
+      animation: fade-up 1s ease 0.6s forwards;
+    }
+    .hero-title span { color: var(--rust); }
+    .hero-subtitle {
+      font-family: var(--font-ui);
+      font-size: 0.86rem;
+      letter-spacing: 0.18em;
+      color: var(--paper);
+      margin-bottom: 2.8rem;
+      opacity: 0;
+      animation: fade-up 1s ease 0.9s forwards;
+    }
+    .hero-lead {
+      font-size: 1.02rem;
+      color: var(--text-dim);
+      max-width: 560px;
+      margin: 0 auto;
+      line-height: 2.1;
+      opacity: 0;
+      animation: fade-up 1s ease 1.2s forwards;
+    }
+    .hero-scroll {
+      position: absolute;
+      bottom: 2.4rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      opacity: 0;
+      animation: fade-up 1s ease 2s forwards;
+    }
+    .hero-scroll span {
+      font-family: var(--font-ui);
+      font-size: 0.62rem;
+      letter-spacing: 0.3em;
+      color: var(--text-dim);
+      text-transform: uppercase;
+    }
+    .scroll-line {
+      width: 1px;
+      height: 48px;
+      background: linear-gradient(to bottom, var(--rust-dim), transparent);
+      animation: scroll-drop 2s ease-in-out infinite;
+    }
+    @keyframes scroll-drop {
+      0%   { transform: scaleY(0); transform-origin: top; }
+      50%  { transform: scaleY(1); transform-origin: top; }
+      51%  { transform: scaleY(1); transform-origin: bottom; }
+      100% { transform: scaleY(0); transform-origin: bottom; }
+    }
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── 金句区 ─── */
+    .quote-section {
+      padding: 4.5rem 2rem 5rem;
+      text-align: center;
+      position: relative;
+    }
+    .quote-section::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 1px;
+      height: 56px;
+      background: linear-gradient(to bottom, transparent, var(--border));
+    }
+    blockquote.main-quote {
+      max-width: 720px;
+      margin: 0 auto;
+      font-size: clamp(1.15rem, 2.4vw, 1.55rem);
+      color: var(--white);
+      line-height: 2;
+      font-style: italic;
+    }
+    blockquote.main-quote::before { content: '\201C'; color: var(--rust); font-size: 3rem; line-height: 0; vertical-align: -0.5rem; margin-right: 0.3rem; }
+    blockquote.main-quote::after  { content: '\201D'; color: var(--rust); font-size: 3rem; line-height: 0; vertical-align: -0.5rem; margin-left: 0.3rem; }
+    .quote-attr {
+      margin-top: 2rem;
+      font-family: var(--font-ui);
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      color: var(--text-dim);
+    }
+
+    /* ─── 章节入口 ─── */
+    .chapters {
+      padding: 3rem 2rem 5rem;
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+    .section-label {
+      font-family: var(--font-ui);
+      font-size: 0.65rem;
+      letter-spacing: 0.34em;
+      color: var(--rust);
+      text-transform: uppercase;
+      text-align: center;
+      margin-bottom: 2.6rem;
+    }
+    .chapter-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1.2rem;
+    }
+    .chapter-card {
+      display: block;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 2.2rem 1.4rem 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.4s ease, border-color 0.4s, background 0.4s;
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    .chapter-card.visible { opacity: 1; transform: translateY(0); transition: opacity 0.9s ease, transform 0.9s ease, border-color 0.4s, background 0.4s; }
+    .chapter-card::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 2px;
+      background: var(--rust-dim);
+      transition: background 0.4s, width 0.4s;
+    }
+    .chapter-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(201,98,46,0.4);
+      background: var(--bg-card2);
+    }
+    .chapter-card:hover::before { background: var(--rust); width: 3px; }
+    .chapter-num {
+      font-family: var(--font-ui);
+      font-size: 0.62rem;
+      letter-spacing: 0.3em;
+      color: var(--rust);
+      text-transform: uppercase;
+      margin-bottom: 1.4rem;
+    }
+    .chapter-title {
+      font-size: 1.05rem;
+      color: var(--white);
+      line-height: 1.5;
+      margin-bottom: 1rem;
+      letter-spacing: 0.04em;
+    }
+    .chapter-hint {
+      font-family: var(--font-ui);
+      font-size: 0.74rem;
+      color: var(--text-dim);
+      letter-spacing: 0.06em;
+      line-height: 1.7;
+    }
+
+    /* ─── 前言 ─── */
+    .prologue {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 4.5rem 2rem 1rem;
+      text-align: center;
+    }
+    .prologue-label {
+      font-family: var(--font-ui);
+      font-size: 0.66rem;
+      letter-spacing: 0.34em;
+      color: var(--rust);
+      text-transform: uppercase;
+      margin-bottom: 1.8rem;
+      display: flex; align-items: center; justify-content: center; gap: 1rem;
+    }
+    .prologue-label::before, .prologue-label::after {
+      content: ''; width: 30px; height: 1px; background: var(--rust-dim);
+    }
+    .prologue p {
+      font-size: clamp(1rem, 1.9vw, 1.15rem);
+      color: var(--text);
+      line-height: 2.2;
+      letter-spacing: 0.02em;
+    }
+    .prologue p + p { margin-top: 1.2rem; }
+
+    /* ─── 章节后小景 ─── */
+    .passage {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 3rem 2rem 0;
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+    .passage.visible { opacity: 1; transform: translateY(0); }
+    .passage-tag {
+      font-family: var(--font-ui);
+      font-size: 0.64rem;
+      letter-spacing: 0.32em;
+      color: var(--rust);
+      text-transform: uppercase;
+      display: flex; align-items: center; gap: 1rem;
+      margin-bottom: 1.2rem;
+    }
+    .passage-tag::before { content: ''; width: 26px; height: 1px; background: var(--rust-dim); }
+    .passage p {
+      font-size: 1.02rem;
+      color: var(--paper);
+      line-height: 2.1;
+      letter-spacing: 0.02em;
+      font-style: italic;
+    }
+    .passage p + p { margin-top: 1.2rem; }
+
+    /* ─── 尘土点状线 ─── */
+    .dust-divider {
+      text-align: center;
+      letter-spacing: 0.6em;
+      color: var(--rust-dim);
+      opacity: 0.5;
+      font-size: 0.8rem;
+      padding: 2.4rem 0 1.6rem;
+    }
+
+    /* ─── 挽歌结尾 ─── */
+    .elegy {
+      padding: 2rem 2rem 5.5rem;
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+    .elegy p {
+      font-size: clamp(1.05rem, 2vw, 1.25rem);
+      color: var(--paper);
+      line-height: 2.4;
+      font-style: italic;
+      letter-spacing: 0.04em;
+    }
+    .elegy p + p { margin-top: 0.4rem; }
+    .elegy-sign {
+      margin-top: 2rem;
+      font-family: var(--font-ui);
+      font-size: 0.66rem;
+      letter-spacing: 0.34em;
+      color: var(--rust);
+      text-transform: uppercase;
+    }
+
+    /* ─── 页脚 ─── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2.4rem 2rem;
+      text-align: center;
+    }
+    footer p {
+      font-family: var(--font-ui);
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      color: var(--text-dim);
+      line-height: 1.9;
+    }
+
+    /* ─── 响应式 ─── */
+    @media (max-width: 900px) {
+      .chapter-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .chapter-grid { grid-template-columns: 1fr; }
+      .chapters { padding: 2rem 1.3rem 3.5rem; }
+      .quote-section { padding: 3.5rem 1.6rem 4rem; }
+      .prologue { padding: 3.5rem 1.6rem 0.5rem; }
+      .passage { padding: 2.5rem 1.6rem 0; }
+      .elegy { padding: 1.5rem 1.6rem 4rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-brand">Red Dead Redemption II</span>
+  <ul class="nav-links">
+    <li><a href="story.html">故事</a></li>
+    <li><a href="characters.html">人物</a></li>
+    <li><a href="arthur.html">亚瑟之死</a></li>
+    <li><a href="art.html">艺术</a></li>
+    <li><a href="philosophy.html">哲学 · 体悟</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+
+  <div class="hero-content">
+    <p class="hero-eyebrow">Red Dead Redemption · II</p>
+    <h1 class="hero-title">
+      荒野大镖客<br/><span>救 赎 2</span>
+    </h1>
+    <p class="hero-subtitle">A WESTERN ELEGY · 1899</p>
+    <p class="hero-lead">
+      这不是一个关于牛仔如何纵横荒野的故事，<br/>
+      而是一个人，如何在生命尽头看清自己、偿还过去、选择善良的故事。
+    </p>
+  </div>
+
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<section class="prologue">
+  <p class="prologue-label">Prologue · 前言</p>
+  <p>1899 年的西部，铁轨已经穿过草原，电报线连起了大陆，新世界正在另一头长出来。</p>
+  <p>而在新世界的边缘，还有一群人不肯下马、不肯交枪、不肯承认时代已经翻了页。他们叫范德林德帮派——曾经是这片土地上的传奇，如今只是几个被通缉的名字。</p>
+  <p>这部游戏跟随其中一个叫亚瑟·摩根的人，走完他一生的最后一年。</p>
+</section>
+
+<section class="quote-section">
+  <blockquote class="main-quote">
+    所谓救赎，并不是洗掉过去；而是在无法重来的人生里，仍然努力做一次正确的人。
+  </blockquote>
+  <p class="quote-attr">— 一场西部挽歌</p>
+</section>
+
+<section class="chapters">
+  <p class="section-label">Chapters · 章节</p>
+  <div class="chapter-grid">
+    <a href="story.html" class="chapter-card">
+      <div class="chapter-num">I</div>
+      <div class="chapter-title">亡命之徒的最后逃亡</div>
+      <p class="chapter-hint">从黑水镇到比弗谷<br/>一群人退向自己的尽头</p>
+    </a>
+    <a href="characters.html" class="chapter-card">
+      <div class="chapter-num">II</div>
+      <div class="chapter-title">在落日里行走的人</div>
+      <p class="chapter-hint">六个名字，六种命运<br/>一座营火边的群像</p>
+    </a>
+    <a href="arthur.html" class="chapter-card">
+      <div class="chapter-num">III</div>
+      <div class="chapter-title">亚瑟·摩根之死</div>
+      <p class="chapter-hint">他不再是任何人的执行者<br/>他终于成为自己</p>
+    </a>
+    <a href="art.html" class="chapter-card">
+      <div class="chapter-num">IV</div>
+      <div class="chapter-title">可居住的艺术品</div>
+      <p class="chapter-hint">风、雨、马、黄昏与沉默<br/>都成了叙事的一部分</p>
+    </a>
+    <a href="philosophy.html" class="chapter-card">
+      <div class="chapter-num">V</div>
+      <div class="chapter-title">尘土落定之后</div>
+      <p class="chapter-hint">自由、忠诚、文明、救赎<br/>几个不太容易回答的问题</p>
+    </a>
+  </div>
+</section>
+
+<section class="passage">
+  <p class="passage-tag">An Elegy for a Dying Age</p>
+  <p>它不是一部讲述谁打败了谁的游戏。它讲的是，那种"自由"——不向任何人低头、不被任何制度收编——已经没有可以生长的土壤了。</p>
+  <p>新世界并不残忍，它只是不再需要旧世界的人。当世界完成它的转身，这群人就成了一段，没人愿意再翻译的旧语言。</p>
+</section>
+
+<div class="dust-divider">· · · · · · · · ·</div>
+
+<section class="elegy">
+  <p>它表面上讲的是一群亡命之徒，</p>
+  <p>在文明逼近时的逃亡；</p>
+  <p>真正讲的，却是一个人，</p>
+  <p>如何在旧世界崩塌前，</p>
+  <p>终于看清了自己的一生。</p>
+  <div class="elegy-sign">— An Elegy</div>
+</section>
+
+<footer>
+  <p>
+    Red Dead Redemption 2 &nbsp;·&nbsp; Rockstar Games &nbsp;·&nbsp; 2018<br/>
+    本站为非商业艺术赏析，所有游戏版权归原作者所有。
+  </p>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.18 });
+  document.querySelectorAll('.chapter-card, .passage').forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>

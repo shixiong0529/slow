@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>群像：在落日里行走的人 · 荒野大镖客：救赎2</title>
+  <style>
+    :root {
+      --bg:        #14100c;
+      --bg-card:   #1c1612;
+      --bg-card2:  #241c15;
+      --rust:      #c9622e;
+      --rust-dim:  #8a4220;
+      --paper:     #d9c79a;
+      --ember:     #9b3a1c;
+      --text:      #c8b89a;
+      --text-dim:  #8a7858;
+      --white:     #ede4d0;
+      --border:    rgba(201,98,46,0.18);
+      --font-body: 'Georgia', 'Noto Serif SC', serif;
+      --font-ui:   'Helvetica Neue', 'PingFang SC', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      line-height: 1.9;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 0 2rem; height: 56px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(20,16,12,0.82); backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-brand { font-family: var(--font-ui); font-size: 0.78rem; letter-spacing: 0.22em; color: var(--rust); text-transform: uppercase; }
+    .nav-links { display: flex; gap: 1.8rem; list-style: none; }
+    .nav-links a { font-family: var(--font-ui); font-size: 0.74rem; letter-spacing: 0.14em; color: var(--text-dim); transition: color 0.3s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--rust); }
+
+    /* 页面头 */
+    .page-header {
+      position: relative;
+      padding: 7.5rem 2rem 4rem;
+      text-align: center;
+      overflow: hidden;
+    }
+    .page-header-bg {
+      position: absolute; inset: 0;
+      background-image: url('image/characters_header.jpg');
+      background-size: cover; background-position: center 35%;
+      opacity: 0.5; filter: saturate(0.75) contrast(1.05);
+    }
+    .page-header-overlay {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 50% 40% at 50% 60%, rgba(155,58,28,0.12) 0%, transparent 70%),
+        linear-gradient(to bottom, rgba(20,16,12,0.55) 0%, var(--bg) 100%);
+    }
+    .page-header-content { position: relative; z-index: 2; }
+    .page-num { font-family: var(--font-ui); font-size: 0.66rem; letter-spacing: 0.32em; color: var(--rust); text-transform: uppercase; margin-bottom: 1.2rem; }
+    .page-title { font-size: clamp(1.9rem, 5vw, 3.4rem); font-weight: 400; color: var(--white); letter-spacing: 0.06em; margin-bottom: 1.4rem; }
+    .page-lead { font-size: 0.98rem; color: var(--text-dim); max-width: 520px; margin: 0 auto; line-height: 2; }
+
+    /* 主体 */
+    .content-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 3rem 2rem 5rem;
+    }
+
+    .char-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.6rem;
+    }
+
+    .char-card {
+      position: relative;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.9s ease, transform 0.9s ease, border-color 0.4s, background 0.4s;
+    }
+    .char-card.visible { opacity: 1; transform: translateY(0); }
+    .char-card:hover {
+      background: var(--bg-card2);
+      border-color: rgba(201,98,46,0.42);
+      transform: translateY(-4px);
+    }
+    .char-card:hover .char-poster { filter: saturate(0.9) contrast(1.05); }
+
+    /* 红底海报横幅 */
+    .char-poster {
+      width: 100%;
+      aspect-ratio: 16 / 8.4;
+      background-size: cover;
+      background-position: left center;
+      filter: saturate(0.78) contrast(1);
+      transition: filter 0.4s;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .char-body {
+      padding: 1.8rem 1.8rem 2rem;
+      position: relative;
+    }
+    .char-body::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: var(--rust-dim);
+      transition: background 0.4s, width 0.4s;
+    }
+    .char-card:hover .char-body::before { background: var(--rust); width: 5px; }
+
+    .char-num {
+      font-family: var(--font-ui);
+      font-size: 0.58rem;
+      letter-spacing: 0.34em;
+      color: var(--rust);
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+    }
+    .char-name-en {
+      font-family: var(--font-ui);
+      font-size: 0.66rem;
+      letter-spacing: 0.28em;
+      color: var(--rust);
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .char-name-zh {
+      font-size: 1.15rem;
+      color: var(--white);
+      letter-spacing: 0.06em;
+      margin-bottom: 0.9rem;
+    }
+    .char-symbol {
+      font-family: var(--font-ui);
+      font-size: 0.78rem;
+      letter-spacing: 0.16em;
+      color: var(--paper);
+      margin-bottom: 1rem;
+    }
+    .char-symbol::before {
+      content: '— ';
+      color: var(--rust-dim);
+    }
+    .char-line {
+      font-size: 0.94rem;
+      color: var(--text-dim);
+      line-height: 1.9;
+      letter-spacing: 0.02em;
+    }
+    .char-line + .char-line { margin-top: 0.8rem; }
+
+    /* 引子区 */
+    .intro {
+      max-width: 640px;
+      margin: 0 auto 2.5rem;
+      text-align: center;
+      font-style: italic;
+      color: var(--text-dim);
+      line-height: 2.2;
+      padding: 1rem 0;
+      position: relative;
+    }
+    .intro::before, .intro::after {
+      content: '';
+      display: block;
+      width: 28px; height: 1px;
+      background: var(--rust-dim);
+      margin: 0 auto;
+    }
+    .intro::before { margin-bottom: 1.4rem; }
+    .intro::after  { margin-top: 1.4rem; }
+
+    /* 页脚 */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2.4rem 2rem;
+      text-align: center;
+    }
+    footer p { font-family: var(--font-ui); font-size: 0.68rem; letter-spacing: 0.14em; color: var(--text-dim); line-height: 1.9; }
+
+    @media (max-width: 800px) {
+      .char-grid { grid-template-columns: 1fr; gap: 1.4rem; }
+    }
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .page-header { padding: 6rem 1.4rem 3rem; }
+      .content-wrap { padding: 2.2rem 1.4rem 3.5rem; }
+      .char-body { padding: 1.4rem 1.4rem 1.6rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-brand">Red Dead Redemption II</a>
+  <ul class="nav-links">
+    <li><a href="story.html">故事</a></li>
+    <li><a href="characters.html" class="active">人物</a></li>
+    <li><a href="arthur.html">亚瑟之死</a></li>
+    <li><a href="art.html">艺术</a></li>
+    <li><a href="philosophy.html">哲学 · 体悟</a></li>
+  </ul>
+</nav>
+
+<section class="page-header">
+  <div class="page-header-bg"></div>
+  <div class="page-header-overlay"></div>
+  <div class="page-header-content">
+    <p class="page-num">Chapter II</p>
+    <h1 class="page-title">在落日里行走的人</h1>
+    <p class="page-lead">他们都曾围着同一堆篝火。<br/>他们都曾相信同一个梦——又各自走向了不同的结局。</p>
+  </div>
+</section>
+
+<div class="content-wrap">
+
+  <p class="intro">
+    在范德林德营地的篝火边，没有英雄，也没有恶人。<br/>
+    只有一群在时代的尽头，仍然不肯承认，<br/>
+    自己已经过时的人。
+  </p>
+
+  <div class="char-grid">
+
+    <article class="char-card">
+      <div class="char-poster" style="background-image:url('image/char_arthur.jpg')"></div>
+      <div class="char-body">
+        <div class="char-num">No. I</div>
+        <div class="char-name-en">Arthur Morgan</div>
+        <div class="char-name-zh">亚瑟·摩根</div>
+        <div class="char-symbol">觉醒与救赎</div>
+        <p class="char-line">十四岁起就被达奇和霍西亚捡回身边，骑马、收账、动手、杀人，替这个帮派做了二十年的脏活。</p>
+        <p class="char-line">直到肺痨告诉他时间不多了，他才第一次替别人——而不是替达奇——做出真正属于自己的决定。</p>
+      </div>
+    </article>
+
+    <article class="char-card">
+      <div class="char-poster" style="background-image:url('image/char_dutch.jpg')"></div>
+      <div class="char-body">
+        <div class="char-num">No. II</div>
+        <div class="char-name-en">Dutch Van der Linde</div>
+        <div class="char-name-zh">达奇·范德林德</div>
+        <div class="char-symbol">理想腐烂后的疯狂</div>
+        <p class="char-line">他曾真正相信自由，相信人可以不被任何制度收编。</p>
+        <p class="char-line">但当世界关上门，他不肯承认，是自己先松开了手——他要的不是同伴，是回声。</p>
+      </div>
+    </article>
+
+    <article class="char-card">
+      <div class="char-poster" style="background-image:url('image/char_john.jpg')"></div>
+      <div class="char-body">
+        <div class="char-num">No. III</div>
+        <div class="char-name-en">John Marston</div>
+        <div class="char-name-zh">约翰·马斯顿</div>
+        <div class="char-symbol">重新生活的可能</div>
+        <p class="char-line">他比帮派里所有人都迟一些懂事，却被亚瑟硬推出了这条河——回去找他的妻子阿比盖尔，找他的儿子杰克。</p>
+        <p class="char-line">他这一生第一次得到一个"试一次普通人生活"的机会——尽管命运，并不真的打算放过他。</p>
+      </div>
+    </article>
+
+    <article class="char-card">
+      <div class="char-poster" style="background-image:url('image/char_hosea.jpg')"></div>
+      <div class="char-body">
+        <div class="char-num">No. IV</div>
+        <div class="char-name-en">Hosea Matthews</div>
+        <div class="char-name-zh">霍西亚·马修斯</div>
+        <div class="char-symbol">旧时代最后的理性</div>
+        <p class="char-line">他和达奇是这个帮派最早的两个人。他是营地里看得最远、说话最轻、也最像一位父亲的那一个。</p>
+        <p class="char-line">他比谁都早一步看清这条路的尽头——也心甘情愿，把自己留在了通往尽头的那场银行劫案里。</p>
+      </div>
+    </article>
+
+    <article class="char-card">
+      <div class="char-poster" style="background-image:url('image/char_sadie.jpg')"></div>
+      <div class="char-body">
+        <div class="char-num">No. V</div>
+        <div class="char-name-en">Sadie Adler</div>
+        <div class="char-name-zh">萨迪·阿德勒</div>
+        <div class="char-symbol">创伤后的重生</div>
+        <p class="char-line">奥德利斯帮派血洗她家、杀掉丈夫杰克的那个早上，旧的她也死在了那间小屋里。</p>
+        <p class="char-line">她从灰烬里站起来，不再做谁的妻子、谁的帮派成员——她只属于自己的怒火，和自己赢回来的未来。</p>
+      </div>
+    </article>
+
+    <article class="char-card">
+      <div class="char-poster" style="background-image:url('image/char_micah.jpg')"></div>
+      <div class="char-body">
+        <div class="char-num">No. VI</div>
+        <div class="char-name-en">Micah Bell</div>
+        <div class="char-name-zh">麦卡·贝尔</div>
+        <div class="char-symbol">毫无底线的生存主义</div>
+        <p class="char-line">他没有信仰，也不需要。世界对他来说只分两种人——活下来的，和没活下来的。</p>
+        <p class="char-line">他向平克顿出卖了所有人，又花了好几年躲在山里——直到约翰带着枪，找到了他。</p>
+      </div>
+    </article>
+
+    <article class="char-card">
+      <div class="char-poster" style="background-image:url('image/char_charles.jpg')"></div>
+      <div class="char-body">
+        <div class="char-num">No. VII</div>
+        <div class="char-name-en">Charles Smith</div>
+        <div class="char-name-zh">查尔斯·史密斯</div>
+        <div class="char-symbol">沉默的正直</div>
+        <p class="char-line">混血、寡言、营地里最好的猎手。他不属于这帮人的过往，也并不指望他们改变。</p>
+        <p class="char-line">他活了下来——后来替约翰建房，又独自北上，去找一群他从未见过、却始终属于的族人。</p>
+      </div>
+    </article>
+
+    <article class="char-card">
+      <div class="char-poster" style="background-image:url('image/char_javier.jpg')"></div>
+      <div class="char-body">
+        <div class="char-num">No. VIII</div>
+        <div class="char-name-en">Javier Escuella</div>
+        <div class="char-name-zh">哈维尔·埃斯库埃拉</div>
+        <div class="char-symbol">至死忠于一个错的人</div>
+        <p class="char-line">从墨西哥的革命里逃出来，在达奇身上又重新看见了"信仰"两个字。</p>
+        <p class="char-line">他相信达奇相信到最后一刻——直到多年后被赏金猎人抓住，押回那个旧世界的尾声里。</p>
+      </div>
+    </article>
+
+    <article class="char-card">
+      <div class="char-poster" style="background-image:url('image/char_lenny.jpg')"></div>
+      <div class="char-body">
+        <div class="char-num">No. IX</div>
+        <div class="char-name-en">Lenny Summers</div>
+        <div class="char-name-zh">伦尼·萨默斯</div>
+        <div class="char-symbol">本该拥有未来的年轻人</div>
+        <p class="char-line">他识字、爱书、枪打得最准。他是亚瑟在瓦伦丁醉了一夜的朋友，是这个故事里少数让人发笑的人。</p>
+        <p class="char-line">他死在圣丹尼斯那场失败的银行抢劫里——一颗他来不及看见的子弹，把他从这个故事里抹掉了。</p>
+      </div>
+    </article>
+
+    <article class="char-card">
+      <div class="char-poster" style="background-image:url('image/char_sean.jpg')"></div>
+      <div class="char-body">
+        <div class="char-num">No. X</div>
+        <div class="char-name-en">Sean MacGuire</div>
+        <div class="char-name-zh">肖恩·麦圭尔</div>
+        <div class="char-symbol">营地里的笑声</div>
+        <p class="char-line">爱尔兰口音，爱说大话，从不知道闭嘴。营地里如果突然安静下来，大家会下意识地找他。</p>
+        <p class="char-line">他是这群亡命之徒里，第一个倒下的人。从他死的那一天起，这个帮派就再也找不回，那种轻松的语气了。</p>
+      </div>
+    </article>
+
+    <article class="char-card">
+      <div class="char-poster" style="background-image:url('image/char_swanson.jpg')"></div>
+      <div class="char-body">
+        <div class="char-num">No. XI</div>
+        <div class="char-name-en">Reverend Swanson</div>
+        <div class="char-name-zh">斯旺森牧师</div>
+        <div class="char-symbol">被自己丢掉、又找回的信仰</div>
+        <p class="char-line">曾经是一个真正的牧师，后来只剩下酒瓶和鸦片。在营地里，他像一件被忘在角落的旧物。</p>
+        <p class="char-line">帮派散后，他北上、戒酒、重新讲道——他是少数几个，真正把自己救回去了的人。</p>
+      </div>
+    </article>
+
+    <article class="char-card">
+      <div class="char-poster" style="background-image:url('image/char_abigail.jpg')"></div>
+      <div class="char-body">
+        <div class="char-num">No. XII</div>
+        <div class="char-name-en">Abigail Roberts</div>
+        <div class="char-name-zh">阿比盖尔·罗伯茨</div>
+        <div class="char-symbol">硬过子弹的母亲</div>
+        <p class="char-line">她不肯让杰克继承父亲的人生。在所有人都还以为"再干一票就好"的时候，她已经在为离开做准备。</p>
+        <p class="char-line">她不是这片土地上最浪漫的女人。她只是，最先看清谁值得留下、谁不值得跟到底的那个。</p>
+      </div>
+    </article>
+
+  </div>
+
+</div>
+
+<footer>
+  <p>
+    Red Dead Redemption 2 &nbsp;·&nbsp; Rockstar Games &nbsp;·&nbsp; 2018<br/>
+    本站为非商业艺术赏析，所有游戏版权归原作者所有。
+  </p>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.char-card').forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>

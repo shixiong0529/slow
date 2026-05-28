@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>亚瑟·摩根之死 · 荒野大镖客：救赎2</title>
+  <style>
+    :root {
+      --bg:        #14100c;
+      --bg-card:   #1c1612;
+      --bg-card2:  #241c15;
+      --rust:      #c9622e;
+      --rust-dim:  #8a4220;
+      --paper:     #d9c79a;
+      --ember:     #9b3a1c;
+      --text:      #c8b89a;
+      --text-dim:  #8a7858;
+      --white:     #ede4d0;
+      --border:    rgba(201,98,46,0.18);
+      --font-body: 'Georgia', 'Noto Serif SC', serif;
+      --font-ui:   'Helvetica Neue', 'PingFang SC', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      line-height: 2.1;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 0 2rem; height: 56px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(20,16,12,0.82); backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-brand { font-family: var(--font-ui); font-size: 0.78rem; letter-spacing: 0.22em; color: var(--rust); text-transform: uppercase; }
+    .nav-links { display: flex; gap: 1.8rem; list-style: none; }
+    .nav-links a { font-family: var(--font-ui); font-size: 0.74rem; letter-spacing: 0.14em; color: var(--text-dim); transition: color 0.3s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--rust); }
+
+    /* ─── 页面头：山顶 + 日出 ─── */
+    .page-header {
+      position: relative;
+      min-height: 72vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 6rem 2rem 3.5rem;
+      overflow: hidden;
+    }
+    .page-header-bg {
+      position: absolute; inset: 0;
+      background-image: url('image/arthur_header.jpg');
+      background-size: cover;
+      background-position: center 50%;
+      opacity: 0.78;
+      filter: saturate(0.88) contrast(1.04);
+    }
+    .page-header-overlay {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 50% 65%, rgba(201,98,46,0.12) 0%, transparent 70%),
+        linear-gradient(to bottom, rgba(20,16,12,0.18) 0%, rgba(20,16,12,0.55) 70%, var(--bg) 100%);
+    }
+    .page-header-content { position: relative; z-index: 2; }
+    .page-title {
+      font-size: clamp(2.2rem, 6vw, 4.4rem);
+      font-weight: 400;
+      color: var(--white);
+      letter-spacing: 0.08em;
+      line-height: 1.2;
+      opacity: 0;
+      animation: fade-up 1.4s ease 0.5s forwards;
+    }
+    .page-title-en {
+      display: block;
+      font-family: var(--font-ui);
+      font-size: 0.72rem;
+      letter-spacing: 0.4em;
+      color: var(--rust);
+      text-transform: uppercase;
+      margin-bottom: 1.8rem;
+      opacity: 0;
+      animation: fade-up 1.4s ease 0.2s forwards;
+    }
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── 题词 ─── */
+    .epigraph {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 3.5rem 2rem 0;
+      text-align: center;
+      font-style: italic;
+      color: var(--paper);
+      line-height: 2.3;
+      font-size: clamp(1rem, 1.9vw, 1.12rem);
+      letter-spacing: 0.03em;
+    }
+    .epigraph::before, .epigraph::after {
+      content: '';
+      display: block;
+      width: 28px; height: 1px;
+      background: var(--rust-dim);
+      margin: 0 auto;
+    }
+    .epigraph::before { margin-bottom: 1.6rem; }
+    .epigraph::after  { margin-top: 1.6rem; }
+
+    /* ─── 主体：三个模块 ─── */
+    .content-wrap {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 2.4rem 2rem 0;
+    }
+
+    .module {
+      margin-bottom: 4rem;
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+    .module:last-of-type { margin-bottom: 2rem; }
+    .module.visible { opacity: 1; transform: translateY(0); }
+
+    .module-tag {
+      font-family: var(--font-ui);
+      font-size: 0.62rem;
+      letter-spacing: 0.34em;
+      color: var(--rust);
+      text-transform: uppercase;
+      display: flex; align-items: center; gap: 1rem;
+      margin-bottom: 0.9rem;
+    }
+    .module-tag::before { content: ''; width: 28px; height: 1px; background: var(--rust-dim); }
+
+    .module-title {
+      font-size: clamp(1.4rem, 2.6vw, 1.85rem);
+      font-weight: 400;
+      color: var(--white);
+      letter-spacing: 0.04em;
+      line-height: 1.45;
+      margin-bottom: 1.4rem;
+    }
+
+    .module-figure {
+      width: 100%;
+      aspect-ratio: 16 / 7.6;
+      background-size: cover;
+      background-position: center;
+      filter: saturate(0.78) contrast(1.04);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      margin-bottom: 1.8rem;
+      position: relative;
+    }
+    .module-figure::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, transparent 60%, rgba(20,16,12,0.45) 100%);
+      pointer-events: none;
+    }
+
+    .module-body p {
+      font-size: 1rem;
+      color: var(--text);
+      line-height: 1.95;
+      letter-spacing: 0.02em;
+    }
+    .module-body p + p { margin-top: 0.6rem; }
+
+    .module-pull {
+      margin: 1.4rem 0;
+      padding-left: 1rem;
+      border-left: 2px solid var(--rust);
+      font-style: italic;
+      color: var(--paper);
+      line-height: 1.85;
+    }
+
+    /* ─── 终幕图 ─── */
+    .finale-figure {
+      max-width: 1080px;
+      margin: 3.2rem auto 0;
+      padding: 0 2rem;
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 1.4s ease, transform 1.4s ease;
+    }
+    .finale-figure.visible { opacity: 1; transform: translateY(0); }
+    .finale-figure-inner {
+      width: 100%;
+      aspect-ratio: 16 / 7.4;
+      background-image: url('image/arthur_finale.jpg');
+      background-size: cover;
+      background-position: center;
+      filter: saturate(0.78) contrast(1.04);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      position: relative;
+    }
+    .finale-figure-inner::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, transparent 50%, rgba(20,16,12,0.55) 100%);
+      pointer-events: none;
+    }
+
+    /* ─── 终幕 ─── */
+    .ending {
+      max-width: 700px;
+      margin: 4.5rem auto 0;
+      padding: 2.8rem 2rem 4.5rem;
+      text-align: center;
+      opacity: 0;
+      transition: opacity 1.4s ease;
+    }
+    .ending.visible { opacity: 1; }
+
+    .ending p {
+      font-size: 1.08rem;
+      color: var(--paper);
+      line-height: 2.2;
+      font-style: italic;
+      letter-spacing: 0.04em;
+    }
+
+    .ending-divider {
+      margin: 2.4rem auto;
+      width: 100%;
+      max-width: 240px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--rust-dim), transparent);
+      position: relative;
+    }
+    .ending-divider::after {
+      content: '';
+      position: absolute;
+      left: 50%; top: 50%;
+      width: 6px; height: 6px;
+      background: var(--rust);
+      transform: translate(-50%, -50%) rotate(45deg);
+    }
+
+    .ending-sign {
+      font-family: var(--font-ui);
+      font-size: 0.7rem;
+      letter-spacing: 0.32em;
+      color: var(--rust);
+      text-transform: uppercase;
+    }
+
+    /* ─── 页脚 ─── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2.4rem 2rem;
+      text-align: center;
+    }
+    footer p { font-family: var(--font-ui); font-size: 0.68rem; letter-spacing: 0.14em; color: var(--text-dim); line-height: 1.9; }
+
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .page-header { min-height: 60vh; padding: 5rem 1.4rem 2.5rem; }
+      .epigraph { padding: 2.8rem 1.4rem 0; }
+      .content-wrap { padding: 2rem 1.4rem 0; }
+      .module { margin-bottom: 2.8rem; }
+      .module-figure { aspect-ratio: 16 / 10; margin-bottom: 1.2rem; }
+      .module-title { margin-bottom: 1rem; }
+      .finale-figure { padding: 0 1.4rem; margin-top: 2.4rem; }
+      .finale-figure-inner { aspect-ratio: 16 / 10; }
+      .ending { margin-top: 2.4rem; padding: 1.8rem 1.4rem 3rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-brand">Red Dead Redemption II</a>
+  <ul class="nav-links">
+    <li><a href="story.html">故事</a></li>
+    <li><a href="characters.html">人物</a></li>
+    <li><a href="arthur.html" class="active">亚瑟之死</a></li>
+    <li><a href="art.html">艺术</a></li>
+    <li><a href="philosophy.html">哲学 · 体悟</a></li>
+  </ul>
+</nav>
+
+<section class="page-header">
+  <div class="page-header-bg"></div>
+  <div class="page-header-overlay"></div>
+  <div class="page-header-content">
+    <span class="page-title-en">The Death of Arthur Morgan</span>
+    <h1 class="page-title">亚 瑟 · 摩 根 之 死</h1>
+  </div>
+</section>
+
+<section class="epigraph">
+  这不是一个关于他怎么死的故事。<br/>
+  这是一个关于他在知道自己将死之后，<br/>
+  如何活完那最后几个月的故事。
+</section>
+
+<div class="content-wrap">
+
+  <article class="module">
+    <div class="module-figure" style="background-image:url('image/arthur_cause.jpg')"></div>
+    <p class="module-tag">I · Cause &amp; End — 死因及过程</p>
+    <h2 class="module-title">他被一笔账，找到了</h2>
+    <div class="module-body">
+      <p>那一笔账是斯特劳斯派他去收的。债主叫托马斯·唐斯——一个咳得几乎站不住的牧场主。亚瑟揪住他的衣领，对着脸打了几下，回去复命。他没在意他咳了几声。</p>
+      <p>几个月后，圣丹尼斯街边的医生告诉他：肺痨。可能还有几个月，可能更短。他笑了一下，没说话。</p>
+      <p>从那以后，他的身体开始替他做减法。先是疲累，然后是夜里的咳血，然后是连扣枪栓都开始抖。他不再骑得动他自己最喜欢的那匹马。</p>
+      <p>比弗谷的最后那个夜里，平克顿打来。亚瑟没顾自己。他先把约翰塞上一匹马，让他逃，然后回身挡在追兵之间。</p>
+      <p>之后是山。一个人，一匹马，麦卡在身后追上来。两个人在山顶上拔枪——他用尽身上最后一口气，拦住了麦卡，没让他活着回去。</p>
+      <p>他坐下，靠着石头，看着远处的山线一点点变白。东边的太阳在升。他没有等到它彻底升起。</p>
+    </div>
+  </article>
+
+  <article class="module">
+    <div class="module-figure" style="background-image:url('image/arthur_love.jpg')"></div>
+    <p class="module-tag">II · Loves Lost — 爱情</p>
+    <h2 class="module-title">他爱过两个人，谁也没能留下</h2>
+    <div class="module-body">
+      <p>他年轻时爱过一个叫伊丽莎的姑娘——一个端盘子的女孩。他们有一个儿子，叫艾萨克。亚瑟每隔几个月就骑回去看他们，给他们带一点钱，剪一点柴。</p>
+      <p>有一天他骑回去，只看见两块新土。伊丽莎和艾萨克，被几个混混为了十几块钱杀死了。</p>
+      <p>从那以后，他不再认真喜欢任何人。他把自己关进了帮派，把愤怒交给了枪。</p>
+      <p>后来他遇到玛丽·林顿——他真正意义上的初恋。他们是另一种人之间的事：她家境优渥，他是亡命之徒。她父亲不肯，她也终究没有等他，嫁给了一个姓林顿的男人。</p>
+      <p>玛丽这一生一次又一次写信来求他：去救我的弟弟、去帮我父亲、去帮我离开。他每次都去，每次都不收钱，每次都不告诉她自己有多想留下来。</p>
+      <p>最后一封信，她说："和我一起走吧，亚瑟。"他没去。那时他已经知道自己病了。</p>
+      <p class="module-pull">他始终没把自己最真实的一面告诉过她们任何一个。<br/>有时候沉默，也是一种深爱。</p>
+    </div>
+  </article>
+
+  <article class="module">
+    <div class="module-figure" style="background-image:url('image/arthur_redemption.jpg')"></div>
+    <p class="module-tag">III · Redemption — 救赎</p>
+    <h2 class="module-title">一个迟到了二十年的人</h2>
+    <div class="module-body">
+      <p>诊断单出来的那一天，他在圣丹尼斯的台阶上遇见了一位修女——卡尔德隆姐妹。她对他说了一句话："忠于真正重要的东西就好（Be loyal to what matters）。"</p>
+      <p>他没回话，但那句话留在他身上了。</p>
+      <p>从那以后，他做了几件别人不会知道的事——他找到唐斯的妻子，留下一笔钱，没有道歉，只是不肯让她和儿子继续欠债下去。他在罗诺克的山林里救下一个寡妇夏洛特，教她打枪、扒兔皮、生火。</p>
+      <p>他开始写日记。不是为谁，只是因为太多东西，他这辈子都没好好对自己讲过。</p>
+      <p>他开始替达奇看清达奇——再不肯把生命交给那个一句句"再相信我一次"的男人。</p>
+      <p>而最后他做的那件事，是把约翰从这条路上推出去——让他去找阿比盖尔和杰克，让他去试一种亚瑟自己再也没有的人生。</p>
+      <p class="module-pull">所谓救赎，不是死得壮烈。<br/>是他在剩下的几个月里，做出了和过去二十年都不一样的，几个安静的决定。</p>
+    </div>
+  </article>
+
+</div>
+
+<section class="finale-figure">
+  <div class="finale-figure-inner"></div>
+</section>
+
+<section class="ending">
+  <p>
+    他不是因为死去才伟大。<br/>
+    他是因为在知道自己将死之后，<br/>
+    仍然选择把最后一点时间，<br/>
+    交给善良、责任和成全。
+  </p>
+  <div class="ending-divider"></div>
+  <div class="ending-sign">— End of Chapter VI</div>
+</section>
+
+<footer>
+  <p>
+    Red Dead Redemption 2 &nbsp;·&nbsp; Rockstar Games &nbsp;·&nbsp; 2018<br/>
+    本站为非商业艺术赏析，所有游戏版权归原作者所有。
+  </p>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.2 });
+  document.querySelectorAll('.module, .finale-figure, .ending').forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
