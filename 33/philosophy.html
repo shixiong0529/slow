@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>哲学含义与人生体悟 · 33号远征队</title>
+  <style>
+    :root {
+      --bg:       #0d0d10;
+      --bg-card:  #13131a;
+      --bg-card2: #181824;
+      --gold:     #c9a96e;
+      --gold-dim: #8a6e42;
+      --blue:     #5b8fa8;
+      --blue-dim: #2d5166;
+      --text:     #d4cfc8;
+      --text-dim: #7a7670;
+      --white:    #eeeae4;
+      --border:   rgba(201,169,110,0.15);
+      --font-body: 'Georgia', 'Noto Serif SC', serif;
+      --font-ui:   'Helvetica Neue', 'PingFang SC', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      line-height: 1.8;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 0 2rem; height: 56px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(13,13,16,0.85); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-brand { font-family: var(--font-ui); font-size: 0.78rem; letter-spacing: 0.2em; color: var(--gold); text-transform: uppercase; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { font-family: var(--font-ui); font-size: 0.75rem; letter-spacing: 0.12em; color: var(--text-dim); transition: color 0.3s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--gold); }
+
+    /* ─── 页面头（纯 CSS 光影背景）─── */
+    .page-header {
+      position: relative;
+      padding: 10rem 2rem 6rem;
+      text-align: center;
+      overflow: hidden;
+      min-height: 55vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+    }
+
+    .page-header-canvas {
+      position: absolute; inset: 0;
+      background-image: url('《光与影：33号远征队》人物风景3440x1440游戏高清壁纸_图片编号341882_壁纸网.jpeg');
+      background-size: cover; background-position: center 20%;
+      opacity: 0.38; filter: saturate(0.55);
+    }
+
+    .page-header-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, rgba(13,13,16,0.3) 0%, rgba(13,13,16,0.7) 70%, var(--bg) 100%);
+    }
+
+    .page-header-content { position: relative; z-index: 2; }
+    .page-num { font-family: var(--font-ui); font-size: 0.65rem; letter-spacing: 0.3em; color: var(--gold); text-transform: uppercase; margin-bottom: 1.2rem; }
+    .page-title { font-size: clamp(2rem, 5vw, 3.6rem); font-weight: 400; color: var(--white); letter-spacing: 0.06em; margin-bottom: 1.2rem; }
+    .page-lead { font-size: 1rem; color: var(--text-dim); max-width: 520px; margin: 0 auto; line-height: 2; }
+
+    /* ─── 主体 ─── */
+    .content-wrap { max-width: 800px; margin: 0 auto; padding: 0 2rem 8rem; }
+
+    .section-block {
+      margin-bottom: 6rem;
+      opacity: 0; transform: translateY(24px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .section-block.visible { opacity: 1; transform: translateY(0); }
+
+    .section-tag {
+      font-family: var(--font-ui); font-size: 0.62rem; letter-spacing: 0.28em;
+      color: var(--gold); text-transform: uppercase; margin-bottom: 1.5rem;
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .section-tag::before { content: ''; width: 24px; height: 1px; background: var(--gold-dim); }
+
+    .section-heading {
+      font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 400;
+      color: var(--white); margin-bottom: 2rem; line-height: 1.4;
+    }
+
+    .prose { font-size: 1.02rem; color: var(--text); line-height: 2; }
+    .prose p { margin-bottom: 1.5rem; }
+
+    /* ─── 引言块（大型）─── */
+    .big-quote {
+      text-align: center;
+      padding: 3rem 2rem;
+      margin: 3rem 0;
+    }
+
+    .big-quote q {
+      font-size: clamp(1.15rem, 3vw, 1.6rem);
+      color: var(--white);
+      line-height: 1.9;
+      font-style: italic;
+      quotes: '\201C' '\201D';
+    }
+
+    .big-quote q::before { color: var(--gold); }
+    .big-quote q::after  { color: var(--gold); }
+
+    .big-quote-attr {
+      margin-top: 1.5rem;
+      font-family: var(--font-ui);
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      color: var(--text-dim);
+    }
+
+    /* ─── 命题卡片 ─── */
+    .insight-list { display: flex; flex-direction: column; gap: 2rem; margin-top: 2.5rem; }
+
+    .insight-card {
+      display: grid;
+      grid-template-columns: 60px 1fr;
+      gap: 1.5rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2rem;
+      transition: border-color 0.4s;
+    }
+
+    .insight-card:hover { border-color: rgba(201,169,110,0.3); }
+
+    .insight-num {
+      font-family: var(--font-ui);
+      font-size: 2rem;
+      color: var(--bg-card2);
+      font-weight: 700;
+      line-height: 1;
+      /* 数字大字用描边做文艺感 */
+      -webkit-text-stroke: 1px var(--gold-dim);
+      text-stroke: 1px var(--gold-dim);
+      align-self: start;
+      padding-top: 0.2rem;
+    }
+
+    .insight-title {
+      font-size: 1.1rem; font-weight: 400; color: var(--white);
+      margin-bottom: 0.8rem; line-height: 1.5;
+    }
+
+    .insight-body {
+      font-size: 0.9rem; color: var(--text-dim); line-height: 1.9;
+    }
+
+    /* ─── 人生体悟：大字排版 ─── */
+    .revelation-list { list-style: none; margin-top: 2.5rem; }
+
+    .revelation-item {
+      padding: 2.5rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .revelation-item:first-child { border-top: 1px solid var(--border); }
+
+    .revelation-text {
+      font-size: clamp(1rem, 2.2vw, 1.25rem);
+      color: var(--white);
+      line-height: 1.9;
+      margin-bottom: 1rem;
+    }
+
+    .revelation-note {
+      font-family: var(--font-ui);
+      font-size: 0.82rem;
+      color: var(--text-dim);
+      line-height: 1.8;
+    }
+
+    /* ─── 画廊 ─── */
+    .final-img {
+      width: 100%;
+      display: block;
+      aspect-ratio: 21/9;
+      object-fit: cover;
+      filter: saturate(0.45) brightness(0.6);
+      border-radius: 4px;
+      margin: 3rem 0;
+    }
+
+    /* ─── 结尾区 ─── */
+    .ending {
+      text-align: center;
+      padding: 4rem 0 2rem;
+    }
+
+    .ending-title {
+      font-size: clamp(1.5rem, 4vw, 2.8rem);
+      font-weight: 400;
+      color: var(--white);
+      line-height: 1.4;
+      margin-bottom: 2.5rem;
+    }
+
+    .ending-title span { color: var(--gold); }
+
+    .ending-body {
+      font-size: 1.05rem;
+      color: var(--text);
+      max-width: 640px;
+      margin: 0 auto 2.5rem;
+      line-height: 2.1;
+    }
+
+    .ending-coda {
+      font-family: var(--font-ui);
+      font-size: 0.75rem;
+      letter-spacing: 0.18em;
+      color: var(--text-dim);
+    }
+
+    /* ─── 分隔线 ─── */
+    .divider { border: none; border-top: 1px solid var(--border); margin: 4rem 0; }
+
+    /* ─── 底部导航 ─── */
+    .page-nav {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 3rem 0 0; border-top: 1px solid var(--border); margin-top: 4rem;
+    }
+    .page-nav a { font-family: var(--font-ui); font-size: 0.78rem; letter-spacing: 0.12em; color: var(--text-dim); transition: color 0.3s; }
+    .page-nav a:hover { color: var(--gold); }
+
+    /* ─── 页脚 ─── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 3rem 2rem; text-align: center;
+    }
+    footer p { font-family: var(--font-ui); font-size: 0.7rem; letter-spacing: 0.12em; color: var(--text-dim); line-height: 2; }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .insight-card { grid-template-columns: 40px 1fr; gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-brand">Expedition 33</a>
+  <ul class="nav-links">
+    <li><a href="story.html">剧情 · 世界观</a></li>
+    <li><a href="characters.html">人物</a></li>
+    <li><a href="gameplay.html">玩法</a></li>
+    <li><a href="philosophy.html" class="active">哲学 · 体悟</a></li>
+  </ul>
+</nav>
+
+<header class="page-header">
+  <div class="page-header-canvas"></div>
+  <div class="page-header-overlay"></div>
+  <div class="page-header-content">
+    <p class="page-num">Chapter 04</p>
+    <h1 class="page-title">哲学含义与人生体悟</h1>
+    <p class="page-lead">死亡、记忆、执念、哀悼与放手——这款游戏真正想说的，从来不是远征的故事，而是人的故事。</p>
+  </div>
+</header>
+
+<main class="content-wrap">
+
+  <!-- 核心命题 -->
+  <section class="section-block">
+    <p class="section-tag">Philosophy</p>
+    <h2 class="section-heading">死亡不是终点，执念才是</h2>
+
+    <div class="prose">
+      <p>《33号远征队》用一个奇幻的世界观，包裹了一个极为现实的问题：当我们失去了挚爱的人，我们要如何活下去？</p>
+      <p>绘母每年擦去一个年龄，这个设定的残忍不在于"死亡会来临"，而在于"你知道它什么时候来"。这让整个世界活在一种慢性的哀悼之中——不是面对死亡的恐惧，而是面对失去的等待，以及失去之后，生命还要继续前行的那种沉重。</p>
+      <p>游戏里真正恐怖的东西，不是绘母，不是那些画中怪物，而是一个人的内心——那个不肯放下的角落。Gustave 带着 Alicia 的记忆，走进了一场注定充满牺牲的旅途。他以为他是在为她战斗，其实他是在把自己当作她的殉葬品。</p>
+    </div>
+
+    <div class="big-quote">
+      <q>他们以为是在对抗绘母，实际上是在对抗自己心中那个不肯说再见的人。</q>
+      <p class="big-quote-attr">— 33号远征队 · 深度赏析</p>
+    </div>
+
+  </section>
+
+  <hr class="divider" />
+
+  <!-- 六个哲学命题 -->
+  <section class="section-block">
+    <p class="section-tag">Six Themes</p>
+    <h2 class="section-heading">六个让人久久无法平静的命题</h2>
+
+    <div class="insight-list">
+
+      <div class="insight-card">
+        <span class="insight-num">01</span>
+        <div>
+          <p class="insight-title">哀悼是有期限的，执念是没有期限的</p>
+          <p class="insight-body">失去之后，悲痛是正当的，是必要的，甚至是尊重那份失去的方式。但当悲痛变成拒绝前行的理由，它就从哀悼变成了执念。游戏里的绘母，是这种执念走到极端的寓言：她的痛苦是真实的，但她因为无法放下，最终成了伤害所有人的存在。</p>
+        </div>
+      </div>
+
+      <div class="insight-card">
+        <span class="insight-num">02</span>
+        <div>
+          <p class="insight-title">人不能永远活在自己画出来的世界里</p>
+          <p class="insight-body">画中世界是绘母意志的具象——一个她可以掌控的空间，一个她可以按照自己的意愿来构建现实的地方。这是极度悲伤之后的一种幻想：如果真实世界太残忍，那就画一个新的。但再美的画，都不是真实。真实的生命，只在那些无法被掌控、无法被抹去的地方存在。</p>
+        </div>
+      </div>
+
+      <div class="insight-card">
+        <span class="insight-num">03</span>
+        <div>
+          <p class="insight-title">爱不是占有，而是允许逝去的人真正离开</p>
+          <p class="insight-body">Gustave 爱 Alicia，但他用记忆将她囚禁，也将自己囚禁。真正的爱是一种开放性的东西——它允许对方存在过，也允许对方已经离开。当 Gustave 最终选择放手，不是背叛，而是一种更深沉的尊重：让她以她本来的样子离开，而不是以他需要的样子留下。</p>
+        </div>
+      </div>
+
+      <div class="insight-card">
+        <span class="insight-num">04</span>
+        <div>
+          <p class="insight-title">知道结局，并不能让过程变得容易</p>
+          <p class="insight-body">每个人都知道绘母会来，每年都有人知道自己快到了那个年龄。知道死亡的时间，并不会让死亡变得更容易接受——它只会让"活着"这件事变得更加需要刻意的努力。游戏在这里触碰的，是每一个被诊断出绝症的人、每一个目送亲人倒计时的人都懂得的那种心理重量。</p>
+        </div>
+      </div>
+
+      <div class="insight-card">
+        <span class="insight-num">05</span>
+        <div>
+          <p class="insight-title">记忆不是真实，它是我们对真实的诠释</p>
+          <p class="insight-body">Gustave 记忆里的 Alicia，是他视角中的 Alicia——被爱滤镜放大的美好，被悲痛放大的遗憾。但真实的 Alicia 是一个完整的人，不只是他记忆里的那个片段。游戏暗示：我们越是紧抱记忆，就越是在扭曲那个我们声称要纪念的人的真实面貌。</p>
+        </div>
+      </div>
+
+      <div class="insight-card">
+        <span class="insight-num">06</span>
+        <div>
+          <p class="insight-title">拯救世界，还是拯救自己</p>
+          <p class="insight-body">远征队的使命是拯救世界。但游戏最终揭示的是：绘母的"恶"来自她内心的伤，而她的伤与 Gustave 的伤本质上是同一种伤。打败她，不是消灭敌人，而是直视那面镜子——看见自己的执念，并且选择：是继续被它驱动，还是让它安息。</p>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+  <hr class="divider" />
+
+  <!-- 人生体悟 -->
+  <section class="section-block">
+    <p class="section-tag">Life Lessons</p>
+    <h2 class="section-heading">从游戏里带出来的话</h2>
+
+    <ul class="revelation-list">
+
+      <li class="revelation-item">
+        <p class="revelation-text">爱一个人，不是把他们困在你的记忆里，而是允许他们真正地离去。</p>
+        <p class="revelation-note">哀悼的终点不是遗忘，而是把对方放回他们本来的位置——那个属于过去、但同样真实的地方。</p>
+      </li>
+
+      <li class="revelation-item">
+        <p class="revelation-text">一个人的悲痛可以很大，大到足以变成一个世界。但那个世界，只有悲痛者一个人能活在里面。</p>
+        <p class="revelation-note">绘母画出了一个按照自己意志运转的世界，但那个世界里没有真正的他人，只有她自己的投影。极度的悲痛，会把人变成孤岛。</p>
+      </li>
+
+      <li class="revelation-item">
+        <p class="revelation-text">活下去，有时候需要比死去更大的勇气。</p>
+        <p class="revelation-note">Gustave 加入远征队，是因为这比留在家里、每天面对那张空椅子要容易得多。真正的挑战，是在远征结束后，选择回到那个空椅子边坐下来，继续活。</p>
+      </li>
+
+      <li class="revelation-item">
+        <p class="revelation-text">没有人能靠"理解"来绕过悲痛，必须穿过它。</p>
+        <p class="revelation-note">Lune 用理性构建防线，Gustave 用行动麻痹感受，Maelle 用热情掩盖悲伤。没有一种策略真正有效，因为悲痛不是一个可以被解决的问题，它是一段必须被经历的过程。</p>
+      </li>
+
+      <li class="revelation-item">
+        <p class="revelation-text">那些让我们受苦的东西，往往也是让我们成长的来源。前提是，我们没有被它们定义。</p>
+        <p class="revelation-note">Pictos 系统是这一点最精准的机械化表达：击败怪物，学习它的力量。但真正的应用，是对人生中那些击败过我们的事物——不是被它们囚禁，而是从中提取出继续前行的养分。</p>
+      </li>
+
+      <li class="revelation-item">
+        <p class="revelation-text">世界上有一种失去，是你永远无法补偿的。承认这一点，是放下的开始。</p>
+        <p class="revelation-note">Gustave 的整个旅途，是在尝试找到一种方式来"弥补"失去 Alicia 这件事。最后他发现：无法弥补。但无法弥补，并不意味着他的生命就此失去了意义。</p>
+      </li>
+
+    </ul>
+
+  </section>
+
+  <hr class="divider" />
+
+  <!-- 结尾 -->
+  <section class="section-block ending" id="ending">
+    <h2 class="ending-title">
+      最后的话：<br/><span>那支笔，终究停了下来</span>
+    </h2>
+
+    <img class="final-img" src="《光与影：33号远征队》人物风景3440x1440游戏高清壁纸_图片编号341882_壁纸网.jpeg" alt="结尾风景" />
+
+    <p class="ending-body">
+      当 Gustave 站在绘母面前的那一刻，他明白了：他们不是对手，而是同一种人。两个被失去折断过的人，用不同的方式试图修复同一种破碎。绘母选择了创造一个新的世界，来掩盖那道裂缝；Gustave 选择了走进那道裂缝，看清它的真相。
+    </p>
+    <p class="ending-body">
+      游戏的结局不是胜利，而是一种放手。放手的那一刻，不是轻盈的，是沉重的，是伴随着真实眼泪的。但那也是这个故事里最接近光的时刻——因为只有当你不再紧握着那些已经离去的东西，你的手才能够接住新的。
+    </p>
+    <p class="ending-body">
+      《33号远征队》是一首写给所有无法告别的人的歌。它不劝你遗忘，它只是轻轻地说：你已经爱过了，已经悲痛过了，已经走了这么远了——现在，可以放下了。
+    </p>
+
+    <p class="ending-coda">— Expedition 33 · 深度赏析 · 全文完 —</p>
+  </section>
+
+  <!-- 底部导航 -->
+  <div class="page-nav">
+    <a href="gameplay.html">← 游戏玩法</a>
+    <a href="index.html">返回首页</a>
+  </div>
+
+</main>
+
+<footer>
+  <p>
+    Clair Obscur: Expedition 33 &nbsp;·&nbsp; Sandfall Interactive &nbsp;·&nbsp; 2025<br/>
+    本站为非商业深度赏析，所有游戏版权归原作者所有。
+  </p>
+</footer>
+
+<script>
+  const blocks = document.querySelectorAll('.section-block');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.06 });
+  blocks.forEach(b => io.observe(b));
+</script>
+</body>
+</html>

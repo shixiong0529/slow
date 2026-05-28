@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>主要人物 · 33号远征队</title>
+  <style>
+    :root {
+      --bg:       #0d0d10;
+      --bg-card:  #13131a;
+      --bg-card2: #181824;
+      --gold:     #c9a96e;
+      --gold-dim: #8a6e42;
+      --blue:     #5b8fa8;
+      --blue-dim: #2d5166;
+      --text:     #d4cfc8;
+      --text-dim: #7a7670;
+      --white:    #eeeae4;
+      --border:   rgba(201,169,110,0.15);
+      --font-body: 'Georgia', 'Noto Serif SC', serif;
+      --font-ui:   'Helvetica Neue', 'PingFang SC', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      line-height: 1.8;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 0 2rem; height: 56px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(13,13,16,0.85); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-brand { font-family: var(--font-ui); font-size: 0.78rem; letter-spacing: 0.2em; color: var(--gold); text-transform: uppercase; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { font-family: var(--font-ui); font-size: 0.75rem; letter-spacing: 0.12em; color: var(--text-dim); transition: color 0.3s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--gold); }
+
+    /* ─── 页面头 ─── */
+    .page-header {
+      position: relative; padding: 9rem 2rem 5rem; text-align: center; overflow: hidden;
+    }
+    .page-header-bg {
+      position: absolute; inset: 0;
+      background-image: url('《光与影：33号远征队》人物风景3440x1440游戏高清壁纸_图片编号341882_壁纸网.jpeg');
+      background-size: cover; background-position: center 20%;
+      opacity: 0.38; filter: saturate(0.55);
+    }
+    .page-header-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, rgba(13,13,16,0.6) 0%, var(--bg) 100%);
+    }
+    .page-header-content { position: relative; z-index: 2; }
+    .page-num { font-family: var(--font-ui); font-size: 0.65rem; letter-spacing: 0.3em; color: var(--gold); text-transform: uppercase; margin-bottom: 1.2rem; }
+    .page-title { font-size: clamp(2rem, 5vw, 3.6rem); font-weight: 400; color: var(--white); letter-spacing: 0.06em; margin-bottom: 1.2rem; }
+    .page-lead { font-size: 1rem; color: var(--text-dim); max-width: 520px; margin: 0 auto; line-height: 2; }
+
+    /* ─── 主体 ─── */
+    .content-wrap { max-width: 900px; margin: 0 auto; padding: 0 2rem 8rem; }
+
+    .section-block {
+      margin-bottom: 5rem;
+      opacity: 0; transform: translateY(24px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .section-block.visible { opacity: 1; transform: translateY(0); }
+
+    .section-tag {
+      font-family: var(--font-ui); font-size: 0.62rem; letter-spacing: 0.28em;
+      color: var(--gold); text-transform: uppercase; margin-bottom: 1.5rem;
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .section-tag::before { content: ''; width: 24px; height: 1px; background: var(--gold-dim); }
+
+    .section-heading {
+      font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 400;
+      color: var(--white); margin-bottom: 2.5rem; line-height: 1.4;
+    }
+
+    /* ─── 人物卡片 ─── */
+    .char-list { display: flex; flex-direction: column; gap: 3rem; }
+
+    .char-card {
+      display: grid;
+      grid-template-columns: 3px 1fr;
+      gap: 0 2rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+      transition: border-color 0.4s;
+    }
+
+    .char-card:hover { border-color: rgba(201,169,110,0.35); }
+
+    /* 左边竖色条 */
+    .char-accent {
+      background: linear-gradient(to bottom, var(--gold), var(--blue-dim));
+    }
+
+    .char-accent.blue  { background: linear-gradient(to bottom, var(--blue), var(--blue-dim)); }
+    .char-accent.cold  { background: linear-gradient(to bottom, #8ba8b8, var(--blue-dim)); }
+    .char-accent.dark  { background: linear-gradient(to bottom, #6b5a7e, #2d1a3a); }
+    .char-accent.warm  { background: linear-gradient(to bottom, #c97a6e, var(--gold-dim)); }
+
+    .char-body { padding: 2.2rem 2rem 2.2rem 0; }
+
+    .char-header {
+      display: flex; align-items: baseline; gap: 1rem; flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+
+    .char-name {
+      font-size: 1.4rem; font-weight: 400; color: var(--white);
+      letter-spacing: 0.04em;
+    }
+
+    .char-role {
+      font-family: var(--font-ui); font-size: 0.68rem; letter-spacing: 0.15em;
+      color: var(--gold); text-transform: uppercase;
+    }
+
+    .char-desc {
+      font-size: 0.96rem; color: var(--text); line-height: 1.9;
+      margin-bottom: 1.2rem;
+    }
+
+    .char-symbol {
+      font-family: var(--font-ui); font-size: 0.8rem; color: var(--text-dim);
+      border-top: 1px solid var(--border); padding-top: 1rem; line-height: 1.8;
+    }
+
+    .char-symbol strong {
+      color: var(--gold); font-weight: normal;
+    }
+
+    /* ─── 引言块 ─── */
+    .pull-quote {
+      border-left: 2px solid var(--gold);
+      padding: 1.2rem 0 1.2rem 2rem;
+      margin: 3rem 0;
+      font-size: 1.05rem; color: var(--text);
+      font-style: italic; line-height: 2;
+    }
+
+    /* ─── 分隔线 ─── */
+    .divider { border: none; border-top: 1px solid var(--border); margin: 4rem 0; }
+
+    /* ─── 底部导航 ─── */
+    .page-nav {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 3rem 0 0; border-top: 1px solid var(--border); margin-top: 4rem;
+    }
+    .page-nav a { font-family: var(--font-ui); font-size: 0.78rem; letter-spacing: 0.12em; color: var(--text-dim); transition: color 0.3s; }
+    .page-nav a:hover { color: var(--gold); }
+    .page-nav .next { text-align: right; }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .char-card { grid-template-columns: 3px 1fr; }
+      .char-body { padding: 1.5rem 1.2rem 1.5rem 0; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-brand">Expedition 33</a>
+  <ul class="nav-links">
+    <li><a href="story.html">剧情 · 世界观</a></li>
+    <li><a href="characters.html" class="active">人物</a></li>
+    <li><a href="gameplay.html">玩法</a></li>
+    <li><a href="philosophy.html">哲学 · 体悟</a></li>
+  </ul>
+</nav>
+
+<header class="page-header">
+  <div class="page-header-bg"></div>
+  <div class="page-header-overlay"></div>
+  <div class="page-header-content">
+    <p class="page-num">Chapter 02</p>
+    <h1 class="page-title">主要人物</h1>
+    <p class="page-lead">每个人物都是一种执念的化身。他们的旅途，是向外的远征，也是向内的挣扎。</p>
+  </div>
+</header>
+
+<main class="content-wrap">
+
+  <!-- 核心队伍 -->
+  <section class="section-block">
+    <p class="section-tag">Core Team</p>
+    <h2 class="section-heading">远征队的核心</h2>
+
+    <div class="char-list">
+
+      <div class="char-card">
+        <div class="char-accent"></div>
+        <div class="char-body">
+          <div class="char-header">
+            <span class="char-name">Gustave</span>
+            <span class="char-role">队长 · 丧妻者</span>
+          </div>
+          <p class="char-desc">
+            今年三十四岁，刚刚逃过死亡线。他失去了妻子 Alicia——不是因为绘母，而是更早的事故——但两年后，他仍然活在那场失去的阴影里。他加入远征队，表面上是使命，实际上是逃离。他以为走向死亡是一种勇气，却在旅途中慢慢发现，真正的勇气是选择继续活下去。
+          </p>
+          <p class="char-desc">
+            Gustave 是一个典型的"未完成哀悼"者。他没有崩溃，没有放弃，只是把自己紧紧地关在了那段记忆里，用行动来代替感受，用危险来麻痹悲痛。他的成长弧是全游戏最重要的情感支柱。
+          </p>
+          <p class="char-symbol">
+            <strong>象征意义：</strong>执念与救赎。他代表着那些因为爱而无法向前走的人，以及最终选择放手的那一刻的巨大代价。
+          </p>
+        </div>
+      </div>
+
+      <div class="char-card">
+        <div class="char-accent warm"></div>
+        <div class="char-body">
+          <div class="char-header">
+            <span class="char-name">Maelle</span>
+            <span class="char-role">Gustave 的妹妹 · 幸存者</span>
+          </div>
+          <p class="char-desc">
+            年轻、冲动、表面活泼，内心埋着一层不为人知的深重。她与哥哥 Gustave 一同加入远征队，但她的理由与哥哥截然不同。她爱哥哥，但她也在努力逃脱哥哥对她的过度保护——以及她自己对那个保护的依赖。
+          </p>
+          <p class="char-desc">
+            在整个旅途中，Maelle 的成长是最明显的。她从一个渴望被看见的少女，变成了一个能够独自承受重量的人。她的笑容里总有一丝忧郁，让人想起那些把开心当成盔甲的人。
+          </p>
+          <p class="char-symbol">
+            <strong>象征意义：</strong>成长与自我发现。她代表那些活在他人期待或保护下、却渴望找到自己的年轻灵魂。
+          </p>
+        </div>
+      </div>
+
+      <div class="char-card">
+        <div class="char-accent blue"></div>
+        <div class="char-body">
+          <div class="char-header">
+            <span class="char-name">Lune</span>
+            <span class="char-role">研究者 · 理性主义者</span>
+          </div>
+          <p class="char-desc">
+            她是队伍里最冷静的人，也是最脆弱的人之一。Lune 将自己的全部热情投入到对 Lumina（光素）的研究中，用科学的语言去理解那片奇异的画中世界。她不喜欢谈论情感，因为她太清楚情感的破坏力。
+          </p>
+          <p class="char-desc">
+            但理性是她用来抵御悲痛的盾，不是她的本质。当那盾被击碎的时候，她才真正开始存在。她与 Gustave 之间发展出的关系，不是一段浪漫故事，而是两个受伤的人在黑暗中找到的一点微光。
+          </p>
+          <p class="char-symbol">
+            <strong>象征意义：</strong>理性对抗情感的徒劳，以及最终向真实感受臣服的勇气。
+          </p>
+        </div>
+      </div>
+
+      <div class="char-card">
+        <div class="char-accent cold"></div>
+        <div class="char-body">
+          <div class="char-header">
+            <span class="char-name">Sciel</span>
+            <span class="char-role">神秘者 · 命运的见证人</span>
+          </div>
+          <p class="char-desc">
+            Sciel 是队伍里最难读懂的人。她有一种古老的淡漠，像是见过太多事情之后的平静，也像是某种根深蒂固的疲倦。她知道一些别人不知道的事，但她选择沉默——不是出于隐瞒，而是出于某种难以言说的悲悯。
+          </p>
+          <p class="char-desc">
+            她的存在给整个旅途增添了一层宿命感：有些事情也许早就注定，而知道命运的人，需要用更大的力气才能选择继续走下去。
+          </p>
+          <p class="char-symbol">
+            <strong>象征意义：</strong>宿命与自由意志的拉锯。她代表那些在无从改变的命运中，依然选择以自己的方式前行的人。
+          </p>
+        </div>
+      </div>
+
+      <div class="char-card">
+        <div class="char-accent dark"></div>
+        <div class="char-body">
+          <div class="char-header">
+            <span class="char-name">Verso</span>
+            <span class="char-role">游离者 · 信念的反面</span>
+          </div>
+          <p class="char-desc">
+            Verso 不像其他人那样有明确的使命感。他加入远征队，是因为没有别的地方可去。他是一个道德上的灰色人物——不坏，但也不确定自己是否相信这场远征有意义。他的疑问，是整个队伍信念最真实的试炼石。
+          </p>
+          <p class="char-desc">
+            恰恰是这样的人，有时候会说出最直击人心的话。因为他不需要维护任何信念，所以他可以直视那些别人不愿承认的真相。
+          </p>
+          <p class="char-symbol">
+            <strong>象征意义：</strong>怀疑与诚实。他提醒我们，没有根基的信念很容易成为逃避的借口。
+          </p>
+        </div>
+      </div>
+
+      <div class="char-card">
+        <div class="char-accent"></div>
+        <div class="char-body">
+          <div class="char-header">
+            <span class="char-name">Monoco</span>
+            <span class="char-role">守护者 · 沉默的承担者</span>
+          </div>
+          <p class="char-desc">
+            Monoco 是队伍的守护型角色，话不多，但在需要的时刻总是在场。他承担着许多人看不见的重量——不只是战斗中的物理防护，更是那种"有人得把这些扛起来"的心理重量。
+          </p>
+          <p class="char-desc">
+            他的存在提醒我们，远征队不只是由英雄和受难者组成，还有那些默默支撑所有人的人——他们的悲伤同样真实，只是埋得更深。
+          </p>
+          <p class="char-symbol">
+            <strong>象征意义：</strong>沉默的牺牲与不被看见的坚强。
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- 核心对立 -->
+  <section class="section-block">
+    <p class="section-tag">Antagonist</p>
+    <h2 class="section-heading">Alicia 与绘母：执念的两端</h2>
+
+    <div class="char-list">
+
+      <div class="char-card">
+        <div class="char-accent warm"></div>
+        <div class="char-body">
+          <div class="char-header">
+            <span class="char-name">Alicia</span>
+            <span class="char-role">Gustave 之妻 · 逝者的幽灵</span>
+          </div>
+          <p class="char-desc">
+            Alicia 已经死去，但她在整个故事里无处不在。她活在 Gustave 的每一次回忆里，活在他的每一个选择里，活在他出发的理由里，也活在他无法开口说再见的沉默里。
+          </p>
+          <p class="char-desc">
+            游戏处理她的方式极为克制：我们通过碎片看到她，通过他人的眼睛感受她，但从不把她神圣化。她是一个真实的人，有自己的光亮与局限，这让她的缺席更加真实，也让 Gustave 对她的思念更加令人心疼。
+          </p>
+          <p class="char-symbol">
+            <strong>象征意义：</strong>已逝之爱。她代表那些我们无法停止爱、却必须学会放下的人。
+          </p>
+        </div>
+      </div>
+
+      <div class="char-card">
+        <div class="char-accent dark"></div>
+        <div class="char-body">
+          <div class="char-header">
+            <span class="char-name">绘母 · Paintress</span>
+            <span class="char-role">世界的作者 · 哀悼者的镜子</span>
+          </div>
+          <p class="char-desc">
+            绘母不是一个传统意义上的反派。她是一个被自己的悲痛异化的灵魂，她的消亡行为不是出于恶意，而是出于一种扭曲的、失控的爱——或者说，是一种爱之后留下的空洞。
+          </p>
+          <p class="char-desc">
+            当玩家最终理解她的动机，那种震动不来自于"原来她是好人"，而来自于一种更深层的恐惧：原来一个人的悲痛，可以大到足以毁灭世界。原来执念，可以把善意变成伤害，把爱变成囚笼。
+          </p>
+          <p class="char-symbol">
+            <strong>象征意义：</strong>无法被终结的哀悼，以及它所造成的灾难性伤害。绘母是 Gustave 的镜子——她走的是 Gustave 如果不放手将会走上的那条路。
+          </p>
+        </div>
+      </div>
+
+      <div class="char-card">
+        <div class="char-accent blue"></div>
+        <div class="char-body">
+          <div class="char-header">
+            <span class="char-name">Renoir</span>
+            <span class="char-role">前辈 · 幻灭者</span>
+          </div>
+          <p class="char-desc">
+            Renoir 是曾经的远征队成员，一个在某次远征中没能回来的人——但他也没能真正消失。他游走在画中世界的边缘，是一个关于"在途中放弃了前进"的存在：他没有死，但也没有活。
+          </p>
+          <p class="char-desc">
+            他的故事是一个警示：有时候，停留在旅途中间，既不回头、也不前进，是一种比死亡更难以言说的状态。他的出现让远征队意识到，真正的危险不只是死去，还有在某个灰色地带永远地耗尽自己。
+          </p>
+          <p class="char-symbol">
+            <strong>象征意义：</strong>半途的幻灭与悬置的人生。他代表那些停在某段创伤里、无法走出也无法放下的灵魂。
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="pull-quote" style="margin-top: 3rem;">
+      所有人物的共同点，是他们都有一件想要拯救却无法拯救的事。绘母想保留她爱的人，Gustave 想挽回他失去的人，Maelle 想留住某种纯真，Lune 想用逻辑封住情感的缺口。而这趟远征，迫使他们每一个人正视：有些失去，就是失去。
+    </div>
+
+  </section>
+
+  <!-- 底部导航 -->
+  <div class="page-nav">
+    <a href="story.html">← 剧情 · 世界观</a>
+    <a href="gameplay.html" class="next">游戏玩法 →</a>
+  </div>
+
+</main>
+
+<script>
+  const blocks = document.querySelectorAll('.section-block');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.08 });
+  blocks.forEach(b => io.observe(b));
+</script>
+</body>
+</html>

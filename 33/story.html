@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>剧情与世界观 · 33号远征队</title>
+  <style>
+    :root {
+      --bg:       #0d0d10;
+      --bg-card:  #13131a;
+      --bg-card2: #181824;
+      --gold:     #c9a96e;
+      --gold-dim: #8a6e42;
+      --blue:     #5b8fa8;
+      --blue-dim: #2d5166;
+      --text:     #d4cfc8;
+      --text-dim: #7a7670;
+      --white:    #eeeae4;
+      --border:   rgba(201,169,110,0.15);
+      --font-body: 'Georgia', 'Noto Serif SC', serif;
+      --font-ui:   'Helvetica Neue', 'PingFang SC', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      line-height: 1.8;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ─── 导航 ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 0 2rem;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(13,13,16,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-brand { font-family: var(--font-ui); font-size: 0.78rem; letter-spacing: 0.2em; color: var(--gold); text-transform: uppercase; }
+
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { font-family: var(--font-ui); font-size: 0.75rem; letter-spacing: 0.12em; color: var(--text-dim); transition: color 0.3s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--gold); }
+
+    /* ─── 页面头 ─── */
+    .page-header {
+      position: relative;
+      padding: 9rem 2rem 5rem;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .page-header-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('d3933036648f9b91893d3a1e82c98c0d.jpeg');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.2;
+      filter: saturate(0.4);
+    }
+
+    .page-header-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(13,13,16,0.5) 0%, var(--bg) 100%);
+    }
+
+    .page-header-content { position: relative; z-index: 2; }
+
+    .page-num {
+      font-family: var(--font-ui);
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+    }
+
+    .page-title {
+      font-size: clamp(2rem, 5vw, 3.6rem);
+      font-weight: 400;
+      color: var(--white);
+      letter-spacing: 0.06em;
+      margin-bottom: 1.2rem;
+    }
+
+    .page-lead {
+      font-size: 1rem;
+      color: var(--text-dim);
+      max-width: 520px;
+      margin: 0 auto;
+      line-height: 2;
+    }
+
+    /* ─── 主体布局 ─── */
+    .content-wrap {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 0 2rem 8rem;
+    }
+
+    /* ─── 章节块 ─── */
+    .section-block {
+      margin-bottom: 6rem;
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .section-block.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .section-tag {
+      font-family: var(--font-ui);
+      font-size: 0.62rem;
+      letter-spacing: 0.28em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .section-tag::before {
+      content: '';
+      width: 24px;
+      height: 1px;
+      background: var(--gold-dim);
+    }
+
+    .section-heading {
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 400;
+      color: var(--white);
+      margin-bottom: 2rem;
+      line-height: 1.4;
+    }
+
+    .prose {
+      font-size: 1.02rem;
+      color: var(--text);
+      line-height: 2;
+    }
+
+    .prose p { margin-bottom: 1.5rem; }
+
+    .prose p:last-child { margin-bottom: 0; }
+
+    /* ─── 引言块 ─── */
+    .pull-quote {
+      border-left: 2px solid var(--gold);
+      padding: 1.2rem 0 1.2rem 2rem;
+      margin: 3rem 0;
+      font-size: 1.1rem;
+      color: var(--text);
+      font-style: italic;
+      line-height: 2;
+    }
+
+    .pull-quote cite {
+      display: block;
+      font-style: normal;
+      font-family: var(--font-ui);
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      color: var(--text-dim);
+      margin-top: 0.8rem;
+    }
+
+    /* ─── 时间线 ─── */
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+      margin-top: 2.5rem;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 8px;
+      bottom: 8px;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--gold-dim), var(--blue-dim), transparent);
+    }
+
+    .tl-item {
+      position: relative;
+      padding-bottom: 2.5rem;
+    }
+
+    .tl-item::before {
+      content: '';
+      position: absolute;
+      left: -2.35rem;
+      top: 8px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--gold-dim);
+      border: 1px solid var(--gold);
+    }
+
+    .tl-label {
+      font-family: var(--font-ui);
+      font-size: 0.68rem;
+      letter-spacing: 0.15em;
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+    }
+
+    .tl-text {
+      font-size: 0.95rem;
+      color: var(--text-dim);
+      line-height: 1.9;
+    }
+
+    /* ─── 信息卡 ─── */
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+
+    .info-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1.8rem 1.6rem;
+    }
+
+    .info-card-title {
+      font-family: var(--font-ui);
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+    }
+
+    .info-card-body {
+      font-size: 0.92rem;
+      color: var(--text-dim);
+      line-height: 1.8;
+    }
+
+    /* ─── 图片 ─── */
+    .story-img {
+      width: 100%;
+      aspect-ratio: 16/7;
+      object-fit: cover;
+      border-radius: 4px;
+      filter: saturate(0.55) brightness(0.75);
+      margin: 2.5rem 0;
+      display: block;
+    }
+
+    /* ─── 分隔线 ─── */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 4rem 0;
+    }
+
+    /* ─── 底部导航 ─── */
+    .page-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 3rem 0 0;
+      border-top: 1px solid var(--border);
+      margin-top: 4rem;
+    }
+
+    .page-nav a {
+      font-family: var(--font-ui);
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      color: var(--text-dim);
+      transition: color 0.3s;
+    }
+
+    .page-nav a:hover { color: var(--gold); }
+
+    .page-nav .next { text-align: right; }
+
+    /* ─── 响应式 ─── */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .info-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-brand">Expedition 33</a>
+  <ul class="nav-links">
+    <li><a href="story.html" class="active">剧情 · 世界观</a></li>
+    <li><a href="characters.html">人物</a></li>
+    <li><a href="gameplay.html">玩法</a></li>
+    <li><a href="philosophy.html">哲学 · 体悟</a></li>
+  </ul>
+</nav>
+
+<!-- 页面头 -->
+<header class="page-header">
+  <div class="page-header-bg"></div>
+  <div class="page-header-overlay"></div>
+  <div class="page-header-content">
+    <p class="page-num">Chapter 01</p>
+    <h1 class="page-title">剧情与世界观</h1>
+    <p class="page-lead">绘母每年提笔，消去一个年龄。世界在画布上逐渐褪色，而人类，年复一年地走向远方，去终结那支不肯停下的画笔。</p>
+  </div>
+</header>
+
+<main class="content-wrap">
+
+  <!-- 剧情主线 -->
+  <section class="section-block">
+    <p class="section-tag">Story</p>
+    <h2 class="section-heading">一场不曾停止的消亡</h2>
+
+    <div class="prose">
+      <p>世界上有一个叫做"绘母"的存在。她坐在遥远之地，每年在她的画布上写下一个数字——那个数字所对应的年龄，便从人间消失。今年她写下"33"，所有三十三岁的人在那一天陨落，如同画布上被抹去的笔迹，悄无声息。</p>
+      <p>没有人知道绘母为何这样做，也没有人真正见过她的脸。世界接受了这一切，就像接受四季更迭一样。唯一的反抗，是每年送出一支远征队，越过边境，穿过那片叫作"Continent"的画中大地，去寻找绘母，去终结这一切。</p>
+      <p>但每一支远征队，都没有回来。</p>
+      <p>今年，是第三十三次。</p>
+    </div>
+
+    <div class="pull-quote">
+      远征队不是英雄主义的集结，而是绝望之中的最后尝试。他们知道自己大概率不会回来，却依然出发——不是因为无惧死亡，而是因为，留下来同样是一种死亡。
+    </div>
+
+    <div class="prose">
+      <p>Gustave 今年三十四岁，刚刚从死亡线上逃脱。他的妻子 Alicia，死于两年前的那场消亡。他加入第三十三支远征队，既是为了终结绘母，也是为了逃离那个失去爱人之后变得难以承受的现实。</p>
+      <p>与他同行的，有年轻的 Maelle，活泼却藏着深重的悲伤；有科学家 Lune，以理性构建防线，以研究抵御情感；有神秘的 Sciel，一半清醒，一半游走在某种遥远的命运感之中；还有许多其他人，他们带着各自的失去，踏上了同一条路。</p>
+    </div>
+
+    <img class="story-img" src="4d11eb254d69d474c957a82af795c863343ece00.jpg" alt="远征队出发" />
+  </section>
+
+  <hr class="divider" />
+
+  <!-- 世界观 -->
+  <section class="section-block">
+    <p class="section-tag">World</p>
+    <h2 class="section-heading">画布上的世界</h2>
+
+    <div class="prose">
+      <p>《33号远征队》的世界不是写实的，而是被画出来的。大地是画布，天空有颜料的质感，光线以一种奇异的方式折射，像是油画里透出来的光。这片土地叫"Continent"——一个画中世界与现实边界模糊的地方。</p>
+      <p>游戏用"绘画"作为底层隐喻：创造是绘画，消灭是涂抹，存在是被描绘，消亡是被擦去。绘母是这一切的作者，她不是神，但她拥有神的权力——不是创世的权力，而是删除的权力。</p>
+    </div>
+
+    <!-- 世界设定卡片 -->
+    <div class="info-grid">
+      <div class="info-card">
+        <p class="info-card-title">绘母 Paintress</p>
+        <p class="info-card-body">每年在画布上写下一个年龄，那个年龄的所有人随之消亡。她的动机成谜，她的存在本身即是规则。</p>
+      </div>
+      <div class="info-card">
+        <p class="info-card-title">年龄倒计时</p>
+        <p class="info-card-body">每个人都清楚地知道，自己将在哪一年被消去。这让整个世界活在一种慢性的、有期限的绝望之中。</p>
+      </div>
+      <div class="info-card">
+        <p class="info-card-title">远征队</p>
+        <p class="info-card-body">人类唯一的反抗形式。每年出发，无人归来。这已成为一种仪式，一种尊严，也是一种集体的哀悼。</p>
+      </div>
+      <div class="info-card">
+        <p class="info-card-title">Continent 大陆</p>
+        <p class="info-card-body">边界之外的画中世界。时间与空间的规则在这里扭曲，美丽与危险并存，是绘母权力所及之地。</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- 剧情时间线 -->
+  <section class="section-block">
+    <p class="section-tag">Timeline</p>
+    <h2 class="section-heading">远征的轨迹</h2>
+
+    <div class="prose">
+      <p>游戏的故事不是一条直线，而是一个螺旋。它看上去是从 A 点走向 B 点，实际上每一步都在向内挖掘，挖向每个角色心底最难面对的那一块。</p>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <p class="tl-label">出发</p>
+        <p class="tl-text">第三十三支远征队在送别的沉默中离开家园，每个人都清楚这可能是最后一次离开。队伍中混杂着悲痛、愤怒、爱与释然。</p>
+      </div>
+      <div class="tl-item">
+        <p class="tl-label">越境</p>
+        <p class="tl-text">穿越边界进入 Continent，世界的规则开始改变。这里的一切都像是画出来的，美得失真，危险得如此优雅。</p>
+      </div>
+      <div class="tl-item">
+        <p class="tl-label">死亡开始</p>
+        <p class="tl-text">队伍并非铁板一块。随着旅程深入，成员陆续牺牲，每一次失去都在撕开更深的伤口——关于 Alicia，关于彼此，关于自己。</p>
+      </div>
+      <div class="tl-item">
+        <p class="tl-label">真相浮现</p>
+        <p class="tl-text">绘母是谁？为什么她要这样做？答案比任何人预想的都要沉重。那不是一个邪恶的意志，而是一个同样被痛苦所困的存在。</p>
+      </div>
+      <div class="tl-item">
+        <p class="tl-label">最终抉择</p>
+        <p class="tl-text">当 Gustave 站在绘母面前，他面对的不只是一个需要被打败的 Boss，而是一个需要被理解、被放下的问题：我们是否有权，为了活人的幸福，而终结另一个人的执念？</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- 画中世界与现实 -->
+  <section class="section-block">
+    <p class="section-tag">Duality</p>
+    <h2 class="section-heading">两个世界，一种痛苦</h2>
+
+    <div class="prose">
+      <p>游戏最精妙的设定之一，是它始终让玩家意识到：Continent 这片画中世界，并非真实存在的。它是绘母画出来的，是她意志的延伸，是她将某种心愿或执念投影成的具象空间。</p>
+      <p>这意味着，远征队每经过一片风景，每遭遇一个怪物，都是在与绘母的内心世界直接交战。打倒一个 Boss，不只是战术上的胜利，更是在瓦解某种执念的具象化。</p>
+      <p>而现实世界——那个每年失去一批人的世界——是悲剧发生的地方，但也是一切意义存在的地方。画中的美丽，是用现实的痛苦换来的；现实的残酷，让画中的光影显得格外迷人。</p>
+    </div>
+
+    <div class="pull-quote">
+      绘母的画中世界，像极了那种把自己关在记忆里、拒绝面对现实的心理状态。那里的一切都是完美的，因为那里没有真实的失去——只有被美化的，被定格的，永远不会再变的过去。
+    </div>
+
+    <img class="story-img" src="9e07b846170c3877377e5101db752ad7a5f13b7d.jpg" alt="画中世界" />
+  </section>
+
+  <!-- 底部翻页 -->
+  <div class="page-nav">
+    <a href="index.html">← 返回首页</a>
+    <a href="characters.html" class="next">主要人物 →</a>
+  </div>
+
+</main>
+
+<script>
+  // 滚动时淡入各 section-block
+  const blocks = document.querySelectorAll('.section-block');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  blocks.forEach(b => io.observe(b));
+</script>
+</body>
+</html>
