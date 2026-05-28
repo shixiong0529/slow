@@ -74,10 +74,10 @@
     .page-lead { font-size: 1rem; color: var(--text-dim); max-width: 520px; margin: 0 auto; line-height: 2; }
 
     /* ─── 主体 ─── */
-    .content-wrap { max-width: 800px; margin: 0 auto; padding: 0 2rem 8rem; }
+    .content-wrap { max-width: 800px; margin: 0 auto; padding: 0 2rem 10rem; }
 
     .section-block {
-      margin-bottom: 6rem;
+      margin-bottom: 9rem;
       opacity: 0; transform: translateY(24px);
       transition: opacity 0.8s ease, transform 0.8s ease;
     }
@@ -96,7 +96,7 @@
     }
 
     .prose { font-size: 1.02rem; color: var(--text); line-height: 2; }
-    .prose p { margin-bottom: 1.5rem; }
+    .prose p { margin-bottom: 2.2rem; }
 
     /* ─── 引言块（大型）─── */
     .big-quote {
@@ -125,7 +125,7 @@
     }
 
     /* ─── 命题卡片 ─── */
-    .insight-list { display: flex; flex-direction: column; gap: 2rem; margin-top: 2.5rem; }
+    .insight-list { display: flex; flex-direction: column; gap: 3rem; margin-top: 3rem; }
 
     .insight-card {
       display: grid;
@@ -134,7 +134,7 @@
       background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: 4px;
-      padding: 2rem;
+      padding: 2.8rem 2.4rem;
       transition: border-color 0.4s;
     }
 
@@ -163,10 +163,10 @@
     }
 
     /* ─── 人生体悟：大字排版 ─── */
-    .revelation-list { list-style: none; margin-top: 2.5rem; }
+    .revelation-list { list-style: none; margin-top: 3rem; }
 
     .revelation-item {
-      padding: 2.5rem 0;
+      padding: 3.5rem 0;
       border-bottom: 1px solid var(--border);
     }
 
@@ -184,6 +184,18 @@
       font-size: 0.82rem;
       color: var(--text-dim);
       line-height: 1.8;
+    }
+
+    /* ─── 章节氛围图 ─── */
+    .phil-img {
+      width: 100%;
+      aspect-ratio: 16/6;
+      object-fit: cover;
+      object-position: center 40%;
+      border-radius: 4px;
+      filter: saturate(0.38) brightness(0.58);
+      margin: 4rem 0 0;
+      display: block;
     }
 
     /* ─── 画廊 ─── */
@@ -217,7 +229,7 @@
       font-size: 1.05rem;
       color: var(--text);
       max-width: 640px;
-      margin: 0 auto 2.5rem;
+      margin: 0 auto 3.5rem;
       line-height: 2.1;
     }
 
@@ -229,7 +241,7 @@
     }
 
     /* ─── 分隔线 ─── */
-    .divider { border: none; border-top: 1px solid var(--border); margin: 4rem 0; }
+    .divider { border: none; border-top: 1px solid var(--border); margin: 0; }
 
     /* ─── 底部导航 ─── */
     .page-nav {
@@ -292,6 +304,8 @@
       <p class="big-quote-attr">— 33号远征队 · 深度赏析</p>
     </div>
 
+    <img class="phil-img" src="scene_world2.webp" alt="画中世界" loading="lazy">
+
   </section>
 
   <hr class="divider" />
@@ -352,6 +366,8 @@
       </div>
 
     </div>
+
+    <img class="phil-img" src="scene_combat.webp" alt="远征中的战斗" loading="lazy" style="object-position: center 30%;">
 
   </section>
 
