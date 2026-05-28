@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>光与影：33号远征队</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg-deep: #0a0a14; --bg-dark: #12121f; --bg-card: #181830; --bg-card-hover: #1e1e3a;
+  --gold: #c9a96e; --gold-light: #e0c88e; --gold-dim: #b8943f;
+  --blue: #5b8cc9; --blue-light: #7aaee8; --blue-dim: #3a6aa8;
+  --off-white: #eae5db; --off-white-dim: #b8afa0;
+  --text-primary: #eae5db; --text-secondary: #b0a898; --text-muted: #706858;
+  --accent-red: #8b4a5e; --border-subtle: rgba(201,169,110,0.15); --border-gold: rgba(201,169,110,0.35);
+  --radius-sm: 6px; --radius-md: 12px; --radius-lg: 20px; --radius-xl: 28px;
+  --shadow-card: 0 4px 24px rgba(0,0,0,0.4); --shadow-glow: 0 0 40px rgba(201,169,110,0.08);
+  --font-serif: "Noto Serif SC","Source Han Serif SC","STSong","SimSun",Georgia,serif;
+  --font-sans: "PingFang SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  --transition: 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+html { scroll-behavior: smooth; font-size: 16px; }
+body { font-family: var(--font-sans); background: var(--bg-deep); color: var(--text-primary); line-height: 1.85; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+
+/* Nav */
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(10,10,20,0.85); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border-subtle); }
+.nav-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 4px; padding: 0.6rem 1rem; }
+.nav-tab { font-family: var(--font-sans); font-size: 0.82rem; letter-spacing: 0.08em; color: var(--text-muted); text-decoration: none; padding: 0.45rem 1rem; border-radius: 20px; transition: var(--transition); white-space: nowrap; }
+.nav-tab:hover { color: var(--gold-light); background: rgba(201,169,110,0.08); }
+.nav-tab.active { color: var(--gold); background: rgba(201,169,110,0.12); font-weight: 600; }
+
+/* Particles */
+.particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: hidden; }
+.particle { position: absolute; border-radius: 50%; background: radial-gradient(circle, var(--gold) 0%, transparent 70%); opacity: 0; animation: floatUp var(--dur) var(--delay) infinite ease-in; }
+@keyframes floatUp { 0% { transform: translateY(105vh) scale(0); opacity:0; } 10% { opacity:0.6; } 30% { opacity:0.3; } 60% { opacity:0.15; } 100% { transform: translateY(-10vh) scale(1.2); opacity:0; } }
+
+/* Hero */
+.hero { position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 6rem 2rem 4rem; }
+.hero-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.18; filter: brightness(0.6) saturate(0.5); }
+.hero-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10,10,20,0.4) 0%, rgba(10,10,20,0.7) 50%, rgba(10,10,20,0.95) 100%); }
+.hero-content { position: relative; z-index: 1; text-align: center; max-width: 800px; }
+.hero-subtitle { font-family: var(--font-serif); font-size: clamp(0.9rem,1.5vw,1.1rem); letter-spacing: 0.35em; color: var(--gold); margin-bottom: 1.5rem; text-transform: uppercase; opacity: 0.8; }
+.hero-title { font-family: var(--font-serif); font-size: clamp(2.8rem,6vw,4.5rem); font-weight: 700; line-height: 1.2; margin-bottom: 0.5rem; background: linear-gradient(180deg,var(--off-white) 0%,var(--gold-light) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero-title-en { font-family: var(--font-serif); font-size: clamp(1.2rem,2.5vw,1.6rem); font-style: italic; color: var(--text-secondary); margin-bottom: 2.5rem; letter-spacing: 0.08em; }
+.hero-divider { width: 80px; height: 1px; background: var(--gold); margin: 0 auto 2.5rem; opacity: 0.5; }
+.hero-desc { font-size: clamp(1rem,1.8vw,1.15rem); color: var(--text-secondary); line-height: 2; max-width: 680px; margin: 0 auto; }
+.light-ring { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); border-radius: 50%; border: 1px solid rgba(201,169,110,0.12); pointer-events: none; z-index: 0; }
+.light-ring:nth-child(2) { width: clamp(400px,80vw,800px); height: clamp(400px,80vw,800px); border-color: rgba(201,169,110,0.06); animation-delay: 2s; }
+.light-ring:nth-child(3) { width: clamp(300px,60vw,600px); height: clamp(300px,60vw,600px); animation: ringPulse 6s ease-in-out infinite; }
+@keyframes ringPulse { 0%,100% { transform: translate(-50%,-50%) scale(1); opacity:0.5; } 50% { transform: translate(-50%,-50%) scale(1.05); opacity:1; } }
+
+/* Closing */
+.closing { text-align: center; padding: 5rem 2rem; position: relative; z-index: 1; max-width: 960px; margin: 0 auto; background: linear-gradient(180deg, transparent 0%, rgba(201,169,110,0.03) 50%, transparent 100%); }
+.closing-line { width: 100px; height: 1px; background: var(--gold); margin: 0 auto 2.5rem; opacity: 0.4; }
+.closing-text { font-family: var(--font-serif); font-size: clamp(1.1rem,2vw,1.35rem); color: var(--text-secondary); line-height: 2.2; max-width: 700px; margin: 0 auto 2.5rem; font-style: italic; }
+.closing-en { font-family: var(--font-serif); font-size: 1rem; color: var(--text-muted); margin-top: 2rem; letter-spacing: 0.08em; }
+.closing-author { font-size: 0.85rem; color: var(--text-muted); letter-spacing: 0.15em; margin-top: 3rem; }
+.site-footer { text-align: center; padding: 2rem; font-size: 0.8rem; color: var(--text-muted); border-top: 1px solid var(--border-subtle); letter-spacing: 0.08em; position: relative; z-index: 1; }
+
+@keyframes fadeInUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
+.animate-in { animation: fadeInUp 0.8s cubic-bezier(0.25,0.46,0.45,0.94) forwards; opacity: 0; }
+
+@media (max-width:768px) {
+  .hero { min-height: 80vh; padding: 5rem 1.2rem 3rem; }
+  .closing { padding: 4rem 1rem; }
+}
+@media (max-width:480px) {
+  .hero-title { font-size: 2rem; }
+  .nav-tab { font-size: 0.72rem; padding: 0.35rem 0.65rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="particles" aria-hidden="true">
+  <div class="particle" style="left:5%;width:3px;height:3px;--dur:18s;--delay:0s"></div>
+  <div class="particle" style="left:25%;width:4px;height:4px;--dur:15s;--delay:6s"></div>
+  <div class="particle" style="left:52%;width:3px;height:3px;--dur:25s;--delay:8s"></div>
+  <div class="particle" style="left:78%;width:4px;height:4px;--dur:21s;--delay:2s"></div>
+  <div class="particle" style="left:32%;width:2px;height:2px;--dur:24s;--delay:9s"></div>
+  <div class="particle" style="left:70%;width:3px;height:3px;--dur:16s;--delay:5s"></div>
+</div>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-tab active" href="./33-index.html">首页</a>
+    <a class="nav-tab" href="./33-story.html">故事 · 世界观</a>
+    <a class="nav-tab" href="./33-characters.html">主要角色</a>
+    <a class="nav-tab" href="./33-gameplay.html">玩法系统</a>
+    <a class="nav-tab" href="./33-philosophy.html">哲学 · 启示</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="light-ring"></div>
+  <div class="light-ring"></div>
+  <div class="light-ring"></div>
+  <img class="hero-bg" src="./《光与影：33号远征队》人物风景3440x1440游戏高清壁纸_图片编号341882_壁纸网.jpeg" alt="" onerror="this.style.display='none'" />
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-subtitle">每一年，一笔一划</p>
+    <h1 class="hero-title">光与影：33号远征队</h1>
+    <p class="hero-title-en">Clair Obscur: Expedition 33</p>
+    <div class="hero-divider"></div>
+    <p class="hero-desc">
+      一幅由死亡绘成的画，一支走向终点的远征，一段关于<em>告别</em>的故事。<br>
+      这不是关于赢的故事，这是关于<em>如何输得漂亮</em>的故事。
+    </p>
+  </div>
+</header>
+
+<section class="closing">
+  <div class="closing-line"></div>
+  <p class="closing-text">
+    所以，第 33 号远征究竟是关于什么？<br>
+    是关于一场对死亡的反抗；<br>
+    是关于一个人，决定在生命的最后一刻依然选择<em>出发</em>；<br>
+    是关于爱，以及爱之后漫长的、无人能替的<em>哀悼</em>；<br>
+    是关于一幅画、一支画笔，以及<em>放下画笔</em>的勇气。
+  </p>
+  <p class="closing-en">
+    "Some things are worth the expedition, even if you already know how it ends."
+  </p>
+  <div class="closing-line"></div>
+  <p class="closing-author">—— 写给每一个在画中寻找出路的人</p>
+</section>
+
+<footer class="site-footer">
+  <p>Clair Obscur: Expedition 33 &copy; Sandfall Interactive</p>
+  <p style="margin-top:0.5em;">本文为深度赏析文章，所有游戏素材版权归原开发者所有</p>
+</footer>
+
+<script>
+(function() {
+  if (!('IntersectionObserver' in window)) return;
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('animate-in'); observer.unobserve(entry.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.closing').forEach(el => observer.observe(el));
+})();
+</script>
+</body>
+</html>

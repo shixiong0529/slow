@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clair Obscur: Expedition 33 — 光与影的挽歌</title>
+<style>
+/* ==========================================
+   CSS Reset & Base
+   ========================================== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg-deep: #0a0a14;
+  --bg-dark: #12121f;
+  --bg-card: #181830;
+  --bg-card-hover: #1e1e3a;
+  --gold: #c9a96e;
+  --gold-light: #e0c88e;
+  --gold-dim: #b8943f;
+  --blue: #5b8cc9;
+  --blue-light: #7aaee8;
+  --blue-dim: #3a6aa8;
+  --off-white: #e8e0d5;
+  --off-white-dim: #b8afa0;
+  --text-primary: #eae5db;
+  --text-secondary: #b0a898;
+  --text-muted: #706858;
+  --accent-red: #8b4a5e;
+  --border-subtle: rgba(201, 169, 110, 0.15);
+  --border-gold: rgba(201, 169, 110, 0.35);
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --shadow-card: 0 4px 24px rgba(0,0,0,0.4);
+  --shadow-glow: 0 0 40px rgba(201,169,110,0.08);
+  --font-serif: "Noto Serif SC", "Source Han Serif SC", "STSong", "SimSun", Georgia, serif;
+  --font-sans: "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+  --max-width: 960px;
+  --transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  font-family: var(--font-sans);
+  background: var(--bg-deep);
+  color: var(--text-primary);
+  line-height: 1.85;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ==========================================
+   Abstract Background Particles (Pure CSS)
+   ========================================== */
+.particles {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  pointer-events: none; z-index: 0; overflow: hidden;
+}
+.particle {
+  position: absolute; border-radius: 50%;
+  background: radial-gradient(circle, var(--gold) 0%, transparent 70%);
+  opacity: 0;
+  animation: floatUp var(--dur) var(--delay) infinite ease-in;
+}
+@keyframes floatUp {
+  0% { transform: translateY(105vh) scale(0); opacity: 0; }
+  10% { opacity: 0.6; }
+  30% { opacity: 0.3; }
+  60% { opacity: 0.15; }
+  100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+}
+
+/* ==========================================
+   Hero Section
+   ========================================== */
+.hero {
+  position: relative; min-height: 100vh; display: flex;
+  align-items: center; justify-content: center; overflow: hidden;
+  padding: 2rem;
+}
+.hero-bg {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  object-fit: cover; opacity: 0.18;
+  filter: brightness(0.6) saturate(0.5);
+}
+.hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(10,10,20,0.4) 0%,
+    rgba(10,10,20,0.7) 50%,
+    rgba(10,10,20,0.95) 100%
+  );
+}
+.hero-content {
+  position: relative; z-index: 1; text-align: center; max-width: 800px;
+}
+.hero-subtitle {
+  font-family: var(--font-serif);
+  font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+  letter-spacing: 0.35em; color: var(--gold); margin-bottom: 1.5rem;
+  text-transform: uppercase; opacity: 0.8;
+}
+.hero-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2.8rem, 6vw, 4.5rem);
+  font-weight: 700; line-height: 1.2; margin-bottom: 0.5rem;
+  background: linear-gradient(180deg, var(--off-white) 0%, var(--gold-light) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero-title-en {
+  font-family: var(--font-serif);
+  font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+  font-style: italic; color: var(--text-secondary);
+  margin-bottom: 2.5rem; letter-spacing: 0.08em;
+}
+.hero-divider {
+  width: 80px; height: 1px; background: var(--gold);
+  margin: 0 auto 2.5rem; opacity: 0.5;
+}
+.hero-desc {
+  font-size: clamp(1rem, 1.8vw, 1.15rem);
+  color: var(--text-secondary); line-height: 2; max-width: 680px;
+  margin: 0 auto;
+}
+/* Light Ring — abstract visual */
+.light-ring {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: clamp(300px, 60vw, 600px); height: clamp(300px, 60vw, 600px);
+  border-radius: 50%;
+  border: 1px solid rgba(201,169,110,0.12);
+  animation: ringPulse 6s ease-in-out infinite; pointer-events: none; z-index: 0;
+}
+.light-ring:nth-child(2) {
+  width: clamp(400px, 80vw, 800px); height: clamp(400px, 80vw, 800px);
+  border-color: rgba(201,169,110,0.06);
+  animation-delay: 2s;
+}
+@keyframes ringPulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+  50% { transform: translate(-50%, -50%) scale(1.05); opacity: 1; }
+}
+
+/* ==========================================
+   Section Common
+   ========================================== */
+section {
+  position: relative; z-index: 1; max-width: var(--max-width);
+  margin: 0 auto; padding: 5rem 2rem;
+}
+.section-label {
+  font-family: var(--font-serif);
+  font-size: 0.8rem; letter-spacing: 0.3em; color: var(--gold);
+  text-transform: uppercase; margin-bottom: 1rem;
+}
+.section-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 700;
+  color: var(--off-white); margin-bottom: 1rem; line-height: 1.3;
+  position: relative; display: inline-block;
+}
+.section-title::after {
+  content: ''; position: absolute; bottom: -8px; left: 0;
+  width: 48px; height: 2px; background: var(--gold); border-radius: 1px;
+}
+.section-intro {
+  color: var(--text-secondary); font-size: 1.05rem;
+  line-height: 1.9; margin-top: 2rem; max-width: 780px;
+}
+
+/* ==========================================
+   Pull Quote
+   ========================================== */
+.pull-quote {
+  position: relative; margin: 3rem 0; padding: 2.5rem 2rem;
+  border-left: 3px solid var(--gold);
+  background: linear-gradient(90deg, rgba(201,169,110,0.06) 0%, transparent 100%);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+}
+.pull-quote::before {
+  content: '"'; position: absolute; top: -12px; left: 16px;
+  font-family: var(--font-serif); font-size: 4rem; color: var(--gold);
+  opacity: 0.25; line-height: 1;
+}
+.pull-quote-text {
+  font-family: var(--font-serif); font-size: 1.25rem;
+  color: var(--gold-light); line-height: 1.7; font-style: italic;
+}
+.pull-quote-attribution {
+  margin-top: 1rem; font-size: 0.85rem;
+  color: var(--text-muted); letter-spacing: 0.05em;
+}
+
+/* ==========================================
+   Cards
+   ========================================== */
+.card {
+  background: var(--bg-card); border-radius: var(--radius-lg);
+  padding: 2rem 2.2rem; margin: 1.5rem 0;
+  border: 1px solid var(--border-subtle);
+  transition: var(--transition);
+}
+.card:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-gold);
+  box-shadow: var(--shadow-glow);
+}
+.card-title {
+  font-family: var(--font-serif); font-size: 1.3rem;
+  color: var(--off-white); margin-bottom: 0.8rem;
+}
+.card-subtitle {
+  font-size: 0.8rem; letter-spacing: 0.2em;
+  color: var(--gold); text-transform: uppercase; margin-bottom: 1rem;
+}
+.card-text {
+  color: var(--text-secondary); line-height: 1.8; font-size: 0.98rem;
+}
+
+/* Card Grid */
+.card-grid { display: grid; gap: 1.5rem; margin: 2rem 0; }
+.card-grid-2 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+.card-grid-3 { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+
+/* ==========================================
+   Character Cards
+   ========================================== */
+.char-card {
+  background: var(--bg-card); border-radius: var(--radius-lg);
+  padding: 2rem 1.8rem; border: 1px solid var(--border-subtle);
+  transition: var(--transition); position: relative; overflow: hidden;
+}
+.char-card::before {
+  content: ''; position: absolute; top: 0; left: 0;
+  width: 100%; height: 3px;
+  background: linear-gradient(90deg, var(--gold), var(--blue), transparent);
+  opacity: 0; transition: var(--transition);
+}
+.char-card:hover::before { opacity: 1; }
+.char-card:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-gold);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+}
+.char-name {
+  font-family: var(--font-serif); font-size: 1.5rem;
+  color: var(--off-white); margin-bottom: 0.3rem;
+}
+.char-role {
+  font-size: 0.78rem; letter-spacing: 0.2em;
+  color: var(--gold); text-transform: uppercase; margin-bottom: 1rem;
+}
+.char-desc { color: var(--text-secondary); line-height: 1.75; font-size: 0.93rem; }
+.char-symbol {
+  margin-top: 1rem; padding-top: 1rem;
+  border-top: 1px solid var(--border-subtle);
+  font-size: 0.85rem; color: var(--blue-light);
+}
+
+/* ==========================================
+   Timeline
+   ========================================== */
+.timeline {
+  position: relative; margin: 3rem 0; padding-left: 2rem;
+}
+.timeline::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+  width: 1px;
+  background: linear-gradient(
+    180deg,
+    var(--gold) 0%,
+    var(--blue-dim) 50%,
+    transparent 100%
+  );
+}
+.timeline-item {
+  position: relative; padding: 0 0 2.5rem 2rem;
+}
+.timeline-item::before {
+  content: ''; position: absolute; left: -6px; top: 6px;
+  width: 11px; height: 11px; border-radius: 50%;
+  background: var(--gold); border: 3px solid var(--bg-dark);
+}
+.timeline-item:last-child { padding-bottom: 0; }
+.timeline-year {
+  font-family: var(--font-serif); font-size: 1.4rem;
+  color: var(--gold-light); margin-bottom: 0.4rem;
+}
+.timeline-text { color: var(--text-secondary); line-height: 1.8; font-size: 0.95rem; }
+
+/* ==========================================
+   Gameplay Feature List
+   ========================================== */
+.feature-list {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.2rem; margin: 2rem 0;
+}
+.feature-item {
+  background: var(--bg-card); border-radius: var(--radius-md);
+  padding: 1.5rem; border: 1px solid var(--border-subtle);
+  transition: var(--transition);
+}
+.feature-item:hover {
+  border-color: var(--border-gold);
+  background: var(--bg-card-hover);
+}
+.feature-icon {
+  font-size: 2rem; margin-bottom: 0.8rem;
+}
+.feature-name {
+  font-family: var(--font-serif); font-size: 1.1rem;
+  color: var(--off-white); margin-bottom: 0.5rem;
+}
+.feature-desc { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.7; }
+
+/* ==========================================
+   Canvas Abstract Background
+   ========================================== */
+.canvas-bg {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  pointer-events: none; z-index: 0; overflow: hidden;
+}
+.canvas-stroke {
+  position: absolute;
+  border: 1px solid rgba(201,169,110,0.06);
+  border-radius: 50%;
+}
+.cs-1 { width: 200px; height: 200px; top: 10%; left: -100px; }
+.cs-2 { width: 350px; height: 350px; bottom: -120px; right: -150px;
+       border-color: rgba(201,169,110,0.04); animation: rotateSlow 40s linear infinite; }
+.cs-3 { width: 150px; height: 150px; top: 60%; right: 10%;
+       border-color: rgba(91,140,201,0.08); animation: rotateSlow 30s linear infinite reverse; }
+@keyframes rotateSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ==========================================
+   Closing Section
+   ========================================== */
+.closing {
+  text-align: center; padding: 6rem 2rem;
+  background: linear-gradient(180deg, transparent 0%, rgba(201,169,110,0.03) 50%, transparent 100%);
+}
+.closing-line {
+  width: 100px; height: 1px; background: var(--gold);
+  margin: 0 auto 2.5rem; opacity: 0.4;
+}
+.closing-text {
+  font-family: var(--font-serif); font-size: clamp(1.1rem, 2vw, 1.35rem);
+  color: var(--text-secondary); line-height: 2.2;
+  max-width: 700px; margin: 0 auto 2.5rem; font-style: italic;
+}
+.closing-en {
+  font-family: var(--font-serif); font-size: 1rem;
+  color: var(--text-muted); margin-top: 2rem; letter-spacing: 0.08em;
+}
+.closing-author {
+  font-size: 0.85rem; color: var(--text-muted);
+  letter-spacing: 0.15em; margin-top: 3rem;
+}
+
+/* ==========================================
+   Image Display
+   ========================================== */
+.img-container {
+  margin: 3rem 0; border-radius: var(--radius-xl);
+  overflow: hidden; border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-card);
+}
+.img-container img {
+  width: 100%; display: block; object-fit: cover;
+  max-height: 500px;
+}
+.img-caption {
+  padding: 1rem 1.5rem; font-size: 0.85rem;
+  color: var(--text-muted); background: rgba(10,10,20,0.6);
+  text-align: center; letter-spacing: 0.05em;
+}
+
+/* ==========================================
+   Light-Shadow Crossfade Abstract
+   ========================================== */
+.light-shadow-divider {
+  position: relative; height: 120px; margin: 2rem 0; overflow: hidden;
+}
+.light-shadow-divider::before {
+  content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: clamp(200px, 40vw, 400px); height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-dim), var(--gold), var(--gold-dim), transparent);
+  opacity: 0.5;
+}
+
+/* ==========================================
+   Philosophy Block
+   ========================================== */
+.philo-block {
+  background: linear-gradient(135deg, rgba(201,169,110,0.04) 0%, rgba(91,140,201,0.03) 100%);
+  border-radius: var(--radius-xl); padding: 2.5rem 2rem;
+  border: 1px solid var(--border-subtle);
+  margin: 2.5rem 0;
+}
+.philo-header {
+  font-family: var(--font-serif); font-size: 1.4rem;
+  color: var(--gold-light); margin-bottom: 1.5rem;
+}
+.philo-text {
+  color: var(--text-secondary); line-height: 2; font-size: 0.98rem;
+}
+.philo-highlight {
+  display: inline-block; padding: 0.15em 0.5em;
+  background: rgba(201,169,110,0.1); border-radius: 4px;
+  color: var(--gold-light);
+}
+
+/* ==========================================
+   Responsive
+   ========================================== */
+@media (max-width: 768px) {
+  section { padding: 3.5rem 1.2rem; }
+  .hero { min-height: 80vh; padding: 1.5rem; }
+  .card { padding: 1.5rem; }
+  .card-grid-2, .card-grid-3, .feature-list { grid-template-columns: 1fr; }
+  .pull-quote { padding: 1.8rem 1.5rem; margin: 2rem 0; }
+  .pull-quote-text { font-size: 1.05rem; }
+  .philo-block { padding: 1.5rem; }
+  .timeline { padding-left: 1rem; }
+  .timeline-item { padding: 0 0 2rem 1.5rem; }
+}
+
+@media (max-width: 480px) {
+  .hero-title { font-size: 2rem; }
+  .section-title { font-size: 1.6rem; }
+  .char-card { padding: 1.5rem 1.2rem; }
+  .closing { padding: 4rem 1rem; }
+}
+
+/* ==========================================
+   Animations
+   ========================================== */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-in {
+  animation: fadeInUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  opacity: 0;
+}
+
+/* ==========================================
+   Footer
+   ========================================== */
+.site-footer {
+  text-align: center; padding: 3rem 2rem;
+  font-size: 0.8rem; color: var(--text-muted);
+  border-top: 1px solid var(--border-subtle);
+  letter-spacing: 0.08em;
+}
+
+/* Utility */
+.text-center { text-align: center; }
+.mt-2 { margin-top: 2rem; }
+.mb-1 { margin-bottom: 1rem; }
+.mb-2 { margin-bottom: 2rem; }
+</style>
+</head>
+<body>
+
+<!-- ==================== PARTICLES ==================== -->
+<div class="particles" aria-hidden="true">
+  <div class="particle" style="left:5%;width:3px;height:3px;--dur:18s;--delay:0s"></div>
+  <div class="particle" style="left:12%;width:2px;height:2px;--dur:22s;--delay:3s"></div>
+  <div class="particle" style="left:25%;width:4px;height:4px;--dur:15s;--delay:6s"></div>
+  <div class="particle" style="left:38%;width:2px;height:2px;--dur:20s;--delay:1s"></div>
+  <div class="particle" style="left:52%;width:3px;height:3px;--dur:25s;--delay:8s"></div>
+  <div class="particle" style="left:65%;width:2px;height:2px;--dur:17s;--delay:4s"></div>
+  <div class="particle" style="left:78%;width:4px;height:4px;--dur:21s;--delay:2s"></div>
+  <div class="particle" style="left:90%;width:3px;height:3px;--dur:19s;--delay:7s"></div>
+  <div class="particle" style="left:32%;width:2px;height:2px;--dur:24s;--delay:9s"></div>
+  <div class="particle" style="left:70%;width:3px;height:3px;--dur:16s;--delay:5s"></div>
+  <div class="particle" style="left:45%;width:2px;height:2px;--dur:23s;--delay:10s"></div>
+  <div class="particle" style="left:82%;width:3px;height:3px;--dur:20s;--delay:11s"></div>
+</div>
+
+<!-- ==================== HERO ==================== -->
+<header class="hero">
+  <div class="light-ring"></div>
+  <div class="light-ring"></div>
+  <img class="hero-bg"
+       src="./《光与影：33号远征队》人物风景3440x1440游戏高清壁纸_图片编号341882_壁纸网.jpeg"
+       alt=""
+       onerror="this.style.display='none'" />
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-subtitle">每一年，一笔一划</p>
+    <h1 class="hero-title">光与影：33号远征队</h1>
+    <p class="hero-title-en">Clair Obscur: Expedition 33</p>
+    <div class="hero-divider"></div>
+    <p class="hero-desc">
+      一幅由死亡绘成的画，一支走向终点的远征，一段关于<em>告别</em>的故事。<br>
+      这不是关于赢的故事，这是关于<em>如何输得漂亮</em>的故事。
+    </p>
+  </div>
+</header>
+
+<!-- ==================== STORY ==================== -->
+<section>
+  <p class="section-label">第一章</p>
+  <h2 class="section-title">故事概要</h2>
+  <p class="section-intro">
+    在某个世界，存在一位被称为<strong>"绘师"</strong>（The Paintress）的存在。她每年都会画下一个数字——那个数字减去一，
+    世界上便会有一个年龄等于该数字的人消失。她每年从 33 开始，逐年递减。绘师下一次落笔，将画下<em>34</em>。
+    这意味着所有 34 岁的人，将在那一年死去。
+  </p>
+
+  <div class="img-container">
+    <img src="./d3933036648f9b91893d3a1e82c98c0d.jpeg"
+         alt="Expedition 33"
+         onerror="this.style.display='none'" />
+    <p class="img-caption">踏上远征之路的人们 —— 在命运面前，他们选择走进画中</p>
+  </div>
+
+  <p class="section-intro">
+    每一年，"远征队"都会被派往绘师所在之处，试图在她落笔之前终结这场轮回般的灾厄。每一支远征队都有去无回。
+    终于，来到第 <strong>33 号远征队</strong>——主角 <strong>Gustave</strong> 和他的同伴们出发了。他今年 33 岁，
+    如果绘师在远征到来之前画下"33"，他就会死。他没有选择等待，而是选择上路。
+  </p>
+
+  <div class="pull-quote">
+    <p class="pull-quote-text">
+      如果死亡注定到来，那就不要在昏暗的屋子里等待。出发。走出去。用最后的时光，看一眼光。
+    </p>
+    <p class="pull-quote-attribution">—— Gustave，33号远征队领队</p>
+  </div>
+</section>
+
+<!-- ==================== WORLD BUILDING ==================== -->
+<section>
+  <p class="section-label">第二章</p>
+  <h2 class="section-title">世界观设定</h2>
+
+  <div class="card mt-2">
+    <p class="card-subtitle">灾难之源</p>
+    <h3 class="card-title">绘师 — The Paintress</h3>
+    <p class="card-text">
+      一个神秘的存在，世界毁灭的源头。她并非纯粹的恶——更像是一个<em>悲剧的神</em>。
+      她住在画中世界，每年画下一个数字，以此夺走所有同龄人的生命。她的画布就是世界的命运。
+      远征队的任务，就是走进那幅画，终结她。
+    </p>
+  </div>
+
+  <div class="card">
+    <p class="card-subtitle">命运机制</p>
+    <h3 class="card-title">年龄倒计时</h3>
+    <p class="card-text">
+      绘师的计数从某个数字开始，逐年递减。当数字递减至你的年龄时——你死。
+      这不是概率问题，是<em>判决</em>。每个人都知道自己可能是下一个，但无人知道确切的时间表。
+      这个世界的人们活在一个可以计算的死亡阴影之下。最残酷的不是死亡本身，
+      而是<em>预知</em>——你知道某一年，与你同龄的每个人都会消失。
+    </p>
+  </div>
+
+  <div class="card-grid card-grid-2">
+    <div class="card">
+      <p class="card-subtitle">行动</p>
+      <h3 class="card-title">远征队传统</h3>
+      <p class="card-text">
+        每年派出一支远征队，前往绘师所在的画中世界。前 32 支远征队全部失败。历史变成堆叠的尸骨，
+        成为后来者的路标。远征已不只是抵抗——它成了一种<em>仪式</em>。一种在绝对绝望中维持尊严的方式。
+      </p>
+    </div>
+    <div class="card">
+      <p class="card-subtitle">舞台</p>
+      <h3 class="card-title">画中世界 vs 现实世界</h3>
+      <p class="card-text">
+        游戏在两个维度间切换：被绘师染指的现实世界，以及绘师居住的画中世界。
+        画中世界美丽、扭曲、充满隐喻。它是绘师的内心投射——或者说，是她<em>创伤</em>的景观化。
+        走进画中，就是走进一个人的痛苦。
+      </p>
+    </div>
+  </div>
+
+  <div class="light-shadow-divider"></div>
+</section>
+
+<!-- ==================== CHARACTERS ==================== -->
+<section>
+  <p class="section-label">第三章</p>
+  <h2 class="section-title">主要角色</h2>
+  <p class="section-intro mb-2">
+    每一个角色都不是简单的"勇士"。他们出发，不是因为勇敢，而是因为<em>害怕</em>。
+    他们不是去战胜死亡，而是去<em>理解</em>死亡。下面，请允许我逐一介绍这场远征中的灵魂们。
+  </p>
+
+  <div class="card-grid card-grid-2">
+    <div class="char-card">
+      <p class="char-role">主角 / 领队</p>
+      <h3 class="char-name">Gustave · 古斯塔夫</h3>
+      <p class="char-desc">
+        33 岁的远征队领队。他是唯一知道自己确切"到期日"的人——绘师下一次画下的，
+        就是他所在的数字。他不愿意在恐惧中等待死亡降临，于是选择主动走向它。
+        Gustave 代表了一种<em>存在主义的反抗</em>：即使注定失败，也要用自己的方式面对。
+      </p>
+      <p class="char-symbol">象征：面对死亡的态度 · 行动高于绝望 · 西西弗斯的远征</p>
+    </div>
+
+    <div class="char-card">
+      <p class="char-role">远征队成员</p>
+      <h3 class="char-name">Maelle · 梅尔</h3>
+      <p class="char-desc">
+        年轻的远征队成员，她有着温暖和坚定并存的气质。Maelle 是远征队的情感核心——
+        在绝望的旅途中，她的存在本身就是一束光。她的成长轨迹映射了<em>从被动承受命运到主动选择命运</em>的转变。
+      </p>
+      <p class="char-symbol">象征：希望 · 成长 · 暗夜中的篝火</p>
+    </div>
+
+    <div class="char-card">
+      <p class="char-role">远征队成员</p>
+      <h3 class="char-name">Lune · 露恩</h3>
+      <p class="char-desc">
+        背负着沉重过往的战士。Lune 并非为"拯救世界"这样宏大的理由而战——
+        她是为了<em>告别</em>而战。她身上承载了游戏对"未竟之事"的深刻探讨。
+      </p>
+      <p class="char-symbol">象征：未竟之事 · 放下 · 余烬中的火种</p>
+    </div>
+
+    <div class="char-card">
+      <p class="char-role">远征队成员</p>
+      <h3 class="char-name">Sciel · 希尔</h3>
+      <p class="char-desc">
+        神秘且沉静的同伴。Sciel 像是远征队的"影子"——他沉默寡言，但在关键时刻的洞察力远超他人。
+        他的存在提醒我们：有些真相，只有<em>在黑暗中足够久</em>的人才能看见。
+      </p>
+      <p class="char-symbol">象征：洞察 · 沉默的力量 · 与暗影共生</p>
+    </div>
+
+    <div class="char-card">
+      <p class="char-role">关键角色</p>
+      <h3 class="char-name">Verso · 薇索</h3>
+      <p class="char-desc">
+        游离于远征队主线之外、却又无处不在的角色。Verso 是对"旁观者"与"见证者"的诠释——
+        在宏大的悲剧面前，不是每个人都需要站在舞台中央，有些人选择<em>记住</em>，这本身就是一种抵抗。
+      </p>
+      <p class="char-symbol">象征：见证 · 记忆 · 抵抗遗忘</p>
+    </div>
+
+    <div class="char-card">
+      <p class="char-role">异色存在</p>
+      <h3 class="char-name">Monoco · 莫诺可</h3>
+      <p class="char-desc">
+        一个充满谜团的存在，既非人类也非完全属于画中世界。Monoco 像是两个世界之间的裂缝——
+        他的存在让玩家不断思考：<em>画与现实，真的有那么清晰的边界吗？</em>
+      </p>
+      <p class="char-symbol">象征：界限的模糊 · 阈限存在 · 画框之外</p>
+    </div>
+
+    <div class="char-card">
+      <p class="char-role">逝者</p>
+      <h3 class="char-name">Alicia · 艾丽西亚</h3>
+      <p class="char-desc">
+        已经不在这个世界的人——但她的缺席反而是最大的在场。Gustave 踏上远征，很大程度是为了她。
+        Alicia 是游戏对"哀悼"这一主题的核心锚点：<em>你无法拯救已经逝去的人，但你可以学会在没有她的世界继续活着。</em>
+      </p>
+      <p class="char-symbol">象征：爱 · 丧失 · 哀悼与告别</p>
+    </div>
+
+    <div class="char-card">
+      <p class="char-role">前代领队</p>
+      <h3 class="char-name">Renoir · 雷诺阿</h3>
+      <p class="char-desc">
+        上一支远征队（第 32 号）的领队——他已失败。Renoir 是 Gustave 的镜像：
+        如果 Gustave 代表"也许这次不一样"的信念，那么 Renoir 就是"这次会和上次一样"的警告。
+        他的遗产既是负担，也是路标。
+      </p>
+      <p class="char-symbol">象征：失败的遗产 · 前人之路 · 循环与突破</p>
+    </div>
+
+    <div class="char-card">
+      <p class="char-role">苦难之源</p>
+      <h3 class="char-name">The Paintress · 绘师</h3>
+      <p class="char-desc">
+        她不是一般意义上的"大反派"。绘师更像是<em>某种超越了是非范畴的存在</em>——她画下数字，
+        人们死去，但她自身可能也深陷于某种不可名状的痛苦之中。理解绘师，就是理解这个世界的悲剧本质。
+        她是一个<em>因创伤而成为灾难</em>的存在。
+      </p>
+      <p class="char-symbol">象征：灾难的人性根源 · 创伤的循环 · 不可理解之恶的可理解性</p>
+    </div>
+  </div>
+
+  <div class="img-container mt-2">
+    <img src="./u=2677749267,636005264&fm=253&app=138&f=JPEG.jpeg"
+         alt="Expedition 33 Characters"
+         onerror="this.style.display='none'" />
+    <p class="img-caption">远征队的群像 —— 他们不是英雄，只是一群选择上路的人</p>
+  </div>
+</section>
+
+<!-- ==================== GAMEPLAY ==================== -->
+<section>
+  <p class="section-label">第四章</p>
+  <h2 class="section-title">玩法：在节奏中寻找生机</h2>
+  <p class="section-intro">
+    《33号远征队》的核心玩法是<strong>回合制 RPG</strong>，但它绝不是"站桩互砍"。
+    它的灵魂在于<em>节奏</em>——在回合的缝隙中，通过精准的时机判断来扭转战局。
+  </p>
+
+  <div class="feature-list">
+    <div class="feature-item">
+      <div class="feature-icon">⚔️</div>
+      <h4 class="feature-name">回合制战斗系统</h4>
+      <p class="feature-desc">
+        经典回合制骨架，注入现代化的节奏感。每一回合都有决策重量——
+        不是"最强技能循环"，而是解读敌人意图后的<em>见招拆招</em>。
+      </p>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon">🛡️</div>
+      <h4 class="feature-name">实时闪避与招架</h4>
+      <p class="feature-desc">
+        在敌人出手的瞬间，玩家可以通过精准的时机判断进行<em>闪避</em>或<em>招架</em>。
+        这打破了"回合制=没有操作感"的刻板印象。同样的等级、同样的装备，
+        一个掌握了节奏的玩家和没有掌握的玩家，完全是两个世界。
+      </p>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon">🎨</div>
+      <h4 class="feature-name">Pictos（画符）系统</h4>
+      <p class="feature-desc">
+        游戏中的核心能力系统。Pictos 如同绘师的画笔——
+        通过组合不同的技能符文来释放强大的能力。这不仅是战斗工具，更是<em>世界观的延伸</em>：
+        你也在"作画"，用你的方式在世界的画布上留下痕迹。
+      </p>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon">✨</div>
+      <h4 class="feature-name">Lumina（光能）机制</h4>
+      <p class="feature-desc">
+        一种在战斗中累积的<em>光能资源</em>。它的设定精妙之处在于：
+        越是身处绝境，光能越亮。这既是游戏机制，也是叙事隐喻——
+        在最深沉的黑暗中，恰恰是希望最可能被点燃的时刻。
+      </p>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon">📈</div>
+      <h4 class="feature-name">角色成长与培养</h4>
+      <p class="feature-desc">
+        不是简单堆数值。每个角色的成长路径都与其人物弧光关联——
+        Gustave 学会承担、Maelle 学会坚定、Lune 学会放下。
+        角色的战斗风格，就是他们<em>性格</em>的延伸。
+      </p>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon">🌍</div>
+      <h4 class="feature-name">双世界探索</h4>
+      <p class="feature-desc">
+        在破败的现实世界与超现实的画中世界之间穿梭。两个世界的视觉、氛围、
+        甚至物理规则都不同——探索本身就是一场<em>不断迷失又不断找到方向</em>的旅程。
+      </p>
+    </div>
+  </div>
+
+  <div class="img-container">
+    <img src="./172116-696f490c5364c.jpg"
+         alt="Expedition 33 Gameplay"
+         onerror="this.style.display='none'" />
+    <p class="img-caption">战场如同一幅正在绘制的画 —— 每一回合都是笔触</p>
+  </div>
+</section>
+
+<!-- ==================== PHILOSOPHY ==================== -->
+<section>
+  <p class="section-label">第五章</p>
+  <h2 class="section-title">哲学追问：画下我们的，又是什么？</h2>
+
+  <div class="philo-block">
+    <h3 class="philo-header">一、死亡：已知的未知</h3>
+    <p class="philo-text">
+      在这个世界里，死亡并非随机、意外或无意义。它被<em>量化</em>了——你知道你会死于绘师的某一笔，
+      只是不知道具体是哪一笔。这比纯粹的死亡更残酷，因为它剥夺了你"也许我还有时间"的错觉。
+      现实中的我们不也如此？我们都知道自己会死，只是选择<em>不去想</em>。
+      远征队的故事强迫我们面对这个被日常遮蔽的事实：<span class="philo-highlight">在已知终点的前提下，
+      你如何定义"活着"？</span>
+    </p>
+  </div>
+
+  <div class="philo-block">
+    <h3 class="philo-header">二、家庭与羁绊：我们为谁而活</h3>
+    <p class="philo-text">
+      Gustave 踏上远征的最深层驱动力，并非拯救世界——而是<em>Alicia</em>。
+      一个已经不在的人的影子，足以推动一个活着的人走完最远的路。
+      这引出一个令人哽咽的命题：<span class="philo-highlight">我们与逝者的关系，
+      不是"他们在哪"，而是"他们在我们身上留下了什么"。</span>
+      家庭不是血缘，是那些即使不在了也依然拽着你往前走的人。
+    </p>
+  </div>
+
+  <div class="philo-block">
+    <h3 class="philo-header">三、逃避与执念：画中世界的隐喻</h3>
+    <p class="philo-text">
+      绘师创造了一个画中世界——美丽、有序、可控。这难道不正是<em>逃避</em>的终极形态？
+      当现实太过痛苦，我们都会为自己画一个"更好的世界"。
+      但问题是：<span class="philo-highlight">一个人不能永远活在自己画的世界里。</span>
+      绘师的悲剧也许就在于——她把自己困在了一幅永远无法完成的画中。
+      这幅画的每一笔都在杀人，但她已经停不下来了。
+    </p>
+  </div>
+
+  <div class="philo-block">
+    <h3 class="philo-header">四、记忆、哀悼与放下</h3>
+    <p class="philo-text">
+      游戏的终极主题是<em>哀悼</em>（grief）——一种需要被正视、被完成的心理工作。
+      远征队一路走来，每个人都在哀悼不同的事物：爱人、自己未竟的人生、已经失去的世界。
+      但他们逐渐意识到：<span class="philo-highlight">哀悼不是遗忘。哀悼是学会带着伤痛，
+      继续前行。</span>
+      真正的告别，不是删除记忆，而是让记忆成为一种<em>力量</em>而非枷锁。
+    </p>
+  </div>
+</section>
+
+<!-- ==================== LIFE LESSONS ==================== -->
+<section>
+  <p class="section-label">第六章</p>
+  <h2 class="section-title">生命启示</h2>
+
+  <div class="pull-quote">
+    <p class="pull-quote-text">
+      爱不是占有，而是允许逝去的人真正离开。
+    </p>
+    <p class="pull-quote-attribution">——《33号远征队》核心启示之一</p>
+  </div>
+
+  <p class="section-intro">
+    Gustave 对 Alicia 的执着，一开始是"我不能让她走"。他踏上远征，表面上是去终结绘师，
+    但潜意识里也许是在追寻一种<em>与亡者的重逢</em>。真正的转折点在于他意识到：
+    Alicia 已经走了。而继续活着的人，要做的是<em>让离去的人可以安心地离去</em>。
+    这才是最深层的爱——不是死死拽住，而是放手。
+  </p>
+
+  <div class="light-shadow-divider"></div>
+
+  <div class="pull-quote">
+    <p class="pull-quote-text">
+      你不能永远活在自己画的世界里。总有一天，要放下画笔，睁开眼睛。
+    </p>
+    <p class="pull-quote-attribution">——《33号远征队》核心启示之二</p>
+  </div>
+
+  <p class="section-intro">
+    绘师的角色设定是最令人心碎的部分。她用画笔创造了一个可控的世界，一画就是数十年。
+    但当"创造"变成"毁灭"，当"自我保护"变成"囚禁自己"——<em>放下画笔</em>就成了最难的课题。
+    这何尝不是对我们每个人的提醒：那些我们紧抓不放的执念、信念、甚至伤痛，
+    也许都有权力和必要在某一天被轻轻放下。
+  </p>
+
+  <div class="philo-block mt-2">
+    <h3 class="philo-header">更进一步：三则启示</h3>
+    <p class="philo-text">
+      <strong>其一：行动本身就是胜利。</strong>远征队前 32 次都失败了。但他们依然派出第 33 支。
+      不是因为愚蠢的乐观，而是因为<em>出发</em>本身就是对绝望的否定。在必败的局面中，
+      选择行动——这件事本身就是一种美学。<br><br>
+      <strong>其二：你不需要"赢得"生命。</strong>远征队的目标并非"永远消除死亡"（那是不可能的），
+      而是打破一个<em>循环</em>。生命的意义不在于无限延续，而在于在有限的长度里，
+      活出无限的深度。<br><br>
+      <strong>其三：告别是一种能力。</strong>这个游戏教会我们的事情中，最珍贵的大概就是：
+      告别不是软弱的投降，而是勇敢的选择。能够说再见的人，才有能力继续走。
+    </p>
+  </div>
+</section>
+
+<!-- ==================== GALLERY ==================== -->
+<section>
+  <p class="section-label">间章</p>
+  <h2 class="section-title">画中掠影</h2>
+
+  <div class="img-container">
+    <img src="./4d11eb254d69d474c957a82af795c863343ece00.jpg"
+         alt="Expedition 33 Scenery"
+         onerror="this.style.display='none'" />
+    <p class="img-caption">画中世界的风景 —— 美丽与哀愁交织，如同绘师破碎的内心</p>
+  </div>
+
+  <div class="img-container">
+    <img src="./9e07b846170c3877377e5101db752ad7a5f13b7d.jpg"
+         alt="Expedition 33 World"
+         onerror="this.style.display='none'" />
+    <p class="img-caption">现实世界的残骸 —— 在被绘师涂改的土地上，远征队踏过前人的遗迹</p>
+  </div>
+</section>
+
+<!-- ==================== TIMELINE ==================== -->
+<section>
+  <p class="section-label">附录</p>
+  <h2 class="section-title">远征编年</h2>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-year">第 1 号远征</div>
+      <div class="timeline-text">
+        第一次发现绘师的存在。一支由最勇敢者组成的远征队出发。无人归来。绘师的画布上，第一个数字被画下。
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-year">第 17 号远征</div>
+      <div class="timeline-text">
+        远征队首次带回关于画中世界的可靠情报。代价惨重——仅一人活着返回，且不久后死于精神崩溃。
+        但他带回的信息，让之后每一支远征队都有了地图。
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-year">第 32 号远征</div>
+      <div class="timeline-text">
+        Renoir 领队。抵达了距离绘师最近的据点，距离终结这场灾厄只差一步——然后失败。
+        他的遗物成为第 33 号远征队最重要的起点。
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-year">第 33 号远征</div>
+      <div class="timeline-text">
+        Gustave 领队。绘师即将画下的数字与他同龄。这是故事的开始，也是所有前人铺就之路的延续。
+        这一次——或许会有不同。
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== CLOSING ==================== -->
+<section class="closing">
+  <div class="closing-line"></div>
+  <p class="closing-text">
+    所以，第 33 号远征究竟是关于什么？<br>
+    是关于一场对死亡的反抗；<br>
+    是关于一个人，决定在生命的最后一刻依然选择<em>出发</em>；<br>
+    是关于爱，以及爱之后漫长的、无人能替的<em>哀悼</em>；<br>
+    是关于一幅画、一支画笔，以及<em>放下画笔</em>的勇气。
+  </p>
+  <p class="closing-en">
+    "Some things are worth the expedition, even if you already know how it ends."
+  </p>
+  <div class="closing-line"></div>
+  <p class="closing-author">
+    —— 写给每一个在画中寻找出路的人
+  </p>
+</section>
+
+<footer class="site-footer">
+  <p>Clair Obscur: Expedition 33 &copy; Sandfall Interactive</p>
+  <p style="margin-top:0.5em;">本文为深度赏析文章，所有游戏素材版权归原开发者所有</p>
+</footer>
+
+<!-- ==================== INTERSECTION OBSERVER ==================== -->
+<script>
+(function() {
+  if (!('IntersectionObserver' in window)) return;
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('animate-in');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll(
+    'section, .card, .char-card, .philo-block, .pull-quote, .feature-item, .timeline-item, .img-container'
+  ).forEach(el => observer.observe(el));
+})();
+</script>
+
+</body>
+</html>

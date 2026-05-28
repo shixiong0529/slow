@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>玩法系统 — 光与影：33号远征队</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg-deep: #0a0a14; --bg-dark: #12121f; --bg-card: #181830; --bg-card-hover: #1e1e3a;
+  --gold: #c9a96e; --gold-light: #e0c88e; --gold-dim: #b8943f;
+  --blue: #5b8cc9; --blue-light: #7aaee8; --blue-dim: #3a6aa8;
+  --off-white: #eae5db; --off-white-dim: #b8afa0;
+  --text-primary: #eae5db; --text-secondary: #b0a898; --text-muted: #706858;
+  --accent-red: #8b4a5e; --border-subtle: rgba(201,169,110,0.15); --border-gold: rgba(201,169,110,0.35);
+  --radius-sm: 6px; --radius-md: 12px; --radius-lg: 20px; --radius-xl: 28px;
+  --shadow-card: 0 4px 24px rgba(0,0,0,0.4); --shadow-glow: 0 0 40px rgba(201,169,110,0.08);
+  --font-serif: "Noto Serif SC","Source Han Serif SC","STSong","SimSun",Georgia,serif;
+  --font-sans: "PingFang SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  --transition: 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
+  --max-width: 960px;
+}
+html { scroll-behavior: smooth; font-size: 16px; }
+body { font-family: var(--font-sans); background: var(--bg-deep); color: var(--text-primary); line-height: 1.85; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+
+/* Nav */
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(10,10,20,0.85); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border-subtle); }
+.nav-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 4px; padding: 0.6rem 1rem; }
+.nav-tab { font-family: var(--font-sans); font-size: 0.82rem; letter-spacing: 0.08em; color: var(--text-muted); text-decoration: none; padding: 0.45rem 1rem; border-radius: 20px; transition: var(--transition); white-space: nowrap; }
+.nav-tab:hover { color: var(--gold-light); background: rgba(201,169,110,0.08); }
+.nav-tab.active { color: var(--gold); background: rgba(201,169,110,0.12); font-weight: 600; }
+
+/* Particles */
+.particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: hidden; }
+.particle { position: absolute; border-radius: 50%; background: radial-gradient(circle, var(--gold) 0%, transparent 70%); opacity: 0; animation: floatUp var(--dur) var(--delay) infinite ease-in; }
+@keyframes floatUp { 0% { transform: translateY(105vh) scale(0); opacity:0; } 10% { opacity:0.6; } 30% { opacity:0.3; } 60% { opacity:0.15; } 100% { transform: translateY(-10vh) scale(1.2); opacity:0; } }
+
+/* Section */
+section { position: relative; z-index: 1; max-width: var(--max-width); margin: 0 auto; padding: 5rem 2rem 4rem; }
+.section-label { font-family: var(--font-serif); font-size: 0.8rem; letter-spacing: 0.3em; color: var(--gold); text-transform: uppercase; margin-bottom: 1rem; }
+.section-title { font-family: var(--font-serif); font-size: clamp(2rem,4vw,2.8rem); font-weight: 700; color: var(--off-white); margin-bottom: 1rem; line-height: 1.3; display: inline-block; position: relative; }
+.section-title::after { content: ''; position: absolute; bottom: -8px; left: 0; width: 48px; height: 2px; background: var(--gold); border-radius: 1px; }
+.section-intro { color: var(--text-secondary); font-size: 1.05rem; line-height: 1.9; margin-top: 2rem; max-width: 780px; }
+
+/* Feature Grid */
+.feature-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.2rem; margin: 2rem 0; }
+.feature-item { background: var(--bg-card); border-radius: var(--radius-md); padding: 1.5rem; border: 1px solid var(--border-subtle); transition: var(--transition); }
+.feature-item:hover { border-color: var(--border-gold); background: var(--bg-card-hover); }
+.feature-icon { font-size: 2rem; margin-bottom: 0.8rem; }
+.feature-name { font-family: var(--font-serif); font-size: 1.1rem; color: var(--off-white); margin-bottom: 0.5rem; }
+.feature-desc { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.7; }
+
+/* Image */
+.img-container { margin: 3rem auto; border-radius: var(--radius-xl); overflow: hidden; border: 1px solid var(--border-subtle); box-shadow: var(--shadow-card); max-width: 780px; }
+.img-container img { width: 100%; display: block; object-fit: cover; max-height: 500px; }
+.img-caption { padding: 1rem 1.5rem; font-size: 0.85rem; color: var(--text-muted); background: rgba(10,10,20,0.6); text-align: center; letter-spacing: 0.05em; }
+
+/* Footer */
+.site-footer { text-align: center; padding: 2rem; font-size: 0.8rem; color: var(--text-muted); border-top: 1px solid var(--border-subtle); letter-spacing: 0.08em; position: relative; z-index: 1; }
+
+@keyframes fadeInUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
+.animate-in { animation: fadeInUp 0.8s cubic-bezier(0.25,0.46,0.45,0.94) forwards; opacity: 0; }
+
+@media (max-width:768px) {
+  section { padding: 4rem 1.2rem 3rem; }
+  .feature-list { grid-template-columns: 1fr; }
+}
+@media (max-width:480px) {
+  .section-title { font-size: 1.6rem; }
+  .nav-tab { font-size: 0.72rem; padding: 0.35rem 0.65rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="particles" aria-hidden="true">
+  <div class="particle" style="left:12%;width:2px;height:2px;--dur:22s;--delay:3s"></div>
+  <div class="particle" style="left:38%;width:2px;height:2px;--dur:20s;--delay:1s"></div>
+  <div class="particle" style="left:65%;width:2px;height:2px;--dur:17s;--delay:4s"></div>
+  <div class="particle" style="left:90%;width:3px;height:3px;--dur:19s;--delay:7s"></div>
+</div>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-tab" href="./33-index.html">首页</a>
+    <a class="nav-tab" href="./33-story.html">故事 · 世界观</a>
+    <a class="nav-tab" href="./33-characters.html">主要角色</a>
+    <a class="nav-tab active" href="./33-gameplay.html">玩法系统</a>
+    <a class="nav-tab" href="./33-philosophy.html">哲学 · 启示</a>
+  </div>
+</nav>
+
+<section>
+  <p class="section-label">第四章</p>
+  <h2 class="section-title">玩法：在节奏中寻找生机</h2>
+  <p class="section-intro">
+    《33号远征队》的核心玩法是<strong>回合制 RPG</strong>，但它绝不是"站桩互砍"。
+    它的灵魂在于<em>节奏</em>——在回合的缝隙中，通过精准的时机判断来扭转战局。
+  </p>
+
+  <div class="feature-list">
+    <div class="feature-item">
+      <div class="feature-icon">&#9876;&#65039;</div>
+      <h4 class="feature-name">回合制战斗系统</h4>
+      <p class="feature-desc">经典回合制骨架，注入现代化的节奏感。每一回合都有决策重量——不是"最强技能循环"，而是解读敌人意图后的<em>见招拆招</em>。</p>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon">&#128737;&#65039;</div>
+      <h4 class="feature-name">实时闪避与招架</h4>
+      <p class="feature-desc">在敌人出手的瞬间，玩家可以通过精准的时机判断进行<em>闪避</em>或<em>招架</em>。这打破了"回合制=没有操作感"的刻板印象。同样的等级、同样的装备，一个掌握了节奏的玩家和没有掌握的玩家，完全是两个世界。</p>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon">&#127912;</div>
+      <h4 class="feature-name">Pictos（画符）系统</h4>
+      <p class="feature-desc">游戏中的核心能力系统。Pictos 如同绘师的画笔——通过组合不同的技能符文来释放强大的能力。这不仅是战斗工具，更是<em>世界观的延伸</em>：你也在"作画"，用你的方式在世界的画布上留下痕迹。</p>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon">&#10024;</div>
+      <h4 class="feature-name">Lumina（光能）机制</h4>
+      <p class="feature-desc">一种在战斗中累积的<em>光能资源</em>。它的设定精妙之处在于：越是身处绝境，光能越亮。这既是游戏机制，也是叙事隐喻——在最深沉的黑暗中，恰恰是希望最可能被点燃的时刻。</p>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon">&#128200;</div>
+      <h4 class="feature-name">角色成长与培养</h4>
+      <p class="feature-desc">不是简单堆数值。每个角色的成长路径都与其人物弧光关联——Gustave 学会承担、Maelle 学会坚定、Lune 学会放下。角色的战斗风格，就是他们<em>性格</em>的延伸。</p>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon">&#127758;</div>
+      <h4 class="feature-name">双世界探索</h4>
+      <p class="feature-desc">在破败的现实世界与超现实的画中世界之间穿梭。两个世界的视觉、氛围、甚至物理规则都不同——探索本身就是一场<em>不断迷失又不断找到方向</em>的旅程。</p>
+    </div>
+  </div>
+
+  <div class="img-container">
+    <img src="./172116-696f490c5364c.jpg" alt="Expedition 33 Gameplay" onerror="this.style.display='none'" />
+    <p class="img-caption">战场如同一幅正在绘制的画 —— 每一回合都是笔触</p>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <p>Clair Obscur: Expedition 33 &copy; Sandfall Interactive</p>
+  <p style="margin-top:0.5em;">本文为深度赏析文章，所有游戏素材版权归原开发者所有</p>
+</footer>
+
+<script>
+(function() {
+  if (!('IntersectionObserver' in window)) return;
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('animate-in'); observer.unobserve(entry.target); } });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.feature-item,.img-container,section').forEach(el => observer.observe(el));
+})();
+</script>
+</body>
+</html>

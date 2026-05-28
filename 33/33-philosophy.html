@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>哲学与启示 — 光与影：33号远征队</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg-deep: #0a0a14; --bg-dark: #12121f; --bg-card: #181830; --bg-card-hover: #1e1e3a;
+  --gold: #c9a96e; --gold-light: #e0c88e; --gold-dim: #b8943f;
+  --blue: #5b8cc9; --blue-light: #7aaee8; --blue-dim: #3a6aa8;
+  --off-white: #eae5db; --off-white-dim: #b8afa0;
+  --text-primary: #eae5db; --text-secondary: #b0a898; --text-muted: #706858;
+  --accent-red: #8b4a5e; --border-subtle: rgba(201,169,110,0.15); --border-gold: rgba(201,169,110,0.35);
+  --radius-sm: 6px; --radius-md: 12px; --radius-lg: 20px; --radius-xl: 28px;
+  --shadow-card: 0 4px 24px rgba(0,0,0,0.4); --shadow-glow: 0 0 40px rgba(201,169,110,0.08);
+  --font-serif: "Noto Serif SC","Source Han Serif SC","STSong","SimSun",Georgia,serif;
+  --font-sans: "PingFang SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+  --transition: 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
+  --max-width: 960px;
+}
+html { scroll-behavior: smooth; font-size: 16px; }
+body { font-family: var(--font-sans); background: var(--bg-deep); color: var(--text-primary); line-height: 1.85; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+
+/* Nav */
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(10,10,20,0.85); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border-subtle); }
+.nav-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 4px; padding: 0.6rem 1rem; }
+.nav-tab { font-family: var(--font-sans); font-size: 0.82rem; letter-spacing: 0.08em; color: var(--text-muted); text-decoration: none; padding: 0.45rem 1rem; border-radius: 20px; transition: var(--transition); white-space: nowrap; }
+.nav-tab:hover { color: var(--gold-light); background: rgba(201,169,110,0.08); }
+.nav-tab.active { color: var(--gold); background: rgba(201,169,110,0.12); font-weight: 600; }
+
+/* Particles */
+.particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: hidden; }
+.particle { position: absolute; border-radius: 50%; background: radial-gradient(circle, var(--gold) 0%, transparent 70%); opacity: 0; animation: floatUp var(--dur) var(--delay) infinite ease-in; }
+@keyframes floatUp { 0% { transform: translateY(105vh) scale(0); opacity:0; } 10% { opacity:0.6; } 30% { opacity:0.3; } 60% { opacity:0.15; } 100% { transform: translateY(-10vh) scale(1.2); opacity:0; } }
+
+/* Section */
+section { position: relative; z-index: 1; max-width: var(--max-width); margin: 0 auto; padding: 5rem 2rem 4rem; }
+.section-label { font-family: var(--font-serif); font-size: 0.8rem; letter-spacing: 0.3em; color: var(--gold); text-transform: uppercase; margin-bottom: 1rem; }
+.section-title { font-family: var(--font-serif); font-size: clamp(2rem,4vw,2.8rem); font-weight: 700; color: var(--off-white); margin-bottom: 1rem; line-height: 1.3; display: inline-block; position: relative; }
+.section-title::after { content: ''; position: absolute; bottom: -8px; left: 0; width: 48px; height: 2px; background: var(--gold); border-radius: 1px; }
+.section-intro { color: var(--text-secondary); font-size: 1.05rem; line-height: 1.9; margin-top: 2rem; max-width: 780px; }
+
+/* Philosophy Block */
+.philo-block { background: linear-gradient(135deg, rgba(201,169,110,0.04) 0%, rgba(91,140,201,0.03) 100%); border-radius: var(--radius-xl); padding: 2.5rem 2rem; border: 1px solid var(--border-subtle); margin: 2.5rem 0; }
+.philo-header { font-family: var(--font-serif); font-size: 1.4rem; color: var(--gold-light); margin-bottom: 1.5rem; }
+.philo-text { color: var(--text-secondary); line-height: 2; font-size: 0.98rem; }
+.philo-highlight { display: inline-block; padding: 0.15em 0.5em; background: rgba(201,169,110,0.1); border-radius: 4px; color: var(--gold-light); }
+
+/* Pull Quote */
+.pull-quote { position: relative; margin: 3rem 0; padding: 2.5rem 2rem; border-left: 3px solid var(--gold); background: linear-gradient(90deg, rgba(201,169,110,0.06) 0%, transparent 100%); border-radius: 0 var(--radius-md) var(--radius-md) 0; }
+.pull-quote::before { content: '"'; position: absolute; top: -12px; left: 16px; font-family: var(--font-serif); font-size: 4rem; color: var(--gold); opacity: 0.25; line-height: 1; }
+.pull-quote-text { font-family: var(--font-serif); font-size: 1.25rem; color: var(--gold-light); line-height: 1.7; font-style: italic; }
+.pull-quote-attribution { margin-top: 1rem; font-size: 0.85rem; color: var(--text-muted); letter-spacing: 0.05em; }
+
+/* Divider */
+.light-shadow-divider { position: relative; height: 120px; margin: 2rem 0; overflow: hidden; }
+.light-shadow-divider::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: clamp(200px,40vw,400px); height: 1px; background: linear-gradient(90deg, transparent, var(--gold-dim), var(--gold), var(--gold-dim), transparent); opacity: 0.5; }
+
+/* Timeline */
+.timeline { position: relative; margin: 3rem 0; padding-left: 2rem; }
+.timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 1px; background: linear-gradient(180deg, var(--gold) 0%, var(--blue-dim) 50%, transparent 100%); }
+.timeline-item { position: relative; padding: 0 0 2.5rem 2rem; }
+.timeline-item::before { content: ''; position: absolute; left: -6px; top: 6px; width: 11px; height: 11px; border-radius: 50%; background: var(--gold); border: 3px solid var(--bg-deep); }
+.timeline-item:last-child { padding-bottom: 0; }
+.timeline-year { font-family: var(--font-serif); font-size: 1.4rem; color: var(--gold-light); margin-bottom: 0.4rem; }
+.timeline-text { color: var(--text-secondary); line-height: 1.8; font-size: 0.95rem; }
+
+/* Image */
+.img-container { margin: 3rem 0; border-radius: var(--radius-xl); overflow: hidden; border: 1px solid var(--border-subtle); box-shadow: var(--shadow-card); }
+.img-container img { width: 100%; display: block; object-fit: cover; max-height: 500px; }
+.img-caption { padding: 1rem 1.5rem; font-size: 0.85rem; color: var(--text-muted); background: rgba(10,10,20,0.6); text-align: center; letter-spacing: 0.05em; }
+
+/* Canvas BG */
+.canvas-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: hidden; }
+.canvas-stroke { position: absolute; border: 1px solid rgba(201,169,110,0.06); border-radius: 50%; }
+.cs-1 { width: 200px; height: 200px; top: 10%; left: -100px; }
+.cs-2 { width: 350px; height: 350px; bottom: -120px; right: -150px; border-color: rgba(201,169,110,0.04); animation: rotateSlow 40s linear infinite; }
+@keyframes rotateSlow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+/* Footer */
+.site-footer { text-align: center; padding: 2rem; font-size: 0.8rem; color: var(--text-muted); border-top: 1px solid var(--border-subtle); letter-spacing: 0.08em; position: relative; z-index: 1; }
+
+@keyframes fadeInUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
+.animate-in { animation: fadeInUp 0.8s cubic-bezier(0.25,0.46,0.45,0.94) forwards; opacity: 0; }
+
+@media (max-width:768px) {
+  section { padding: 4rem 1.2rem 3rem; }
+  .philo-block { padding: 1.5rem; }
+  .pull-quote { padding: 1.8rem 1.5rem; margin: 2rem 0; }
+  .pull-quote-text { font-size: 1.05rem; }
+  .timeline { padding-left: 1rem; }
+  .timeline-item { padding: 0 0 2rem 1.5rem; }
+}
+@media (max-width:480px) {
+  .section-title { font-size: 1.6rem; }
+  .nav-tab { font-size: 0.72rem; padding: 0.35rem 0.65rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="canvas-bg" aria-hidden="true">
+  <div class="canvas-stroke cs-1"></div>
+  <div class="canvas-stroke cs-2"></div>
+</div>
+
+<div class="particles" aria-hidden="true">
+  <div class="particle" style="left:5%;width:3px;height:3px;--dur:18s;--delay:0s"></div>
+  <div class="particle" style="left:25%;width:4px;height:4px;--dur:15s;--delay:6s"></div>
+  <div class="particle" style="left:52%;width:3px;height:3px;--dur:25s;--delay:8s"></div>
+  <div class="particle" style="left:78%;width:4px;height:4px;--dur:21s;--delay:2s"></div>
+</div>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-tab" href="./33-index.html">首页</a>
+    <a class="nav-tab" href="./33-story.html">故事 · 世界观</a>
+    <a class="nav-tab" href="./33-characters.html">主要角色</a>
+    <a class="nav-tab" href="./33-gameplay.html">玩法系统</a>
+    <a class="nav-tab active" href="./33-philosophy.html">哲学 · 启示</a>
+  </div>
+</nav>
+
+<!-- ===== 哲学追问 ===== -->
+<section>
+  <p class="section-label">第五章</p>
+  <h2 class="section-title">哲学追问：画下我们的，又是什么？</h2>
+
+  <div class="philo-block">
+    <h3 class="philo-header">一、死亡：已知的未知</h3>
+    <p class="philo-text">
+      在这个世界里，死亡并非随机、意外或无意义。它被<em>量化</em>了——你知道你会死于绘师的某一笔，
+      只是不知道具体是哪一笔。这比纯粹的死亡更残酷，因为它剥夺了你"也许我还有时间"的错觉。
+      现实中的我们不也如此？我们都知道自己会死，只是选择<em>不去想</em>。
+      远征队的故事强迫我们面对这个被日常遮蔽的事实：<span class="philo-highlight">在已知终点的前提下，你如何定义"活着"？</span>
+    </p>
+  </div>
+
+  <div class="philo-block">
+    <h3 class="philo-header">二、家庭与羁绊：我们为谁而活</h3>
+    <p class="philo-text">
+      Gustave 踏上远征的最深层驱动力，并非拯救世界——而是<em>Alicia</em>。
+      一个已经不在的人的影子，足以推动一个活着的人走完最远的路。
+      这引出一个令人哽咽的命题：<span class="philo-highlight">我们与逝者的关系，不是"他们在哪"，而是"他们在我们身上留下了什么"。</span>
+      家庭不是血缘，是那些即使不在了也依然拽着你往前走的人。
+    </p>
+  </div>
+
+  <div class="philo-block">
+    <h3 class="philo-header">三、逃避与执念：画中世界的隐喻</h3>
+    <p class="philo-text">
+      绘师创造了一个画中世界——美丽、有序、可控。这难道不正是<em>逃避</em>的终极形态？
+      当现实太过痛苦，我们都会为自己画一个"更好的世界"。
+      但问题是：<span class="philo-highlight">一个人不能永远活在自己画的世界里。</span>
+      绘师的悲剧也许就在于——她把自己困在了一幅永远无法完成的画中。
+      这幅画的每一笔都在杀人，但她已经停不下来了。
+    </p>
+  </div>
+
+  <div class="philo-block">
+    <h3 class="philo-header">四、记忆、哀悼与放下</h3>
+    <p class="philo-text">
+      游戏的终极主题是<em>哀悼</em>（grief）——一种需要被正视、被完成的心理工作。
+      远征队一路走来，每个人都在哀悼不同的事物：爱人、自己未竟的人生、已经失去的世界。
+      但他们逐渐意识到：<span class="philo-highlight">哀悼不是遗忘。哀悼是学会带着伤痛，继续前行。</span>
+      真正的告别，不是删除记忆，而是让记忆成为一种<em>力量</em>而非枷锁。
+    </p>
+  </div>
+</section>
+
+<!-- ===== 生命启示 ===== -->
+<section>
+  <p class="section-label">第六章</p>
+  <h2 class="section-title">生命启示</h2>
+
+  <div class="pull-quote">
+    <p class="pull-quote-text">爱不是占有，而是允许逝去的人真正离开。</p>
+    <p class="pull-quote-attribution">——《33号远征队》核心启示之一</p>
+  </div>
+
+  <p class="section-intro">
+    Gustave 对 Alicia 的执着，一开始是"我不能让她走"。他踏上远征，表面上是去终结绘师，
+    但潜意识里也许是在追寻一种<em>与亡者的重逢</em>。真正的转折点在于他意识到：
+    Alicia 已经走了。而继续活着的人，要做的是<em>让离去的人可以安心地离去</em>。
+    这才是最深层的爱——不是死死拽住，而是放手。
+  </p>
+
+  <div class="light-shadow-divider"></div>
+
+  <div class="pull-quote">
+    <p class="pull-quote-text">你不能永远活在自己画的世界里。总有一天，要放下画笔，睁开眼睛。</p>
+    <p class="pull-quote-attribution">——《33号远征队》核心启示之二</p>
+  </div>
+
+  <p class="section-intro">
+    绘师的角色设定是最令人心碎的部分。她用画笔创造了一个可控的世界，一画就是数十年。
+    但当"创造"变成"毁灭"，当"自我保护"变成"囚禁自己"——<em>放下画笔</em>就成了最难的课题。
+    这何尝不是对我们每个人的提醒：那些我们紧抓不放的执念、信念、甚至伤痛，
+    也许都有权力和必要在某一天被轻轻放下。
+  </p>
+
+  <div class="philo-block">
+    <h3 class="philo-header">更进一步：三则启示</h3>
+    <p class="philo-text">
+      <strong>其一：行动本身就是胜利。</strong>远征队前 32 次都失败了。但他们依然派出第 33 支。
+      不是因为愚蠢的乐观，而是因为<em>出发</em>本身就是对绝望的否定。在必败的局面中，
+      选择行动——这件事本身就是一种美学。<br><br>
+      <strong>其二：你不需要"赢得"生命。</strong>远征队的目标并非"永远消除死亡"（那是不可能的），
+      而是打破一个<em>循环</em>。生命的意义不在于无限延续，而在于在有限的长度里，
+      活出无限的深度。<br><br>
+      <strong>其三：告别是一种能力。</strong>这个游戏教会我们的事情中，最珍贵的大概就是：
+      告别不是软弱的投降，而是勇敢的选择。能够说再见的人，才有能力继续走。
+    </p>
+  </div>
+</section>
+
+<!-- ===== 画廊 ===== -->
+<section>
+  <p class="section-label">间章</p>
+  <h2 class="section-title">画中掠影</h2>
+
+  <div class="img-container">
+    <img src="./4d11eb254d69d474c957a82af795c863343ece00.jpg" alt="画中世界的风景" onerror="this.style.display='none'" />
+    <p class="img-caption">画中世界的风景 —— 美丽与哀愁交织，如同绘师破碎的内心</p>
+  </div>
+
+  <div class="img-container">
+    <img src="./9e07b846170c3877377e5101db752ad7a5f13b7d.jpg" alt="现实世界的残骸" onerror="this.style.display='none'" />
+    <p class="img-caption">现实世界的残骸 —— 在被绘师涂改的土地上，远征队踏过前人的遗迹</p>
+  </div>
+</section>
+
+<!-- ===== 远征编年 ===== -->
+<section>
+  <p class="section-label">附录</p>
+  <h2 class="section-title">远征编年</h2>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-year">第 1 号远征</div>
+      <div class="timeline-text">第一次发现绘师的存在。一支由最勇敢者组成的远征队出发。无人归来。绘师的画布上，第一个数字被画下。</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-year">第 17 号远征</div>
+      <div class="timeline-text">远征队首次带回关于画中世界的可靠情报。代价惨重——仅一人活着返回，且不久后死于精神崩溃。但他带回的信息，让之后每一支远征队都有了地图。</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-year">第 32 号远征</div>
+      <div class="timeline-text">Renoir 领队。抵达了距离绘师最近的据点，距离终结这场灾厄只差一步——然后失败。他的遗物成为第 33 号远征队最重要的起点。</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-year">第 33 号远征</div>
+      <div class="timeline-text">Gustave 领队。绘师即将画下的数字与他同龄。这是故事的开始，也是所有前人铺就之路的延续。这一次——或许会有不同。</div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <p>Clair Obscur: Expedition 33 &copy; Sandfall Interactive</p>
+  <p style="margin-top:0.5em;">本文为深度赏析文章，所有游戏素材版权归原开发者所有</p>
+</footer>
+
+<script>
+(function() {
+  if (!('IntersectionObserver' in window)) return;
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('animate-in'); observer.unobserve(entry.target); } });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('section,.philo-block,.pull-quote,.timeline-item,.img-container').forEach(el => observer.observe(el));
+})();
+</script>
+</body>
+</html>
