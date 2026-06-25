@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>人物介绍 · GTA6</title>
+  <style>
+    :root {
+      --bg:        #1a0f28;
+      --bg-card:   #221538;
+      --bg-card2:  #2a1a42;
+      --pink:      #ff4da6;
+      --pink-dim:  #cc3d85;
+      --cyan:      #00d4ff;
+      --cyan-dim:  #0099bb;
+      --orange:    #ff8c42;
+      --gold:      #ffd700;
+      --text:      #f0e8f8;
+      --text-dim:  #b8a8cc;
+      --white:     #ffffff;
+      --border:    rgba(255,77,166,0.2);
+      --font-title: 'Impact', 'Arial Black', 'PingFang SC', sans-serif;
+      --font-body:  'Helvetica Neue', 'PingFang SC', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      line-height: 1.8;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 0 2rem; height: 56px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(26,15,40,0.85); backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-brand { font-family: var(--font-title); font-size: 1rem; letter-spacing: 0.15em; color: var(--pink); text-transform: uppercase; text-shadow: 0 0 12px rgba(255,77,166,0.5); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { font-family: var(--font-body); font-size: 0.75rem; letter-spacing: 0.12em; color: var(--text-dim); text-transform: uppercase; transition: color 0.3s, text-shadow 0.3s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--cyan); text-shadow: 0 0 8px rgba(0,212,255,0.4); }
+
+    .page-header {
+      position: relative; padding: 9rem 2rem 5rem; text-align: center; overflow: hidden;
+    }
+    .page-header-bg {
+      position: absolute; inset: 0;
+      background-image: url('https://www.gtabase.com/igallery/gta-6-artworks/jasonandlucia-02-withlogos-1600.jpg');
+      background-size: cover; background-position: center 30%;
+      opacity: 0.42; filter: saturate(1.0) brightness(0.85);
+    }
+    .page-header-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, rgba(26,15,40,0.4) 0%, var(--bg) 100%);
+    }
+    .page-header-content { position: relative; z-index: 2; }
+    .page-num { font-family: var(--font-body); font-size: 0.65rem; letter-spacing: 0.3em; color: var(--pink); text-transform: uppercase; margin-bottom: 1.2rem; text-shadow: 0 0 8px rgba(255,77,166,0.3); }
+    .page-title { font-family: var(--font-title); font-size: clamp(2rem, 5vw, 3.6rem); font-weight: 900; color: var(--white); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 1.2rem; }
+    .page-lead { font-size: 1rem; color: var(--text-dim); max-width: 540px; margin: 0 auto; line-height: 2; }
+
+    .content-wrap { max-width: 900px; margin: 0 auto; padding: 0 2rem 8rem; }
+
+    .section-block {
+      margin-bottom: 5rem;
+      opacity: 0; transform: translateY(24px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .section-block.visible { opacity: 1; transform: translateY(0); }
+
+    .section-tag {
+      font-family: var(--font-body); font-size: 0.62rem; letter-spacing: 0.28em;
+      color: var(--pink); text-transform: uppercase; margin-bottom: 1.5rem;
+      display: flex; align-items: center; gap: 1rem;
+      text-shadow: 0 0 6px rgba(255,77,166,0.2);
+    }
+    .section-tag::before { content: ''; width: 24px; height: 1px; background: var(--pink-dim); }
+
+    .section-heading {
+      font-family: var(--font-title); font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 900;
+      color: var(--white); margin-bottom: 2.5rem; line-height: 1.3; text-transform: uppercase; letter-spacing: 0.04em;
+    }
+
+    /* Character cards - new layout with prominent photo */
+    .char-list { display: flex; flex-direction: column; gap: 3rem; }
+
+    .char-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      transition: border-color 0.4s, box-shadow 0.4s;
+    }
+    .char-card:hover {
+      border-color: rgba(255,77,166,0.4);
+      box-shadow: 0 4px 30px rgba(255,77,166,0.1);
+    }
+
+    .char-card-inner {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      min-height: 280px;
+    }
+
+    .char-photo {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .char-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(0.85) brightness(0.9);
+      transition: filter 0.4s, transform 0.4s;
+    }
+
+    .char-card:hover .char-photo img {
+      filter: saturate(1) brightness(1);
+      transform: scale(1.03);
+    }
+
+    .char-photo-accent {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 4px;
+    }
+    .char-photo-accent.pink { background: linear-gradient(90deg, var(--pink), transparent); }
+    .char-photo-accent.cyan { background: linear-gradient(90deg, var(--cyan), transparent); }
+    .char-photo-accent.orange { background: linear-gradient(90deg, var(--orange), transparent); }
+    .char-photo-accent.gold { background: linear-gradient(90deg, var(--gold), transparent); }
+    .char-photo-accent.purple { background: linear-gradient(90deg, #a78bfa, transparent); }
+
+    .char-body { padding: 2rem 2rem; }
+
+    .char-header {
+      display: flex; align-items: baseline; gap: 1rem; flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+
+    .char-name {
+      font-family: var(--font-title);
+      font-size: 1.5rem; font-weight: 900; color: var(--white);
+      letter-spacing: 0.04em; text-transform: uppercase;
+    }
+
+    .char-role {
+      font-family: var(--font-body); font-size: 0.68rem; letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+    .char-role.pink { color: var(--pink); }
+    .char-role.cyan { color: var(--cyan); }
+    .char-role.orange { color: var(--orange); }
+    .char-role.gold { color: var(--gold); }
+    .char-role.purple { color: #a78bfa; }
+
+    .char-desc {
+      font-size: 0.96rem; color: var(--text); line-height: 2;
+      margin-bottom: 1.2rem;
+    }
+
+    .char-tag {
+      font-family: var(--font-body); font-size: 0.78rem; color: var(--text-dim);
+      border-top: 1px solid var(--border); padding-top: 1rem; line-height: 1.8;
+    }
+    .char-tag strong { font-weight: normal; }
+    .char-tag strong.pink { color: var(--pink); }
+    .char-tag strong.cyan { color: var(--cyan); }
+
+    .pull-quote {
+      border-left: 2px solid var(--pink);
+      padding: 1.2rem 0 1.2rem 2rem;
+      margin: 3rem 0;
+      font-size: 1.05rem; color: var(--text);
+      font-style: italic; line-height: 2;
+    }
+
+    .divider { border: none; border-top: 1px solid var(--border); margin: 4rem 0; }
+
+    .page-nav {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 3rem 0 0; border-top: 1px solid var(--border); margin-top: 4rem;
+    }
+    .page-nav a { font-family: var(--font-body); font-size: 0.78rem; letter-spacing: 0.12em; color: var(--text-dim); transition: color 0.3s; text-transform: uppercase; }
+    .page-nav a:hover { color: var(--pink); text-shadow: 0 0 8px rgba(255,77,166,0.3); }
+    .page-nav .next { text-align: right; }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .char-card-inner { grid-template-columns: 1fr; }
+      .char-photo { height: 200px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-brand">GTA VI</a>
+  <ul class="nav-links">
+    <li><a href="story.html">故事</a></li>
+    <li><a href="characters.html" class="active">人物</a></li>
+    <li><a href="gameplay.html">玩法</a></li>
+    <li><a href="world.html">世界</a></li>
+  </ul>
+</nav>
+
+<header class="page-header">
+  <div class="page-header-bg"></div>
+  <div class="page-header-overlay"></div>
+  <div class="page-header-content">
+    <p class="page-num">Chapter 02</p>
+    <h1 class="page-title">人物介绍</h1>
+    <p class="page-lead">一对亡命鸳鸯，一群各怀心思的危险人物。每个角色都有自己的故事、动机和不可告人的秘密。</p>
+  </div>
+</header>
+
+<main class="content-wrap">
+
+  <section class="section-block">
+    <p class="section-tag">Protagonists</p>
+    <h2 class="section-heading">双主角</h2>
+
+    <div class="char-list">
+
+      <div class="char-card">
+        <div class="char-card-inner">
+          <div class="char-photo">
+            <img src="https://static0.gamerantimages.com/wordpress/wp-content/uploads/2025/09/grand-theft-auto-6-press-image-3.jpg" alt="Lucia Caminos" loading="lazy">
+            <div class="char-photo-accent cyan"></div>
+          </div>
+          <div class="char-body">
+            <div class="char-header">
+              <span class="char-name">Lucia Caminos</span>
+              <span class="char-role cyan">主角 · 系列首位女主角</span>
+            </div>
+            <p class="char-desc">
+              Lucia 是 GTA 系列历史上第一位女性主角。她曾因保护家人而犯下重罪，被送入 Leonida 州立监狱服刑。出狱后渴望重新开始，但 Leonida 不会轻易放过任何人。她来自 Liberty City，拉丁裔背景赋予了她坚韧的生存本能。
+            </p>
+            <p class="char-tag">
+              <strong class="cyan">特殊能力：</strong>慢动作精准射击——聚焦单一目标，一击制敌。
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="char-card">
+        <div class="char-card-inner">
+          <div class="char-photo">
+            <img src="https://static0.gamerantimages.com/wordpress/wp-content/uploads/2025/09/grand-theft-auto-6-press-image-2.jpg" alt="Jason Duval" loading="lazy">
+            <div class="char-photo-accent pink"></div>
+          </div>
+          <div class="char-body">
+            <div class="char-header">
+              <span class="char-name">Jason Duval</span>
+              <span class="char-role pink">主角 · 前陆军士兵</span>
+            </div>
+            <p class="char-desc">
+              Jason 曾在美国陆军服役，退伍后在 Leonida Keys 为当地毒贩跑腿。他冲动、直觉驱动、对危险有近乎上瘾的渴望。当他遇到 Lucia，他找到了一个既能理解他的黑暗面，又能让他看到另一种可能的人。
+            </p>
+            <p class="char-tag">
+              <strong class="pink">特殊能力：</strong>慢动作弱点标记——类似荒野大镖客2的死眼系统，高亮敌人弱点。
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <section class="section-block">
+    <p class="section-tag">Supporting Cast</p>
+    <h2 class="section-heading">关键配角</h2>
+
+    <div class="char-list">
+
+      <div class="char-card">
+        <div class="char-card-inner">
+          <div class="char-photo">
+            <img src="https://www.gtabase.com/igallery/gta-6-artworks/calhampton-1600.jpg" alt="Cal Hampton" loading="lazy">
+            <div class="char-photo-accent orange"></div>
+          </div>
+          <div class="char-body">
+            <div class="char-header">
+              <span class="char-name">Cal Hampton</span>
+              <span class="char-role orange">Jason 的朋友 · 偏执狂</span>
+            </div>
+            <p class="char-desc">
+              Cal 是 Jason 的老友，一个充满偏执和阴谋论的家伙。他最安全的时候就是待在家里，监听海岸警卫队的通讯频道，喝着啤酒，打开浏览器的隐私模式。他的疑神疑鬼在关键时刻有时反而能救命。
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="char-card">
+        <div class="char-card-inner">
+          <div class="char-photo">
+            <img src="https://www.gtabase.com/igallery/gta-6-artworks/boobieike-1600.jpg" alt="Boobie Ike" loading="lazy">
+            <div class="char-photo-accent gold"></div>
+          </div>
+          <div class="char-body">
+            <div class="char-header">
+              <span class="char-name">Boobie Ike</span>
+              <span class="char-role gold">Vice City 本地传奇</span>
+            </div>
+            <p class="char-desc">
+              Boobie 是 Vice City 的本地传奇人物——而且他自己也这么认为。他经营着一个庞大的商业帝国，从脱衣舞俱乐部到各种灰色地带的生意。任何想在 Vice City 混出名堂的人都绕不开他。
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="char-card">
+        <div class="char-card-inner">
+          <div class="char-photo">
+            <img src="https://www.gtabase.com/igallery/gta-6-artworks/drequanpriest-1600.jpg" alt="Dre'Quan Priest" loading="lazy">
+            <div class="char-photo-accent pink"></div>
+          </div>
+          <div class="char-body">
+            <div class="char-header">
+              <span class="char-name">Dre'Quan Priest</span>
+              <span class="char-role pink">唱片公司老板</span>
+            </div>
+            <p class="char-desc">
+              Dre'Quan 骨子里是个商人，不是匪徒。哪怕当初在街头贩毒时，进入音乐圈才是他真正的目标。现在他签下了 Real Dimez，正准备从 Boobie 的脱衣舞俱乐部起步，冲击 Vice City 的娱乐产业。
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="char-card">
+        <div class="char-card-inner">
+          <div class="char-photo">
+            <img src="https://www.gtabase.com/igallery/gta-6-artworks/raulbautista-1600.jpg" alt="Raul Bautista" loading="lazy">
+            <div class="char-photo-accent cyan"></div>
+          </div>
+          <div class="char-body">
+            <div class="char-header">
+              <span class="char-name">Raul Bautista</span>
+              <span class="char-role cyan">资深劫匪</span>
+            </div>
+            <p class="char-desc">
+              Raul 是一个经验丰富的银行劫匪，永远在寻找那些敢于承担最大风险以获取最大回报的人才。他的专业技能和冷静判断让他成为犯罪世界中令人敬畏的存在。
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="char-card">
+        <div class="char-card-inner">
+          <div class="char-photo">
+            <img src="https://www.gtabase.com/igallery/gta-6-artworks/brianheder-1600.jpg" alt="Brian Heder" loading="lazy">
+            <div class="char-photo-accent purple"></div>
+          </div>
+          <div class="char-body">
+            <div class="char-header">
+              <span class="char-name">Brian Heder</span>
+              <span class="char-role purple">Keys 走私老手</span>
+            </div>
+            <p class="char-desc">
+              Brian 是 Keys 地区走私黄金年代的老牌毒品跑腿。如今他和第三任妻子 Lori 仍然通过船坞运作着走私生意，只不过他已经干够久了，让别人去做脏活。他是 Jason 在 Keys 的房东和早期雇主。
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="pull-quote" style="margin-top: 3rem;">
+    他们是现代版的 Bonnie & Clyde——不是浪漫化的犯罪传奇，而是两个被体制抛弃、被命运推向极端的普通人。他们的故事不是关于犯罪的荣耀，而是关于在一个不给你第二次机会的世界里，如何夺回属于自己的生活。
+  </div>
+
+  <div class="page-nav">
+    <a href="story.html">← 故事与剧情</a>
+    <a href="gameplay.html" class="next">玩法与系统 →</a>
+  </div>
+
+</main>
+
+<script>
+  const blocks = document.querySelectorAll('.section-block');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.08 });
+  blocks.forEach(b => io.observe(b));
+</script>
+</body>
+</html>

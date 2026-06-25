@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Leonida 世界 · GTA6</title>
+  <style>
+    :root {
+      --bg:        #1a0f28;
+      --bg-card:   #221538;
+      --bg-card2:  #2a1a42;
+      --pink:      #ff4da6;
+      --pink-dim:  #cc3d85;
+      --cyan:      #00d4ff;
+      --cyan-dim:  #0099bb;
+      --orange:    #ff8c42;
+      --gold:      #ffd700;
+      --text:      #f0e8f8;
+      --text-dim:  #b8a8cc;
+      --white:     #ffffff;
+      --border:    rgba(255,77,166,0.2);
+      --font-title: 'Impact', 'Arial Black', 'PingFang SC', sans-serif;
+      --font-body:  'Helvetica Neue', 'PingFang SC', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      line-height: 1.8;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 0 2rem; height: 56px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(26,15,40,0.85); backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-brand { font-family: var(--font-title); font-size: 1rem; letter-spacing: 0.15em; color: var(--pink); text-transform: uppercase; text-shadow: 0 0 12px rgba(255,77,166,0.5); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { font-family: var(--font-body); font-size: 0.75rem; letter-spacing: 0.12em; color: var(--text-dim); text-transform: uppercase; transition: color 0.3s, text-shadow 0.3s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--cyan); text-shadow: 0 0 8px rgba(0,212,255,0.4); }
+
+    .page-header {
+      position: relative; padding: 9rem 2rem 5rem; text-align: center; overflow: hidden;
+    }
+    .page-header-bg {
+      position: absolute; inset: 0;
+      background-image: url('https://www.gtabase.com/igallery/gta-6-artworks/gta-6-official-artwork-1600.jpg');
+      background-size: cover; background-position: center 35%;
+      opacity: 0.45; filter: saturate(1.0) brightness(0.85);
+    }
+    .page-header-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, rgba(26,15,40,0.35) 0%, var(--bg) 100%);
+    }
+    .page-header-content { position: relative; z-index: 2; }
+    .page-num { font-family: var(--font-body); font-size: 0.65rem; letter-spacing: 0.3em; color: var(--pink); text-transform: uppercase; margin-bottom: 1.2rem; text-shadow: 0 0 8px rgba(255,77,166,0.3); }
+    .page-title { font-family: var(--font-title); font-size: clamp(2rem, 5vw, 3.6rem); font-weight: 900; color: var(--white); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 1.2rem; }
+    .page-lead { font-size: 1rem; color: var(--text-dim); max-width: 560px; margin: 0 auto; line-height: 2; }
+
+    .content-wrap { max-width: 900px; margin: 0 auto; padding: 0 2rem 8rem; }
+
+    .section-block {
+      margin-bottom: 6rem;
+      opacity: 0; transform: translateY(24px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .section-block.visible { opacity: 1; transform: translateY(0); }
+
+    .section-tag {
+      font-family: var(--font-body); font-size: 0.62rem; letter-spacing: 0.28em;
+      color: var(--pink); text-transform: uppercase; margin-bottom: 1.5rem;
+      display: flex; align-items: center; gap: 1rem;
+      text-shadow: 0 0 6px rgba(255,77,166,0.2);
+    }
+    .section-tag::before { content: ''; width: 24px; height: 1px; background: var(--pink-dim); }
+
+    .section-heading {
+      font-family: var(--font-title); font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 900;
+      color: var(--white); margin-bottom: 2rem; line-height: 1.3; text-transform: uppercase; letter-spacing: 0.04em;
+    }
+
+    .prose { font-size: 1.02rem; color: var(--text); line-height: 2; }
+    .prose p { margin-bottom: 1.5rem; }
+    .prose p:last-child { margin-bottom: 0; }
+
+    /* Stats */
+    .stats-row {
+      display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap; margin-top: 2.5rem;
+    }
+    .stat-item { text-align: center; }
+    .stat-number {
+      font-family: var(--font-title);
+      font-size: 2.5rem; font-weight: 900;
+      color: var(--pink);
+      text-shadow: 0 0 20px rgba(255,77,166,0.35);
+      line-height: 1.2;
+    }
+    .stat-number.cyan { color: var(--cyan); text-shadow: 0 0 20px rgba(0,212,255,0.35); }
+    .stat-number.orange { color: var(--orange); text-shadow: 0 0 20px rgba(255,140,66,0.35); }
+    .stat-number.gold { color: var(--gold); text-shadow: 0 0 20px rgba(255,215,0,0.35); }
+    .stat-label {
+      font-family: var(--font-body); font-size: 0.68rem;
+      letter-spacing: 0.15em; color: var(--text-dim);
+      text-transform: uppercase; margin-top: 0.3rem;
+    }
+
+    /* Map */
+    .map-section {
+      margin: 3rem 0;
+      text-align: center;
+    }
+    .map-label {
+      font-family: var(--font-body); font-size: 0.65rem;
+      letter-spacing: 0.2em; color: var(--text-dim);
+      text-transform: uppercase; margin-bottom: 1rem;
+    }
+    .map-img-wrap {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 8px 40px rgba(255,77,166,0.08);
+      transition: box-shadow 0.3s;
+    }
+    .map-img-wrap:hover {
+      box-shadow: 0 8px 50px rgba(255,77,166,0.15);
+    }
+    .map-img-wrap img {
+      width: 100%;
+      display: block;
+      filter: brightness(0.95);
+    }
+    .map-caption {
+      font-family: var(--font-body); font-size: 0.72rem;
+      color: var(--text-dim); margin-top: 0.8rem;
+      font-style: italic;
+    }
+
+    /* Region cards */
+    .region-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2.5rem;
+    }
+
+    .region-card {
+      position: relative;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      transition: border-color 0.4s, box-shadow 0.4s, transform 0.3s;
+    }
+
+    .region-card:hover {
+      border-color: rgba(255,77,166,0.4);
+      box-shadow: 0 8px 35px rgba(255,77,166,0.12);
+      transform: translateY(-3px);
+    }
+
+    .region-img {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      filter: saturate(0.7) brightness(0.75);
+      transition: filter 0.4s;
+      display: block;
+    }
+
+    .region-card:hover .region-img {
+      filter: saturate(1) brightness(0.9);
+    }
+
+    .region-body { padding: 1.5rem 1.4rem; }
+
+    .region-name {
+      font-family: var(--font-title);
+      font-size: 1.1rem; font-weight: 900;
+      color: var(--white); text-transform: uppercase;
+      letter-spacing: 0.06em; margin-bottom: 0.3rem;
+    }
+
+    .region-subtitle {
+      font-family: var(--font-body);
+      font-size: 0.68rem; letter-spacing: 0.15em;
+      text-transform: uppercase; margin-bottom: 0.8rem;
+    }
+    .region-subtitle.pink { color: var(--pink); }
+    .region-subtitle.cyan { color: var(--cyan); }
+    .region-subtitle.orange { color: var(--orange); }
+    .region-subtitle.gold { color: var(--gold); }
+    .region-subtitle.green { color: #4ade80; }
+    .region-subtitle.purple { color: #a78bfa; }
+
+    .region-desc { font-size: 0.88rem; color: var(--text-dim); line-height: 1.8; }
+
+    .region-card.wide { grid-column: 1 / -1; }
+    .region-card.wide .region-img { aspect-ratio: 21/9; }
+
+    .pull-quote {
+      border-left: 2px solid var(--pink);
+      padding: 1.2rem 0 1.2rem 2rem;
+      margin: 3rem 0;
+      font-size: 1.05rem; color: var(--text);
+      font-style: italic; line-height: 2;
+    }
+
+    .divider { border: none; border-top: 1px solid var(--border); margin: 4rem 0; }
+
+    .page-nav {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 3rem 0 0; border-top: 1px solid var(--border); margin-top: 4rem;
+    }
+    .page-nav a { font-family: var(--font-body); font-size: 0.78rem; letter-spacing: 0.12em; color: var(--text-dim); transition: color 0.3s; text-transform: uppercase; }
+    .page-nav a:hover { color: var(--pink); text-shadow: 0 0 8px rgba(255,77,166,0.3); }
+    .page-nav .next { text-align: right; }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .region-grid { grid-template-columns: 1fr; }
+      .region-card.wide { grid-column: auto; }
+      .region-card.wide .region-img { aspect-ratio: 16/9; }
+      .stats-row { gap: 1.5rem; }
+      .stat-number { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-brand">GTA VI</a>
+  <ul class="nav-links">
+    <li><a href="story.html">故事</a></li>
+    <li><a href="characters.html">人物</a></li>
+    <li><a href="gameplay.html">玩法</a></li>
+    <li><a href="world.html" class="active">世界</a></li>
+  </ul>
+</nav>
+
+<header class="page-header">
+  <div class="page-header-bg"></div>
+  <div class="page-header-overlay"></div>
+  <div class="page-header-content">
+    <p class="page-num">Chapter 04</p>
+    <h1 class="page-title">Leonida 世界</h1>
+    <p class="page-lead">以佛罗里达为原型的虚构阳光州。从霓虹都市到沼泽荒野，从热带群岛到国家公园——这是 GTA 系列有史以来最庞大、最多样化的开放世界。</p>
+  </div>
+</header>
+
+<main class="content-wrap">
+
+  <section class="section-block">
+    <p class="section-tag">Overview</p>
+    <h2 class="section-heading">Leonida 州概览</h2>
+
+    <div class="prose">
+      <p>Leonida 是 GTA6 的核心舞台，一个以美国佛罗里达州为原型的虚构地区。这片土地拥有让人叹为观止的地理多样性——从繁华的都市丛林到人迹罕至的沼泽深处，从碧蓝的热带海岛到巍峨的国家公园，每一寸土地都有自己的故事。</p>
+      <p>地图面积预计是 GTA5 的近两倍，包含至少五个郡和多座城市。这不只是地图变大了——而是世界变深了。每个区域都有独特的文化氛围、生态系统和活动内容。</p>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat-item">
+        <p class="stat-number">2x</p>
+        <p class="stat-label">GTA5 地图面积</p>
+      </div>
+      <div class="stat-item">
+        <p class="stat-number cyan">700+</p>
+        <p class="stat-label">可进入建筑</p>
+      </div>
+      <div class="stat-item">
+        <p class="stat-number orange">5+</p>
+        <p class="stat-label">郡与城市</p>
+      </div>
+      <div class="stat-item">
+        <p class="stat-number gold">40%</p>
+        <p class="stat-label">建筑可探索</p>
+      </div>
+    </div>
+
+    <div class="map-section">
+      <p class="map-label">Leonida 州全地图（社区重建版）</p>
+      <div class="map-img-wrap">
+        <img src="https://www.gtabase.com/images/jch-optimize/ng/images_gta-6_maps_leaks_resized_gta-6-map-leaked-mapping-community-051__1280x1280.avif" alt="GTA 6 Leonida Full Map" loading="lazy" />
+      </div>
+      <p class="map-caption">基于预告片和官方素材，由 GTA Mapping Community 精心重建的 Leonida 州全地图。官方完整地图尚未公布。</p>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <section class="section-block">
+    <p class="section-tag">Regions</p>
+    <h2 class="section-heading">六大区域</h2>
+
+    <div class="region-grid">
+
+      <div class="region-card wide">
+        <img class="region-img" src="https://www.gtabase.com/igallery/gta-6-artworks/places-vicecity-background-1600.jpg" alt="Vice City" loading="lazy" />
+        <div class="region-body">
+          <h3 class="region-name">Vice City</h3>
+          <p class="region-subtitle pink">霓虹都市 · 迈阿密</p>
+          <p class="region-desc">Leonida 的心脏——以迈阿密为原型的海滨大都市。霓虹闪烁的夜店、棕榈成荫的海滩大道、摩天大楼的玻璃幕墙映射着落日余晖。这里是财富与犯罪交织的天堂，是 GTA6 最核心的活动舞台。从 Ocean Drive 到 Little Havana，每条街道都有自己的性格。</p>
+        </div>
+      </div>
+
+      <div class="region-card">
+        <img class="region-img" src="https://www.gtabase.com/igallery/gta-6-artworks/places-grassrivers-background-1600.jpg" alt="Grassrivers" loading="lazy" />
+        <div class="region-body">
+          <h3 class="region-name">Grassrivers</h3>
+          <p class="region-subtitle green">沼泽荒野 · 大沼泽地</p>
+          <p class="region-desc">以佛罗里达大沼泽地为原型。浓密的红树林、缓缓流淌的水道、潜伏在水面下的鳄鱼。这里是犯罪者的藏身之地，也是大自然最原始力量的展示场。</p>
+        </div>
+      </div>
+
+      <div class="region-card">
+        <img class="region-img" src="https://www.gtabase.com/igallery/gta-6-artworks/places-leonidakeys-background-1600.jpg" alt="Leonida Keys" loading="lazy" />
+        <div class="region-body">
+          <h3 class="region-name">Leonida Keys</h3>
+          <p class="region-subtitle cyan">热带群岛 · 佛罗里达群岛</p>
+          <p class="region-desc">以佛罗里达群岛为原型的连串热带小岛。碧绿的海水、白沙滩、慵懒的氛围——以及暗流涌动的走私网络。Jason 曾在这里为毒贩跑腿，这里也是故事开始的地方之一。</p>
+        </div>
+      </div>
+
+      <div class="region-card">
+        <img class="region-img" src="https://www.gtabase.com/igallery/gta-6-artworks/places-portgellhorn-background-1600.jpg" alt="Port Gellhorn" loading="lazy" />
+        <div class="region-body">
+          <h3 class="region-name">Port Gellhorn</h3>
+          <p class="region-subtitle orange">港口城市</p>
+          <p class="region-desc">一座繁忙的港口城市，集装箱码头和工业区与居民社区交错。货物在这里进出，合法的和不合法的。港口是 Leonida 地下经济的重要枢纽。</p>
+        </div>
+      </div>
+
+      <div class="region-card">
+        <img class="region-img" src="https://www.gtabase.com/igallery/gta-6-artworks/places-ambrosia-background-1600.jpg" alt="Ambrosia" loading="lazy" />
+        <div class="region-body">
+          <h3 class="region-name">Ambrosia</h3>
+          <p class="region-subtitle gold">内陆小镇</p>
+          <p class="region-desc">远离海岸的内陆小镇，有着典型的美国南方小镇风情。农田、加油站、破旧的汽车旅馆——看似平静的表面下，藏着自己的故事和秘密。</p>
+        </div>
+      </div>
+
+      <div class="region-card">
+        <img class="region-img" src="https://www.gtabase.com/igallery/gta-6-artworks/places-mountkalaga-background-1600.jpg" alt="Mount Kalaga" loading="lazy" />
+        <div class="region-body">
+          <h3 class="region-name">Mount Kalaga</h3>
+          <p class="region-subtitle purple">国家公园</p>
+          <p class="region-desc">Leonida 州的制高点，一片壮丽的自然保护区。茂密的森林、蜿蜒的登山步道、野生动物的栖息地。这里是逃离城市喧嚣的净土，也是某些人隐藏秘密的完美地点。</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <section class="section-block">
+    <p class="section-tag">Living World</p>
+    <h2 class="section-heading">活的世界</h2>
+
+    <div class="prose">
+      <p>Leonida 不是一张静态的地图——它是一个呼吸着的有机体。日夜交替带来完全不同的城市面貌：白天的 Vice City 是阳光海滩和购物天堂，夜晚则变成霓虹闪烁的犯罪温床。</p>
+      <p>动态天气系统让这个世界更加不可预测。热带风暴会突然降临，淹没低洼地区的街道，吹倒路边的电线杆。飓风期间，NPC 们会紧急寻找避难所，街道上的交通陷入混乱。</p>
+      <p>水下世界同样令人惊叹。潜入 Leonida Keys 周围的海域，你会发现沉船、宝藏和丰富的海洋生物。鲨鱼在深水区巡游，海豚在浅水区嬉戏，珊瑚礁中隐藏着等待发现的秘密。</p>
+    </div>
+
+    <div class="pull-quote">
+      每一次进入 Leonida，你都在进入一个不同的世界。天气在变，人们在变，这座城市永远不会以相同的方式迎接你两次。这就是 Rockstar 追求的终极目标——一个真正活着的开放世界。
+    </div>
+
+    <img class="region-img" src="https://www.gtavimods.com/wp-content/uploads/2025/08/GTA-6-Screenshots-48.jpg" alt="Leonida World" loading="lazy" style="width:100%; border-radius:6px; margin-top:2rem; border:1px solid var(--border);" />
+  </section>
+
+  <div class="page-nav">
+    <a href="gameplay.html">← 玩法与系统</a>
+    <a href="index.html" class="next">返回首页 →</a>
+  </div>
+
+</main>
+
+<script>
+  const blocks = document.querySelectorAll('.section-block');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.06 });
+  blocks.forEach(b => io.observe(b));
+</script>
+</body>
+</html>
